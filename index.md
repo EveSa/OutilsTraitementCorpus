@@ -40,3 +40,7 @@ un Rendu à la fin de chaque séance sur Github
 - les (bons) recruteurs regardent votre github avant votre CV
 - les (bons) chercheurs regardent le github avant les papiers
 - Si vous faites des boulettes, vous êtes pas perdus
+
+# Index des cours
+
+- [Cours 1](_slides/cours1.html)

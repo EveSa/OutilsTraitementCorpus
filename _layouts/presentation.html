@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    {% include meta.html %}
+
+    <link rel="icon" type="image/x-icon" href="{{ site.baseurl }}/assets/images/favicon.png">
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }}</title>
+
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/reveal.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/theme/beige.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '{{ site.baseurl }}/assets/css/print/pdf.css' : '{{ site.baseurl }}/assets/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    {% include analytics.html %}
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown
+                 data-separator="^\r?\n\r?\n\r?\n\r?\n-horizontal-\r?\n$"
+                 data-separator-vertical="^\r?\n\r?\n\r?\n\r?\n-vertical-\r?\n$">
+          <script type="text/template">
+            {{ content }}
+          </script>
+        </section>
+      </div>
+    </div>
+
+    <script src="{{ site.baseurl }}/assets/lib/js/head.min.js"></script>
+    <script src="{{ site.baseurl }}/assets/js/reveal.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        history: true,
+        progress: true,
+        slideNumber: 'c/t',
+        transition: 'fade', // Mason gets motion sick from sliding transition
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',  // See http://docs.mathjax.org/en/latest/config-files.html
+            extensions: ["AMSmath.js"]
+        },
+        dependencies: [
+          { src: '{{ site.baseurl }}/assets/plugin/markdown/marked.js' },
+          { src: '{{ site.baseurl }}/assets/plugin/markdown/markdown.js' },
+          { src: '{{ site.baseurl }}/assets/plugin/notes/notes.js', async: true },
+          { src: '{{ site.baseurl }}/assets/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '{{ site.baseurl }}/assets/plugin/math/math.js', async: true },
+      		// Zoom in and out with Alt+click
+      		{ src: '{{ site.baseurl }}/assets/plugin/zoom-js/zoom.js', async: true },
+        ]
+      });
+    </script>
+  </body>
+</html>
