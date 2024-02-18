@@ -8,7 +8,13 @@
     />
 
     <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }}</title>
+    
+    
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" />
 
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
   </head>
   <body>
     <div class="reveal">
@@ -23,32 +29,19 @@
       </div>
     </div>
 
-    <script src="{{ site.baseurl }}/assets/lib/js/head.min.js"></script>
-    <script src="{{ site.baseurl }}/assets/js/reveal.js"></script>
-
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
     <script>
-      // More info about config & dependencies:
-      // - https://github.com/hakimel/reveal.js#configuration
-      // - https://github.com/hakimel/reveal.js#dependencies
+      // More info about initialization & config:
+      // * https://revealjs.com/initialization/
+      // * https://revealjs.com/config/
       Reveal.initialize({
-        history: true,
-        progress: true,
-        slideNumber: 'c/t',
-        transition: 'fade', // Mason gets motion sick from sliding transition
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
-          config: 'TeX-AMS_HTML-full',  // See http://docs.mathjax.org/en/latest/config-files.html
-            extensions: ["AMSmath.js"]
-        },
-        dependencies: [
-          { src: '{{ site.baseurl }}/assets/plugin/markdown/marked.js' },
-          { src: '{{ site.baseurl }}/assets/plugin/markdown/markdown.js' },
-          { src: '{{ site.baseurl }}/assets/plugin/notes/notes.js', async: true },
-          { src: '{{ site.baseurl }}/assets/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-          { src: '{{ site.baseurl }}/assets/plugin/math/math.js', async: true },
-      		// Zoom in and out with Alt+click
-      		{ src: '{{ site.baseurl }}/assets/plugin/zoom-js/zoom.js', async: true },
-        ]
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
       });
     </script>
   </body>
