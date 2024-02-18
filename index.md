@@ -43,4 +43,4 @@ un Rendu à la fin de chaque séance sur Github
 
 # Index des cours
 
-- [Cours 1](/OutilsTraitementCorpus/slides/cours1.md)
+- [Cours 1](/slides/cours1.md)
