@@ -1,7 +1,6 @@
 ---
 layout: presentation
 title: Cours1
-order: 0
 ---
 
 # Outils de Traitement de Corpus
