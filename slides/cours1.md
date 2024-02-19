@@ -37,7 +37,7 @@ Pour une tâche particulière
 Avant de revenir sur ces caractéristiques
 
 -vertical-
-### A quoi ça sert les data ?
+### A quoi ça sert les data :question:
 Pour l'apprentissage
 - à partir des données/observations, on peut déterminer des paramètres/features qui vont nous permettre de prédire le futur
 &rarr; ⛅Prévoir la météo⛅:
