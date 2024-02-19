@@ -41,6 +41,6 @@ un Rendu à la fin de chaque séance sur Github
 
 # Index des cours
 
-- [Cours 1](/slides/cours1.html)
+- [Cours 1](/slides/cours1.md)
 - [Cours 2]
 - [Cours 3]

@@ -37,19 +37,7 @@ Pour une tâche particulière
 Avant de revenir sur ces caractéristiques
 
 -vertical-
-### A quoi ça sert les data ❓
-<!-- Pourquoi on vous parle de corpus tout le temps ?
-    Corpus Parallèle et Comparable / Outils de traitement de corpus / Enrichissement de corpus / ...
--->
-:heart: C'est le nerf de la guerre :heart:
-
-Les entreprises publient:
-- les architectures
-- les poids
-- mais pas les data ❗
-
--vertical-
-### Mais à quoi ça sert les data ?
+### A quoi ça sert les data ?
 Pour l'apprentissage
 - à partir des données/observations, on peut déterminer des paramètres/features qui vont nous permettre de prédire le futur
 &rarr; ⛅Prévoir la météo⛅:
@@ -104,7 +92,19 @@ C'est comme ça qu'on obtient des modèles **prédictifs**
 | le vent | le vent |
 | la météo des régions voisines | la météo des régions voisines |
 |&rarr; |&rarr; |
-|Prédire la météo⛅|Parler de la pluie et du beau temps🦜|
+|⛅Prédire la météo⛅|🦜Parler de la pluie et du beau temps🦜|
+
+-vertical-
+### A quel point c'est important ❓
+<!-- Pourquoi on vous parle de corpus tout le temps ?
+    Corpus Parallèle et Comparable / Outils de traitement de corpus / Enrichissement de corpus / ...
+-->
+:heart: C'est le nerf de la guerre :heart:
+
+Les entreprises publient:
+- les architectures
+- les poids
+- mais pas les data ❗
 
 -vertical-
 
