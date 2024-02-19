@@ -23,7 +23,7 @@ title: Cours1
 # Cours 1
 <h2 class="r-fit-text">📚📄Rappels sur les corpus📚📄</h2>
 
-## &#128736;&#65039;Focus sur les tâches&#128736;&#65039;
+## 🛠️Focus sur les tâches🛠️
 ## 🔎Où trouver des corpus🔍
 
 -vertical-
@@ -94,7 +94,7 @@ C'est comme ça qu'on obtient des modèles **prédictifs**
 ⛅Prévoir la météo⛅
 
 - mon humeur de ce matin 🎭
-- le nombre de café que j'ai bu 🍵
+- le nombre de café que j'ai bu ☕
 - les traces de bouctins devant chez moi 👣
 - ...
 
@@ -124,9 +124,9 @@ C'est comme ça qu'on obtient des modèles **prédictifs**
 
 Les entreprises publient :
 
-✔ 🏠 les architectures
+✔️ 🏠 les architectures
 
-✔ 🔩 les poids des modèles
+✔️ 🔩 les poids des modèles
 
 ❌ 📚 mais pas les data
 
@@ -150,12 +150,12 @@ Les entreprises publient :
 - Le RGPD 🕵️‍♂️
     - particulièrement visible dans le domaine médical &rarr; alors que les modèles sont très bons pour prédire les pathologies
 
-- L'annotation des données 🏷
+- L'annotation des données🏷️
     - Pour réaliser certaines tâches, on a besoin d'experts et ça coûte cher
 
 -horizontal-
 
-## 🛠Les tâches et les corpus🛠
+## 🛠️Les tâches et les corpus🛠️
 
 En *Machine Learning*, on fait de la prédiction :
 
@@ -164,7 +164,7 @@ En *Machine Learning*, on fait de la prédiction :
 
 -vertical-
 
-<h3 class="r-fit-text">🏷Catégorisation d'éléments existants en NLP🏷</h3>
+<h3 class="r-fit-text">🏷️Catégorisation d'éléments existants en NLP🏷️</h3>
 
 - POS tagging
 - Analyse de sentiment
@@ -256,7 +256,29 @@ Git❤️ nécessite quelques bonne pratiques
 
 ## Quelques points techniques pour bien commencer
 
-Architecture logicielle :
+Suivre les [conseils du MIT](https://mitcommlab.mit.edu/broad/commkit/file-structure/#BestPracticesFileStructures)
+
+```
+PROJECT/
+├── bin/            <- compiled binaries. 
+├── data/ 
+│   ├── raw/
+│   └── clean/
+│
+├── figures/        <- figures used in place of a "results" folder. 
+├── scripts/
+│   ├── process/    <- scripts to maniuplate data between raw, cleaned, final stages.
+│   └── plot/	      <- intermediate plotting.
+│
+├── src
+│   ├── model1/     <- various experimental models.
+│   ├── model2/
+│   └── model3/
+│
+├── LICENSE
+├── Makefile
+└── readme.md
+```
 
 
 
