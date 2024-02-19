@@ -21,7 +21,9 @@ title: Cours1
 
 -horizontal-
 # Cours 1
-## 
+## 📚📄Rappels sur les corpus📚📄
+## 🛠Focus sur les tâches🛠
+## 🔎Où trouver des corpus🔍
 
 -vertical-
 ### 📄📚Qu'est ce qu'un corpus📚📄
@@ -36,24 +38,25 @@ Avant de revenir sur ces caractéristiques :
 
 -vertical-
 ### ❓ A quoi ça sert les data ❓
+
 **Pour l'apprentissage**
 
-à partir des observations(*données*), on peut déterminer des paramètres(*features*) qui vont nous permettre de prédire le futur
+à partir des observations (*données*), on peut déterminer des paramètres (*features*) qui vont nous permettre de prédire le futur
 
 -vertical-
 
 **un exemple**
 
 ⛅Prévoir la météo⛅:
-    - la saison
-    - la couverture nuageuse
-    - le vent
-    - la météo des régions voisines
-    - ...
+- la saison ❄🌺
+- la couverture nuageuse ☁
+- le vent 🍃
+- la météo des régions voisines 🌍
+- ...
 
 -vertical-
 
-### 🤖Pour les machines, c'est pareil !🤖
+### 🤖Pour les machines, c'est pareil🤖
 
 On a besoin de **données** pour apprendre les **paramètres** qui permettent de prédire le futur
 
@@ -89,21 +92,22 @@ C'est comme ça qu'on obtient des modèles **prédictifs**
 
 ⛅Prévoir la météo⛅
 
-- mon humeur de ce matin
-- le nombre de café que j'ai bu
-- les traces de bouctins devant chez moi
+- mon humeur de ce matin 🎭
+- le nombre de café que j'ai bu 🍵
+- les traces de bouctins devant chez moi 👣
 - ...
 
 -vertical-
 
 ### Pour une tâche donnée
 
+**Pour avoir la sortie voulue**
 ---
 
 | | |   
 |:---:|:---:|
-| saison | saison |
-| couverture nuageuse | couverture nuageuse |
+| ❄🌺 | ❄🌺 |
+| ☁ | ☁ |
 | ... | ... |
 |&rarr; |&rarr; |
 |⛅Prédire la météo⛅|🦜Parler de la pluie et du beau temps🦜|
@@ -116,16 +120,131 @@ C'est comme ça qu'on obtient des modèles **prédictifs**
 ❤C'est le nerf de la guerre❤
 
 Les entreprises publient :
+
 ✔ 🏠 les architectures
+
 ✔ 🔩 les poids des modèles
+
 ❌ 📚 mais pas les data
 
 -vertical-
 
-### Les problématiques des data
-- Pour les données confidentielles : le RGPD
+### Obtenir des données
+
+&rarr; Avec internet, c'est plus si compliqué
+
+### Obtenir des données *utiles*
+
+&rarr; C'est très couteux 💸💸💸
+
+-vertical-
+
+### Les problématiques des données
+
+- La propreté des données ✨
+    - quand on crawl les data sur internet, on a de tout
+
+- Le RGPD (pour les données confidentielles🕵️‍♂️)
     - particulièrement visible dans le domaine médical
     &rarr; alors que les modèles sont très bons pour prédire les pathologies
-- La propreté des données
-    - quand on crawl les data sur internet on a de tout
+
+- L'annotation des données 🏷
+    - Pour réaliser certaines tâches, on a besoin d'experts et ça coûte cher
+
+-horizontal-
+
+## 🛠Les tâches et les corpus🛠
+
+En *Machine Learning*, on fait de la prédiction :
+
+- pour catégoriser les éléments existants
+- pour découvrir de nouveaux éléments
+
+-vertical-
+
+### 🏷Catégorisation d'éléments existants en NLP🏷
+
+- POS tagging
+- Analyse de sentiment
+- NER
+- Transcription
+- ...
+
+-vertical-
+
+### 🌱Génération de nouveaux éléments en NLP🌱
+
+- Chatbot
+- QuestionAnswering
+- Traduction
+- Résumé Automatique
+- ...
+
+-vertical-
+
+### Avant de sélectionner son corpus
+
+&rarr; bien déterminer la tâche que l'on veut traiter :
+- son besoin en ressources
+    - quel modèle on utilise ? Est ce qu'on a besoin de beaucoup de données ?
+- les langues que l'on va traiter
+    - monolingue/multilingue
+    - traduction ? (corpus Parallèle)
+- le genre des textes
+    - ex : résumé d'article de journaux vs. résumé de décision de justice
+
+-vertical-
+
+## 🔎Où trouver des corpus🔍
+
+&rarr; Quand on sait quoi chercher, on peut commencer à requêter 😊
+- [HuggingFace](https://huggingface.co/)
+- Kaggle
+- PapersWithCode
+
+-vertical-
+
+### 💂Les grands corpus de l'anglais💂
+
+- Text Classification
+    - IMDB
+    - GLUE
+- Token Classification
+    - conll
+- Question Answering
+    - MMLU
+    - thruful_qa
+- Summarization
+    - cnn_dailymail
+    - scientific_papers
+- Et pleins d'autres à découvrir sur HuggingFace
+
+-vertical-
+
+### 🥖Les grands corpus du français🥖
+
+
+- frWaC (1,6 milliards de mots, annotation POS avec TreeTagger)
+- FRCOW16 (8,7 milliards de mots)
+- OSCAR (23 milliards de mots pour le français (issu de Common Crawl))
+(cf. [Clement Plancq](https://clement-plancq.github.io/outils-corpus/outils_corpus-1.html#/les-gros-corpus-du-web) qui cf. au cours de Nadège qui cf. probablement à un autre cours d'avant)
+
+-horizontal-
+
+❓ Des questions ❓
+💡 Des idées 💡
+
+-vertical-
+
+1. Setter votre repo github et envoyer le lien à mon adresse mail
+2. Initialiser votre README.md
+    - Avec le corpus que vous voulez exploiter
+    - à quelle tâche il répond
+    - quel type de prédiction C'est
+    - à quel modèle il a servi
+    - Apprenez moi des choses 😀
+3. Initialiser les dossiers de votre repo
+    - réfléchissez aux traitements que l'on va effectuer pendant le cours : de quels dossiers vous allez avoir besoin
+
+Et le tout avec des beaux messages de commit 🔥
 
