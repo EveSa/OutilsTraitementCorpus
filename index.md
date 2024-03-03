@@ -20,7 +20,7 @@
 - En salle pouet
 - partagé en 3 parties : 
   - Une partie cours magistral
-    \-> n'hésitez pas à poser des questions
+    \&rarr; n'hésitez pas à poser des questions
   - Une partie retours 
     - sur le cours
     - préparation du cours d'après (qu'est ce que vous voulez voir la prochaine fois, de quoi vous voudriez entendre parler)
@@ -33,14 +33,8 @@ On fait un projet de constitution/exploitation de corpus en faisant
 
 un Rendu à la fin de chaque séance sur Github
 
-\-> pourquoi je vous fais rendre sur Github ❓ 
-
-- les (bons) recruteurs regardent votre github avant votre CV
-- les (bons) chercheurs regardent le github avant les papiers
-- Si vous faites des boulettes, vous êtes pas perdus
-
 # Index des cours
 
 - [Cours 1](/slides/cours1.html)
-- [Cours 2]
+- [Cours 2](/slides/cours2.html)
 - [Cours 3]

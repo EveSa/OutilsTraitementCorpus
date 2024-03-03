@@ -1,0 +1,88 @@
+---
+layout: presentation
+title: Cours2
+---
+# Outils de Traitement de Corpus
+cours 2
+-vertical-
+# Rappel du cours précédent
+
+<h2 class="r-fit-text">📚📄Rappels sur les corpus📚📄</h2>
+
+## 🛠️Focus sur les tâches🛠️
+## 🔎Où trouver des corpus🔍
+-horizontal-
+# Cours 2
+
+## 🛍Récupérer de nouvelles données🛍
+## 🔧Les outils pour utiliser les corpus disponibles🔧
+
+-horizontal-
+
+## 🛍Récupérer de nouvelles données🛍
+
+-vertical-
+
+## Pourquoi ?
+
+On parlait des RGPD : dans un cadre professionnel, on peut être ammené à avoir des données qu'il n'y a pas sur le web
+
+Parfois les datasets pour certaines langues/tâches ne sont pas disponibles &rarr; il faut pourvoir se débrouiller
+
+-vertical-
+
+## Qu'est ce qu'on récupère ?
+
+<aside>
+    On a vu la dernière fois qu'on pouvait avoir à peu près n'importe quoi comme nature de données de nos corpus
+    Est ce que vous avez des idées de ce qui peut nous intéresser comme nature de données en NLP ?
+</aside>
+
+<ul>
+    <li class="fragment">Des images <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Manuscript_text_on_properties_of_the_mandrake_plant_Wellcome_L0037351.jpg"></li>
+    <li class="fragment">Des sons 🔊</li>
+    <li class="fragment">Des textes 🔡</li>
+</ul>
+
+-horizontal-
+
+❓ Des questions ❓
+
+💡 Des idées 💡
+
+-vertical-
+
+## Quelques points techniques pour bien commencer
+
+Suivre les [conseils du MIT](https://mitcommlab.mit.edu/broad/commkit/file-structure/#BestPracticesFileStructures)
+
+```
+PROJECT/
+├── bin/            <- compiled binaries. 
+├── data/ 
+│   ├── raw/
+│   └── clean/
+│
+├── figures/        <- figures used in place of a "results" folder. 
+├── scripts/
+│   ├── process/    <- scripts to maniuplate data between raw, cleaned, final stages.
+│   └── plot/	      <- intermediate plotting.
+│
+├── src
+│   ├── model1/     <- various experimental models.
+│   ├── model2/
+│   └── model3/
+│
+├── LICENSE
+├── Makefile
+└── readme.md
+```
+
+-vertical-
+
+<ol>
+<li>Initialiser les dossiers de votre repo</li>
+<ul>
+    <li>réfléchissez aux traitements que l'on va effectuer pendant le cours : de quels dossiers vous allez avoir besoin</li>
+</ul>
+</ol>

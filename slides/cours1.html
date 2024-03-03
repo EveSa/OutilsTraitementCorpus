@@ -9,15 +9,58 @@ title: Cours1
 
 🌐[EveSa.github.io/OutilsTraitementCorpus](EveSa.github.io/OutilsTraitementCorpus)🌐
 
+<aside>
+    Vous m'appelez Eve et on se tutoie si vous n'avez pas d'objection -> Je connais certains d'entre vous et je viens de terminer ce master.
+    Je ne suis pas une figure hierarchique.
+</aside>
+
 -vertical-
 ## Organisation du Cours
 
-⏱6 x 3 heures⏱
+📅6 x 3 heures📅
+
+⏱3 parties:
+- cours magistral
+- retours et questions
+- TP
 
 🏫en salle pouet🏫
 
+<aside>
+    Profitez de la partie retour pour me dire les notions que vous souhaiterez voir aborder
+    Les points, même des autres cours que vous n'avez peut être pas compris
+    etc...
+</aside>
+
+-vertical-
+
+<p class="r-fit-text">🖨les slides sont dispo en ligne et vous pouvez les convertir au format pdf en imprimant la présentation🖨</p>
+
+`ctrl+P` &rarr; imprimer au format pdf
+
+<aside>
+    L'objectif c'est que vous ne soyez pas obligés de venir en cours pour Suivre
+    Ne prenez pas de photo des slides, ne copiez pas frénétiquement ce qu'il y a écrit
+    Ne venez pas faire du bruit inutilement, ça ne me dérange pas que vous ne soyez pas là
+    ça ne veut pas dire "ne venez pas". Je suis là pour
+    - éclaircir les points qui ne vous paraissent pas clair
+    - répondre à vos questions
+</aside>
+
 -vertical-
 ## Evaluation
+
+<p class="r-fit-text">📚📄Evaluation de corpus au cours d'un projet en 6 séances📄📚</p>
+
+A rendre sur Github
+
+<aside>
+-> pourquoi je vous fais rendre sur Github ❓ 
+
+- les (bons) recruteurs regardent votre github avant votre CV
+- les (bons) chercheurs regardent le github avant les papiers
+- Si vous faites des boulettes, vous êtes pas perdus
+</aside>
 
 -horizontal-
 # Cours 1
@@ -29,16 +72,25 @@ title: Cours1
 -vertical-
 ### 📄📚Qu'est ce qu'un corpus📚📄
 <!--normalement vous savez ce que c'est-->
-```js[1|2|3]
-Une collection de documents
-Sur un thème particulier
-Pour une tâche particulière
-```
+
+<pre><code data-line-numbers="1|2|3" type="text">
+    Une collection de documents
+    Sur un thème particulier
+    Pour une tâche particulière
+</code></pre>
+
 ---
 Avant de revenir sur ces caractéristiques :
 
+<aside>
+    les documents peuvent être de nature différentes :
+        - texte
+        - image
+        - son
+</aside>
+
 -vertical-
-### ❓ A quoi ça sert les data ❓
+<h3 class="r-fit-text">❓ A quoi ça sert les données ❓</h3>
 
 **Pour l'apprentissage**
 
@@ -57,13 +109,19 @@ Avant de revenir sur ces caractéristiques :
 - la météo des régions voisines 🌍
 - ...
 
+<aside>
+    C'est une représentation simpliste pour vous aider à comprendre comment ça fonctionne
+    On ne prédit pas la météo avec des paramètres aussi simples
+    Est-ce que vous voyez une meilleur exemple de chose à prévoir qui soit en lien avec le NLP?
+</aside>
+
 -vertical-
 
 <h3 class="r-fit-text">🤖Pour les machines, c'est pareil🤖</h3>
 
 On a besoin de **données** pour apprendre les **paramètres** qui permettent de prédire le futur
 
-&rarr; On collecte des datasets
+&rarr; On collecte des corpus (*datasets*)
 
 C'est comme ça qu'on obtient des modèles **prédictifs**
 
@@ -149,11 +207,18 @@ Les entreprises publient :
 - La propreté des données ✨
     - quand on crawl les data sur internet, on a de tout
 
+- L'annotation des données🏷️
+    - Pour réaliser certaines tâches, on a besoin d'experts et ça coûte cher
+
+-vertical-
+
+### Les problématiques des données
+
 - Le RGPD 🕵️‍♂️
     - particulièrement visible dans le domaine médical &rarr; alors que les modèles sont très bons pour prédire les pathologies
 
-- L'annotation des données🏷️
-    - Pour réaliser certaines tâches, on a besoin d'experts et ça coûte cher
+- La représentativité des données
+    - Les données peuvent être biaisées &rarr; avoir des caractéristiques qu'on voudrait éviter
 
 -horizontal-
 
@@ -256,35 +321,6 @@ Git❤️ nécessite quelques bonne pratiques
 
 -vertical-
 
-## Quelques points techniques pour bien commencer
-
-Suivre les [conseils du MIT](https://mitcommlab.mit.edu/broad/commkit/file-structure/#BestPracticesFileStructures)
-
-```
-PROJECT/
-├── bin/            <- compiled binaries. 
-├── data/ 
-│   ├── raw/
-│   └── clean/
-│
-├── figures/        <- figures used in place of a "results" folder. 
-├── scripts/
-│   ├── process/    <- scripts to maniuplate data between raw, cleaned, final stages.
-│   └── plot/	      <- intermediate plotting.
-│
-├── src
-│   ├── model1/     <- various experimental models.
-│   ├── model2/
-│   └── model3/
-│
-├── LICENSE
-├── Makefile
-└── readme.md
-```
-
-
-
--vertical-
 <p class="r-fit-text">
 <ol>
 <li>Setter votre repo github et envoyer le lien à mon adresse mail</li>
@@ -295,10 +331,6 @@ PROJECT/
     <li>quel type de prédiction c'est</li>
     <li>à quel modèle il a servi</li>
     <li>Apprenez moi des choses 😀</li>
-</ul>
-<li>Initialiser les dossiers de votre repo</li>
-<ul>
-    <li>réfléchissez aux traitements que l'on va effectuer pendant le cours : de quels dossiers vous allez avoir besoin</li>
 </ul>
 </ol>
 Et le tout avec des beaux messages de commit 🔥
