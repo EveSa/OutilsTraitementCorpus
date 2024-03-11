@@ -31,7 +31,10 @@
 
 On fait un projet de constitution/exploitation de corpus en faisant
 
-un Rendu à la fin de chaque séance sur Github
+Un devoir à rendre après chaque séance, sauf la dernière, sur Github.
+6 séances, 5 devoirs, 5 notes. La note finale sera la moyenne des notes.
+
+Tous vos devoirs devront m’être parvenus avant le
 
 # Index des cours
 

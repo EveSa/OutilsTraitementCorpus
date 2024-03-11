@@ -14,12 +14,14 @@ cours 2
 -horizontal-
 # Cours 2
 
-## 🛍Récupérer de nouvelles données🛍
-## 🔧Les outils pour utiliser les corpus disponibles🔧
+## 🛍️Récupérer de nouvelles données🛍️
+## ⛽Rendre les données exploitable⛽
+
+<h2 class="r-fit-text"></h2>🔧Les Outils pour explorer/utiliser les données🔧</h2>
 
 -horizontal-
 
-## 🛍Récupérer de nouvelles données🛍
+## 🛍️Récupérer de nouvelles données🛍️
 
 -vertical-
 
@@ -31,18 +33,112 @@ Parfois les datasets pour certaines langues/tâches ne sont pas disponibles &rar
 
 -vertical-
 
-## Qu'est ce qu'on récupère ?
+## Scrapper le web
 
-<aside>
+<aside class="notes">
+    Soit on vous donne des données déjà toutes prêtes:
+    des données clients -> il faut faire des traitements Pour
+        - anonymiser
+        - nettoyer
+        - : rendre exploitable
+    Soit on vous dit juste ce dont vous avez besoin et il faut aller chercher les infos sur le net
+</aside>
+
+- Selenium
+- Beautiful Soup
+
+## 🔭Qu'est ce qu'on récupère ?🔭
+
+<aside class="notes">
     On a vu la dernière fois qu'on pouvait avoir à peu près n'importe quoi comme nature de données de nos corpus
     Est ce que vous avez des idées de ce qui peut nous intéresser comme nature de données en NLP ?
 </aside>
 
 <ul>
-    <li class="fragment">Des images <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Manuscript_text_on_properties_of_the_mandrake_plant_Wellcome_L0037351.jpg"></li>
+    <li class="fragment">Des images 🖼<img class="fragment fade-in-then-out" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Manuscript_text_on_properties_of_the_mandrake_plant_Wellcome_L0037351.jpg" width="450" height="300"></li>
     <li class="fragment">Des sons 🔊</li>
     <li class="fragment">Des textes 🔡</li>
 </ul>
+
+-horizontal-
+
+<aside class="notes">
+    Comment exploiter ces données ?
+    - Souvent pour faire de l'analyse sémantique, on passe par une représentation textuelle
+    -> transformer l'oral en texte avec Whisper
+    -> transformer les images en textes avec OCR
+</aside>
+
+## ⛽Rendre les données exploitable⛽
+
+-vertical-
+
+### 🖼Convertir des images en texte🖼
+
+<div class="r-stack">
+<p>
+Les OCR
+<ul>
+    <li>Avec Python :</li>
+        <ul>
+            <li>py-tesseract</li>
+            <li>doctr</li>
+        </ul>
+    <li>Avec les modèles multimodaux ? :</li>
+        <ul>
+            <li>GPT-4</li>
+            <li>Gemini</li>
+        </ul>
+</ul>
+</p>
+
+<img class="fragment" src="https://github.com/Yuliang-Liu/MultimodalOCR/blob/main/images/GPT4V_Gemini.png">
+</div>
+
+-vertical-
+
+### 🖼Convertir des images en texte🖼
+#### Comment ça marche ❓
+
+<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpaperswithcode.com%2Fdataset%2Fmnist&psig=AOvVaw0P2EZQuMkeKwZC3oqNspIg&ust=1710155544961000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCMDk-f_H6YQDFQAAAAAdAAAAABAE">
+
+-vertical-
+
+### 🔊Convertir les audio en texte🔊
+
+Les modèles de speech-to-text
+- Whisper
+
+-vertical-
+
+### 🧼Convertir du texte en texte (propre)🧼
+### (Denoising Data)
+
+- Comparer à un vocabulaire existant
+    - (distance d'édition : Levenshtein)
+- Utiliser des modèles
+- Utiliser des LLM
+
+<aside class="notes">Problèmes des OOV : Out of Vocabulary</aside>
+
+-vertical-
+
+### 🏷️Annoter ses données🏷️
+
+<aside class="notes">
+    Si on cherche à faire de la classification, on va peut être devoir annoter ses données
+    Soit on c'est de la classification de documents et on peut peut-être récupérer les info 
+    au moment de la récupération
+</aside>
+- Etiquetage Morphosyntaxique
+- Extraction d'information (NER)
+
+-vertical-
+
+### ⚖️Le balancement des classes⚖️
+
+- scikit Learn
+- Dataset Class
 
 -horizontal-
 
@@ -52,7 +148,7 @@ Parfois les datasets pour certaines langues/tâches ne sont pas disponibles &rar
 
 -vertical-
 
-## Quelques points techniques pour bien commencer
+## Le point bonne pratique
 
 Suivre les [conseils du MIT](https://mitcommlab.mit.edu/broad/commkit/file-structure/#BestPracticesFileStructures)
 
