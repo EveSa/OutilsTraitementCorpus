@@ -17,14 +17,14 @@
 - 6 séances 
 - du 18 mars au 13 mai
 - de 15h30 à 18h30
-- En salle pouet
+- En amphi 3
 - partagé en 3 parties : 
   - Une partie cours magistral
     \&rarr; n'hésitez pas à poser des questions
   - Une partie retours 
     - sur le cours
     - préparation du cours d'après (qu'est ce que vous voulez voir la prochaine fois, de quoi vous voudriez entendre parler)
-    - point veille techno ?
+    - un petit point bonnes pratiques
   - Une partie pratique
 
 **Évaluation :** 
@@ -34,7 +34,7 @@ On fait un projet de constitution/exploitation de corpus en faisant
 Un devoir à rendre après chaque séance, sauf la dernière, sur Github.
 6 séances, 5 devoirs, 5 notes. La note finale sera la moyenne des notes.
 
-Tous vos devoirs devront m’être parvenus avant le
+Tous vos devoirs devront m’être parvenus avant le 17 mai
 
 # Index des cours
 

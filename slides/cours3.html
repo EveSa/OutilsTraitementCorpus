@@ -1,0 +1,117 @@
+---
+layout: presentation
+title: Cours3
+---
+# Outils de Traitement de Corpus
+cours 3
+-vertical-
+# Rappel du cours précédent
+
+<h2 class="r-fit-text">🛍️Récupérer de nouvelles données🛍️</h2>
+<h2 class="r-fit-text">⛽Rendre les données exploitable⛽</h2>
+<h2 class="r-fit-text">🔧Les Outils pour explorer les données🔧</h2>
+
+-vertical-
+# Cours 3
+
+<h2 class="r-fit-text">🛍️Récupérer de nouvelles données🛍️</h2>
+<h2 class="r-fit-text">⛽Rendre les données exploitable⛽</h2>
+<h2 class="r-fit-text">🔧Les Outils pour explorer les données🔧</h2>
+
+-horizontal-
+
+Contenu du cours
+
+-horizontal-
+
+❓ Des questions ❓
+
+💡 Des idées 💡
+
+-vertical-
+
+## Le point bonne pratique
+
+**Commenter son code &rarr; les docstrings**
+
+> "Code is read much more often than it is written." Guido
+
+1. Les docstrings de module
+Au début un fichier `.py`, on explique à quoi il sert et qu'est ce qu'il contient
+```
+"""Spreadsheet Column Printer
+
+This script allows the user to print to the console all columns in the
+spreadsheet. It is assumed that the first row of the spreadsheet is the
+location of the columns.
+
+This tool accepts comma separated value files (.csv) as well as excel
+(.xls, .xlsx) files.
+
+This script requires that `pandas` be installed within the Python
+environment you are running this script in.
+
+This file can also be imported as a module and contains the following
+functions:
+
+    * get_spreadsheet_cols - returns the column headers of the file
+    * main - the main function of the script
+"""
+```
+
+2. Les docstrings de fonction
+```
+"""Gets and prints the spreadsheet's header columns
+
+Parameters
+----------
+file_loc : str
+    The file location of the spreadsheet
+print_cols : bool, optional
+    A flag used to print the columns to the console (default is
+    False)
+
+Returns
+-------
+list
+    a list of strings used that are the header columns
+"""
+```
+
+3. Les docstrings de Classe
+```
+"""
+A class used to represent an Animal
+
+Attributes
+----------
+says_str : str
+    a formatted string to print out what the animal says
+...
+num_legs : int
+    the number of legs the animal has (default 4)
+
+Methods
+-------
+says(sound=None)
+    Prints the animals name and what sound it makes
+"""
+```
+
+-vertical-
+
+<ol>
+<li>Initialiser les dossiers de votre repo</li>
+<ul>
+    <li>réfléchissez aux traitements que l'on va effectuer pendant le cours : de quels dossiers vous allez avoir besoin</li>
+</ul>
+<li>Mettez en place un script python pour récupérer automatiquement des données depuis le web (quelques éléments suffiront)</li>
+<ul>
+    <li>⚠Ne récupérez que des données qu'il est légal de récupérer :</li>
+    <li> pas de données contenant des informations identifiantes (pseudo, dates de publiction, ...)</li>
+    <li> n'importe quoi qui concerne des individus</li>
+</ul>
+<li>Nettoyez ces données pour les présenter sous forme de texte</li>
+<p>⚠Vous n'avez pas à commit les fichiers récupérés dans votre repo &rarr; *push* des gros fichiers peut faire exploser votre git</p>
+<p>Votre code suffira pour l'évaluation</p>
+</ol>

@@ -8,16 +8,15 @@ cours 2
 # Rappel du cours précédent
 
 <h2 class="r-fit-text">📚📄Rappels sur les corpus📚📄</h2>
+<h2 class="r-fit-text">🛠️Focus sur les tâches🛠️</h2>
+<h2 class="r-fit-text">🔎Où trouver des corpus🔍</h2>
 
-## 🛠️Focus sur les tâches🛠️
-## 🔎Où trouver des corpus🔍
--horizontal-
+-vertical-
 # Cours 2
 
-## 🛍️Récupérer de nouvelles données🛍️
-## ⛽Rendre les données exploitable⛽
-
-<h2 class="r-fit-text"></h2>🔧Les Outils pour explorer/utiliser les données🔧</h2>
+<h2 class="r-fit-text">🛍️Récupérer de nouvelles données🛍️</h2>
+<h2 class="r-fit-text">⛽Rendre les données exploitable⛽</h2>
+<h2 class="r-fit-text">🔧Les Outils pour explorer les données🔧</h2>
 
 -horizontal-
 
@@ -33,7 +32,7 @@ Parfois les datasets pour certaines langues/tâches ne sont pas disponibles &rar
 
 -vertical-
 
-## Scrapper le web
+## 🕯️*Scrapper* le web🕯️
 
 <aside class="notes">
     Soit on vous donne des données déjà toutes prêtes:
@@ -44,8 +43,26 @@ Parfois les datasets pour certaines langues/tâches ne sont pas disponibles &rar
     Soit on vous dit juste ce dont vous avez besoin et il faut aller chercher les infos sur le net
 </aside>
 
-- Selenium
-- Beautiful Soup
+- `Selenium`
+`> from selenium import webdriver`
+➡️ Une biliothèque pour automatiser les intéractions entre python et le navigateur
+- `Requests` 
+`> import requests`
+➡️ La bibliothèque de base pour requêter le web depuis Python
+- `lxml`
+`> from lxml import etree`
+➡️ La bibliothèque de base pour traiter du xml/html
+- `Beautiful Soup`
+`> from bs4 import BeautifulSoup`
+➡️ Une bibliothèque très répendue pour faire à peu près pareil que lxml
+    
+-vertical-
+
+## Documents Structurés
+
+Pour naviguer dans le contenu html, on utilise les concepts étudiés en cours de documents structurés et notamment **XPATH**
+
+-vertical-
 
 ## 🔭Qu'est ce qu'on récupère ?🔭
 
@@ -130,8 +147,14 @@ Les modèles de speech-to-text
     Soit on c'est de la classification de documents et on peut peut-être récupérer les info 
     au moment de la récupération
 </aside>
+**Au niveau des "mots"**
+
 - Etiquetage Morphosyntaxique
-- Extraction d'information (NER)
+- Entité Nommée
+
+**Au niveau des documents**
+
+- genre
 
 -vertical-
 
@@ -181,4 +204,13 @@ PROJECT/
 <ul>
     <li>réfléchissez aux traitements que l'on va effectuer pendant le cours : de quels dossiers vous allez avoir besoin</li>
 </ul>
+<li>Mettez en place un script python pour récupérer automatiquement des données depuis le web (quelques éléments suffiront)</li>
+<ul>
+    <li>⚠Ne récupérez que des données qu'il est légal de récupérer :</li>
+    <li> pas de données contenant des informations identifiantes (pseudo, dates de publiction, ...)</li>
+    <li> n'importe quoi qui concerne des individus</li>
+</ul>
+<li>Nettoyez ces données pour les présenter sous forme de texte</li>
+<p>⚠Vous n'avez pas à commit les fichiers récupérés dans votre repo &rarr; *push* des gros fichiers peut faire exploser votre git</p>
+<p>Votre code suffira pour l'évaluation</p>
 </ol>
