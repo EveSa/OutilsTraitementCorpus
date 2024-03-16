@@ -40,4 +40,4 @@ Tous vos devoirs devront m’être parvenus avant le 17 mai
 
 - [Cours 1](/slides/cours1.html)
 - [Cours 2](/slides/cours2.html)
-- [Cours 3]
+- [Cours 3](/slides/cours3.html)
