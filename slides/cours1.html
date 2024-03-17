@@ -55,7 +55,7 @@ title: Cours1
 
 <p class="r-fit-text">📚📄Evaluation de corpus au cours d'un projet en 6 séances📄📚</p>
 
-A rendre sur Github
+A rendre sur Git
 
 <aside class="notes">
 -> pourquoi je vous fais rendre sur Github ❓ 
@@ -63,6 +63,10 @@ A rendre sur Github
 - les (bons) recruteurs regardent votre github avant votre CV
 - les (bons) chercheurs regardent le github avant les papiers
 - Si vous faites des boulettes, vous êtes pas perdus
+
+-> Les critères d'évaluation:
+- surtout le respect des bonnes problématiques
+- et ensuite si vous avez effectué le travail demandé
 </aside>
 
 -horizontal-
@@ -112,14 +116,17 @@ Realiser des statistiques textuelles
 
 -vertical-
 
-**un exemple**
+**un exemple (simpliste)*
 
-⛅Prévoir la météo⛅:
+⛅Comment savoir comment s'habiller demain ?⛅:
 - la saison ❄🌺
-- la couverture nuageuse ☁
+- la couverture nuageuse de la journée précédente ☁
 - le vent 🍃
 - la météo des régions voisines 🌍
 - ...
+
+Comment on en est arrivé à ces conclusions ? ➡️ les observations
+<p class="fragment">Un exemple plus linguistique &rarr; l'acquisition du language chez les enfants</p>
 
 <aside class="notes">
     C'est une représentation simpliste pour vous aider à comprendre comment ça fonctionne
@@ -238,8 +245,20 @@ Les entreprises publient :
 
 En *Machine Learning*, on fait de la prédiction :
 
-- pour catégoriser les éléments existants
-- pour découvrir de nouveaux éléments
+- pour catégoriser les éléments existants (classification)
+- pour découvrir de nouveaux éléments (regression)
+
+❓ Qu'en est-il de prédire la météo de demain ❓
+
+<aside class="notes">
+    Quand vous décidez comment vous habillez le matin/pour prévoir la météo, vous faites quel type de prédiction ?
+    Levez la main haut pour réponse 1 et la main pas trop haut pour réponse 2
+    (la bonne réponse c'est réponse 2)
+</aside>
+
+-vertical-
+
+<img src="https://media.licdn.com/dms/image/D5612AQHleCueKC_lww/article-cover_image-shrink_720_1280/0/1677785069046?e=1716422400&v=beta&t=GMyfavrLlm5A9rl1qcEG-b1fcIq9wkfa0fR_Q3UI5d8">
 
 -vertical-
 
@@ -253,7 +272,17 @@ En *Machine Learning*, on fait de la prédiction :
 
 -vertical-
 
-<h3 class="r-fit-text">🌱Génération de nouveaux éléments en NLP🌱</h3>
+<h3 class="r-fit-text">🌱Génération de nouveaux éléments en TAL🌱</h3>
+
+❓
+
+<p class="fragment">On a pas beaucoup de tâche de régression en TAL</p>
+
+-vertical-
+
+<h3>Et la génération de texte ❓</h3>
+
+⚠️En TAL, la génération de nouveaux éléments, ce n'est souvent pas de la régression
 
 - Chatbot
 - QuestionAnswering
@@ -261,18 +290,32 @@ En *Machine Learning*, on fait de la prédiction :
 - Résumé Automatique
 - ...
 
+&rarr; Tout ça, ce sont des tâches de *Next-Token Prediction*
+
+-vertical-
+
+<h3>Comment se passe la NTP</h3>
+
+<img src="https://developer-blogs.nvidia.com/wp-content/uploads/2023/06/general-workflow-for-prompt.png">
+
 -vertical-
 
 ### Avant de sélectionner son corpus
 
+<div class="r-stack">
 &rarr; bien déterminer la tâche que l'on veut traiter :
 - son besoin en ressources
-    - quel modèle on utilise ? Est ce qu'on a besoin de beaucoup de données ?
+    - quel modèle on utilise ? *Machine Learning*/*Deep Leaning* ?
+
+<img class="fade-in-then-out" src ="https://media.geeksforgeeks.org/wp-content/uploads/20230413105611/Maachine-Learning.webp">
+
 - les langues que l'on va traiter
     - monolingue/multilingue
     - traduction ? (corpus Parallèle)
 - le genre des textes
     - ex : résumé d'article de journaux vs. résumé de décision de justice
+
+</div>
 
 -vertical-
 
@@ -286,14 +329,29 @@ En *Machine Learning*, on fait de la prédiction :
 - Modalité (écrit/oral)
 - Licence et droits d'utilisation
 
--vertical-
+-horinzontal-
 
 ## 🔎Où trouver des corpus🔍
 
 &rarr; Quand on sait quoi chercher, on peut commencer à requêter
 - [HuggingFace](https://huggingface.co/)
-- Kaggle
-- PapersWithCode
+- [Kaggle](https://www.kaggle.com/)
+- [PapersWithCode](https://paperswithcode.com/)
+
+-vertical-
+
+## 🔎Où trouver des corpus🔍
+
+- Agences de distribution
+    - [Linguistic Data Consortium](https://www.ldc.upenn.edu/)
+    - [ELRA](http://www.elra.info/ )
+- Inventaires et portails
+    - [LRE Map](http://lremap.elra.info/)
+    - [VLO](http://catalog.clarin.eu/vlo/)
+    - [CHILDES](https://childes.talkbank.org/)
+    - [Ortolang](http://www.ortolang.fr/)
+
+(cf. [Clement Plancq](https://clement-plancq.github.io/outils-corpus/outils_corpus-1.html#/o%C3%B9-trouver-les-corpus))
 
 -vertical-
 
@@ -313,10 +371,6 @@ En *Machine Learning*, on fait de la prédiction :
 
 -vertical-
 
-## Et pleins d'autres à découvrir sur HuggingFace
-
--vertical-
-
 <h3 class="r-fit-text">🥖Les grands corpus du français🥖</h3>
 
 
@@ -326,6 +380,14 @@ En *Machine Learning*, on fait de la prédiction :
 (cf. [Clement Plancq](https://clement-plancq.github.io/outils-corpus/outils_corpus-1.html#/les-gros-corpus-du-web))
 
 -horizontal-
+
+## Petit Récap'
+
+- On sait à quoi ça sert d'avoir beaucoup de données
+- On sait où les trouver
+- On sait déterminer de quoi on a besoin en fonction de la tâche qu'on veut réaliser
+
+-vertical-
 
 ❓ Des questions ❓
 
@@ -352,11 +414,11 @@ Git❤️ nécessite quelques bonne pratiques
 <li>Initialiser votre repo github et envoyer le lien à mon adresse mail</li>
 <li>Initialiser votre README.md</li>
 <ul>
-    <li>Avec le corpus que vous voulez exploiter</li>
-    <li>à quelle tâche il répond</li>
-    <li>quel type de prédiction c'est</li>
+    <li>Avec la tâche que vous voulez réaliser</li>
+    <li>un corpus qui répond à cette tâche</li>
+    <li>à quel type de prédiction peut servir ce corpus</li>
     <li>à quel modèle il a servi</li>
-    <li>Apprenez moi des choses</li>
+    <li>Apprenez moi des choses sur un corpus</li>
 </ul>
 </ol>
 Et le tout avec des beaux messages de commit 🔥
