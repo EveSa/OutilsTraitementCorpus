@@ -12,6 +12,75 @@ cours 2
 <h2 class="r-fit-text">🔎Où trouver des corpus🔍</h2>
 
 -vertical-
+
+## Correction du TP
+
+**Tâche** : Question Answering  
+&rarr; Tâche de prédiction d'une réponse à partir d'une question
+
+**Sous-tâche** : extractive-qa  
+&rarr; Q&A à partir d'un contexte : le modèle ne doit extraire la réponse que du contexte qu'on lui donne
+
+**Corpus choisi :** SQuAD : Stanford QUestion Answering Dataset
+
+**Langues :** Anglais, uniquement  
+&rarr; D'autres corpus existent dans d'autres langues, lesquels ?
+
+-vertical-
+
+Le corpus comporte les informations suivantes : **id, title, context, question, answers**
+
+**id :** Un champ unique pour distinguer une suite d'information
+
+**title :** Le titre de la page wikipedia de laquelle est extrait le contexte
+
+**context :** Une partie de la page wikipedia
+
+**question :** Une question sur le contexte
+
+**answers :** un dictionnaire qui contient le texte de la réponse et l'indice du mot qui débute de la réponse
+
+-vertical-
+
+**Modèles entraînés avec SQuAD :** Plus de 1805 modèles ont été entraînés à partir de SQuAD dont:
+
+- distilbert
+- dynamic_tinybert de Intel
+
+**Taille :** 
+
+- 98 169 lignes d'informations
+- issu de 500+ article de wikipedia
+- 16.3 MB
+
+-vertical-
+
+**Source :** 
+
+Les contextes ont été récupérés à partir d'un projet existant : le **Nayuki Project** qui classe les pages de **wikipedia** avec un PageRank pour obtenir les articles les plus important de l'anglais.
+
+Les questions ont été extraites par des travailleurs recrutés sur la plateforme Daemo sur une interface mise en place sur Amazon Mechanical Turks. Les travailleurs ont été recrutés au US et au Canada.
+
+Les travailleurs devaient écrire et répondre à, au maximum, 5 questions par contexte. Les questions étaient entrées en champ libre et les réponses surlignées dans le texte (pour respecter l'extractivité de la tâche).
+
+**Train-test split :** 
+
+- 87599 pour le train
+
+- 10570 pour le test
+
+-vertical-
+
+**Date de publication :** 
+
+- sur hugging face : 2022
+- l'article scientifique : 
+  - 2016 
+  - par Pranav Rajpurkar and Jian Zhang and Konstantin Lopyrev and Percy Liang
+  - de l'université de **Stanford**
+  - publié à EMNLP
+
+-vertical-
 # Cours 2
 
 <h2 class="r-fit-text">🛍️Récupérer de nouvelles données🛍️</h2>
@@ -104,7 +173,8 @@ Pour naviguer dans le contenu html, on utilise les concepts étudiés en cours d
 ### 🖼️Convertir des images en texte🖼️
 
 <div class="r-stack">
-<p>Les OCR</p>
+<div>
+    <p>Les OCR</p>
 <ul>
     <li>Avec Python :</li>
         <ul>
@@ -117,6 +187,7 @@ Pour naviguer dans le contenu html, on utilise les concepts étudiés en cours d
             <li>Gemini</li>
         </ul>
 </ul>
+</div>
 
 <img class="fragment" src="https://raw.githubusercontent.com/Yuliang-Liu/MultimodalOCR/main/images/GPT4V_Gemini.png">
 </div>
@@ -134,6 +205,7 @@ Pour naviguer dans le contenu html, on utilise les concepts étudiés en cours d
 
 Les modèles de speech-to-text
 - Whisper
+- Canary
 
 -vertical-
 
@@ -142,7 +214,7 @@ Les modèles de speech-to-text
 
 - Comparer à un vocabulaire existant
     - (distance d'édition : Levenshtein)
-- Utiliser des modèles
+- Utiliser des modèles (avec les mask token pred.)
 - Utiliser des LLM
 
 <aside class="notes">Problèmes des OOV : Out of Vocabulary</aside>
@@ -260,6 +332,7 @@ PROJECT/
 </ul>
 <li>Mettez en place un script python pour récupérer automatiquement des données depuis le web (quelques éléments suffiront)</li>
 <li>Nettoyez ces données pour les présenter sous forme de texte</li>
+<li>On veut obtenir les même colonnes que votre corpus de référence (le corpus de la semaine dernière)</li>
 </ol>
 <ul class="fragment">
     <li>⚠️Ne récupérez que des données qu'il est légal de récupérer</li>
