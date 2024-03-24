@@ -24,7 +24,12 @@ cours 2
 **Corpus choisi :** SQuAD : Stanford QUestion Answering Dataset
 
 **Langues :** Anglais, uniquement  
+
+-vertical-
+
 &rarr; D'autres corpus existent dans d'autres langues, lesquels ?
+- FQuAD en français
+<img src="/img/extractive-qa-lang.PNG">
 
 -vertical-
 
@@ -60,6 +65,8 @@ Le corpus comporte les informations suivantes : **id, title, context, question, 
 Les contextes ont été récupérés à partir d'un projet existant : le **Nayuki Project** qui classe les pages de **wikipedia** avec un PageRank pour obtenir les articles les plus important de l'anglais.
 
 Les questions ont été extraites par des travailleurs recrutés sur la plateforme Daemo sur une interface mise en place sur Amazon Mechanical Turks. Les travailleurs ont été recrutés au US et au Canada.
+
+-vertical-
 
 Les travailleurs devaient écrire et répondre à, au maximum, 5 questions par contexte. Les questions étaient entrées en champ libre et les réponses surlignées dans le texte (pour respecter l'extractivité de la tâche).
 
@@ -103,6 +110,14 @@ Parfois les datasets pour certaines langues/tâches ne sont pas disponibles &rar
 
 ## 🕯️*Scrapper* le web🕯️
 
+On veut récupérer les données **automatiquement**
+
+(ex. SQuAD : 98 000 lignes d'informations &rarr; on ne veut pas aller les récupérer à la main)
+
+-vertical-
+
+## 🕯️*Scrapper* le web🕯️
+
 <aside class="notes">
     Soit on vous donne des données déjà toutes prêtes:
     des données clients -> il faut faire des traitements Pour
@@ -141,6 +156,24 @@ from bs4 import BeautifulSoup
 ## Documents Structurés
 
 Pour naviguer dans le contenu html, on utilise les concepts étudiés en cours de documents structurés et notamment **XPATH**
+
+&rarr; [cheatsheet XPATH](https://devhints.io/xpath)
+
+-vertical-
+
+## Comment on fait ?
+
+&rarr; Un [exemple](https://en.wikipedia.org/wiki/Entropy_(information_theory))
+
+💡`f12` pour ouvrir l'inspecteur dynamique
+
+💡`ctrl+U` pour ouvrir le code source de la page
+
+<aside class="notes">
+    dans un script
+    on veut ouvrir la page avec requests
+    copy xpath 
+</aside>
 
 -vertical-
 
@@ -324,7 +357,6 @@ PROJECT/
 
 -vertical-
 
-<div class="r-stack">
 <ol class="fade-out">
 <li>Initialiser les dossiers de votre repo</li>
 <ul>
@@ -334,9 +366,23 @@ PROJECT/
 <li>Nettoyez ces données pour les présenter sous forme de texte</li>
 <li>On veut obtenir les même colonnes que votre corpus de référence (le corpus de la semaine dernière)</li>
 </ol>
+
+-vertical-
+
 <ul class="fragment">
     <li>⚠️Ne récupérez que des données qu'il est légal de récupérer</li>
     <li>⚠️Vous n'avez pas à commit les fichiers récupérés dans votre repo &rarr; *push* des gros fichiers peut faire exploser votre git (cf. Le point bonne pratique de la semaine dernière)</li>
     <li>Votre code suffira pour l'évaluation</li>
 </ul>
-</div>
+
+-vertical-
+
+## Quelques précisions sur l'évaluation
+
+- Le projet à rendre comprend:
+    - l'analyse d'un corpus pré-existant
+    - la constitution d'un corpus similaire à partir de données ouverte
+    - l'applications de visualisation sur ces données
+    - l'évaluation du corpus constitué
+
+❗ Nous n'allons pas faire de Machine Learning sur le corpus ❗
