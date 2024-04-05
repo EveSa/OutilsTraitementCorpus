@@ -12,7 +12,7 @@ cours 3
 <h2 class="r-fit-text">🔧Les Outils pour explorer les données🔧</h2>
 
 -vertical-
-# Cours 4
+# Cours 3
 
 <h2 class="r-fit-text">📦Stocker des données📦</h2>
 <h2 class="r-fit-text">🔄Charger les données dans python🔄</h2>
@@ -39,12 +39,14 @@ Ce genre de données sont des **données structurées** (cf. votre cours de docu
 On les a selectionnées pour qu'elles rentrent dans des cases spécifiques
 
 > *Pour SQuAD :*
-| id | title | context | question | answers |
-|--|--|--|--|--|
+> | id | title | context | question | answers |
+> |--|--|--|--|--|
 
 -vertical-
 
 Des formats de fichiers spécifiquent existent pour conserver les données structurées :
+
+-vertical-
 
 **Des données au format tabulaire**
 
@@ -52,9 +54,13 @@ Des formats de fichiers spécifiquent existent pour conserver les données struc
 - Excel
 - Parquet
 
+-vertical-
+
 **Des données arrangées hierarchiquement**
 - XML
 - JSON
+
+-vertical-
 
 **D'autres représentations**
 - Les bases de données
@@ -79,14 +85,15 @@ Avec le WWW, se mettre d'accord sur les formalismes est devenu important.
 <div>
 Le nom est explicite...
 
-```
+<pre><code data-trim data-noescape>
 id, title, context, question
 573.., University_of_Notre_Dame, "Architecturally, the school has ...", To whom did the Virgin..., { "text": [ "Saint Bernadette Soubirous" ],..
 ...
-```
+</code></pre>
+
 <p class="fragment">❗ Il y a un problème dans ce fichier, est ce que vous voyez lequel ?</p>
 </div>
-<img class="fragment" src="/img/socrative-qr-code.PNG">
+<img class="fragment" src="/slides/img/socrative-qr-code.PNG">
 
 </div>
 <p class="fragment"> ➡Notre 3e champ est un texte qui contient une virgule !</p>
@@ -120,7 +127,7 @@ Je vous en parle parceque c'est comme ça que sont stockées les données de SQu
 
 -vertical-
 
-## Les formats Hierarchiques🌳
+<h2 class="r-fit-text">Les formats Hierarchiques🌳</h2>
 
 ### XML (Extensible Markup Language)
 
@@ -132,7 +139,7 @@ Je en vous refait pas un cours là dessus.
 
 -vertical-
 
-## Les formats Hierarchiques🌳
+<h2 class="r-fit-text">Les formats Hierarchiques🌳</h2>
 
 ### JSON (JavaScript Object Notation)
 
@@ -152,6 +159,7 @@ Sensiblement simimaire au XML à l'exeception de :
     "question": "To whom did the Virgin...",
     "answers": { "text": [ "Saint Bernadette Soubirous" ],..}
 }
+```
 
 <p class="fragment">❗ On peut voir que JSON est un format très utilisé dans la structure de données ci-dessus</p>
 </div>
@@ -166,14 +174,22 @@ Sensiblement simimaire au XML à l'exeception de :
 ### Les bases de données et SQL (Structured Query Language)
 
 Quand les quantités de données deviennent importantes et que leur gestion est
-critique pour le domaine de l'entreprise on utilise des bases de données.
+critique pour le domaine de l'entreprise on utilise des **bases de données**.
+
+-vertical-
 
 les bases de données (DB) les plus utilisées sont les bases de données relationnelles (cf. Cours de SQL).
 Elles utilisent un Relational Database Management System (RDBMS) pour stocker les données et peuvent
 être requêtées grâce à SQL.
 
+-vertical-
+
 Les DB sont souvent stockées sur des serveurs distants auquels il faut accéder avec un protocole de communication
 sécurisé (type ssh [secure shell protocol])
+
+@Thmas si tu veux aider
+
+Ici préparer le TP de requête sur DB distante
 
 -vertical-
 
@@ -183,7 +199,19 @@ sécurisé (type ssh [secure shell protocol])
 
 Developpé pour les besoins du web semantique, le format RDF est à la base des **ontologies** (cf. le cours d'ontologie de l'année prochaine).
 Les ontologies sont une formalisation d'une partie de la connaissance.
-Le format RDF utilise une représentation (subjet, predicat, objet) pour donner les liens entre les différents éléments contenus dans les données.
+Le format RDF utilise une représentation
+
+> (sujet, predicat, objet)
+
+pour donner les liens entre les différents éléments contenus dans les données.
+
+-vertical-
+
+## Les autres formats
+
+### RDF
+
+*un exemple*
 
 ```
 (University_of_Notre_Dame, titre, "Architecturally, the school has...")
@@ -313,4 +341,12 @@ says(sound=None)
 
 -vertical-
 
-Tâche à définir
+1. Aller requêter notre DB
+---
+1. Ouvrir son corpus avec pandas
+2. Convertir son corpus au format Dataset
+3. Réaliser des métriques sur le corpus
+    a. taille des textes
+        - en nombre de mots
+        - en nombre de phrases
+        - en taille de fichiers

@@ -45,3 +45,9 @@ Tous vos devoirs devront m’être parvenus avant le 17 mai
 - Cours 3
   - [slides](/slides/cours3.html)
   - [notebook](/notebooks/web_scrap.ipynb)
+- Cours 4
+  - [slides](/slides/cours4.html)
+- Cours 5
+  - [slides](/slides/cours5.html)
+- Cours 6
+  - [slides](/slides/cours6.html)
