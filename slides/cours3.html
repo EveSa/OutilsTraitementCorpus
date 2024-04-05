@@ -12,15 +12,222 @@ cours 3
 <h2 class="r-fit-text">🔧Les Outils pour explorer les données🔧</h2>
 
 -vertical-
-# Cours 3
+# Cours 4
 
-<h2 class="r-fit-text">🛍️Récupérer de nouvelles données🛍️</h2>
-<h2 class="r-fit-text">⛽Rendre les données exploitable⛽</h2>
+<h2 class="r-fit-text">📦Stocker des données📦</h2>
+<h2 class="r-fit-text">🔄Charger les données dans python🔄</h2>
 <h2 class="r-fit-text">🔧Les Outils pour explorer les données🔧</h2>
 
 -horizontal-
 
-Contenu du cours
+<h2 class="r-fit-text">📦Stocker des données📦</h2>
+
+Maintenant qu'on a récupéré 3M de données sur le web, il va falloir les stocker efficacement pour qu'elles soient accessible simplement.
+
+-vertical-
+
+Même avant le *Machine Learning* (ML) et les *Transformers* 🤖, le stockage des données était un paramètre important.
+
+>*Par exemple :*
+>
+>Dans un cadre professionnel, une entreprise veut garder en mémoire les informations de ses clients
+
+-vertical-
+
+Ce genre de données sont des **données structurées** (cf. votre cours de documents structurés): 
+
+On les a selectionnées pour qu'elles rentrent dans des cases spécifiques
+
+> *Pour SQuAD :*
+| id | title | context | question | answers |
+|--|--|--|--|--|
+
+-vertical-
+
+Des formats de fichiers spécifiquent existent pour conserver les données structurées :
+
+**Des données au format tabulaire**
+
+- CSV
+- Excel
+- Parquet
+
+**Des données arrangées hierarchiquement**
+- XML
+- JSON
+
+**D'autres représentations**
+- Les bases de données
+- YAML
+- RDF
+
+-vertical-
+
+### Pourquoi des formats spécifiques ?
+
+Suivre des formats permet l'inter-opérabilité des systèmes qui utilisent ces données.
+Avec le WWW, se mettre d'accord sur les formalismes est devenu important.
+
+-vertical-
+
+## Les format tabulaire📊
+
+### Comma Separated Values (CSV)
+
+<div class="r-stack">
+
+<div>
+Le nom est explicite...
+
+```
+id, title, context, question
+573.., University_of_Notre_Dame, "Architecturally, the school has ...", To whom did the Virgin..., { "text": [ "Saint Bernadette Soubirous" ],..
+...
+```
+<p class="fragment">❗ Il y a un problème dans ce fichier, est ce que vous voyez lequel ?</p>
+</div>
+<img class="fragment" src="/img/socrative-qr-code.PNG">
+
+</div>
+<p class="fragment"> ➡Notre 3e champ est un texte qui contient une virgule !</p>
+
+-vertical-
+
+## Les format tabulaire📊
+
+Pour éviter ce genre de problème : CSV permet l'utilisation d'autres delimiteurs
+
+➡ Il suffit de préciser quel délimiteur on utilise quand on traite les données.
+
+-vertical-
+
+## Les format tabulaire📊
+
+### Excel
+
+Couplé avec un logiciel d'exploitation des données, le format `.xsl` reste très utilisé.
+
+❗ Excel (comme la plupart des formats de données de même type) est compatible avec csv
+
+-vertical-
+
+## Les format tabulaire📊
+
+### Parquet
+
+**Apache Parquet** est efficace pour stocker des grandes quantités de données.
+Je vous en parle parceque c'est comme ça que sont stockées les données de SQuAD.
+
+-vertical-
+
+## Les formats Hierarchiques🌳
+
+### XML (Extensible Markup Language)
+
+Premier format de données pour échanger les info sur internet
+
+➡Donne naissance au HTML
+
+Je en vous refait pas un cours là dessus.
+
+-vertical-
+
+## Les formats Hierarchiques🌳
+
+### JSON (JavaScript Object Notation)
+
+<div class="r-stack">
+<div>
+Popularisé par les amateurs de JavaScript après l'arrivée de XML.
+
+Sensiblement simimaire au XML à l'exeception de :
+- sa rapidité
+- son utilisation des listes
+
+```
+{
+    "id": 573..,
+    "title": "University_of_Notre_Dame",
+    "context": "Architecturally, the school has ...",
+    "question": "To whom did the Virgin...",
+    "answers": { "text": [ "Saint Bernadette Soubirous" ],..}
+}
+
+<p class="fragment">❗ On peut voir que JSON est un format très utilisé dans la structure de données ci-dessus</p>
+</div>
+
+<img class="fragment" src="/img/socrative-qr-code.PNG">
+</div>
+
+-vertical-
+
+## Les autres formats
+
+### Les bases de données et SQL (Structured Query Language)
+
+Quand les quantités de données deviennent importantes et que leur gestion est
+critique pour le domaine de l'entreprise on utilise des bases de données.
+
+les bases de données (DB) les plus utilisées sont les bases de données relationnelles (cf. Cours de SQL).
+Elles utilisent un Relational Database Management System (RDBMS) pour stocker les données et peuvent
+être requêtées grâce à SQL.
+
+Les DB sont souvent stockées sur des serveurs distants auquels il faut accéder avec un protocole de communication
+sécurisé (type ssh [secure shell protocol])
+
+-vertical-
+
+## Les autres formats
+
+### RDF
+
+Developpé pour les besoins du web semantique, le format RDF est à la base des **ontologies** (cf. le cours d'ontologie de l'année prochaine).
+Les ontologies sont une formalisation d'une partie de la connaissance.
+Le format RDF utilise une représentation (subjet, predicat, objet) pour donner les liens entre les différents éléments contenus dans les données.
+
+```
+(University_of_Notre_Dame, titre, "Architecturally, the school has...")
+```
+Des languages spécifiques existent pour ce format (JSON-LD, OWL) mais vous les verrez l'année prochaine.
+
+-horinzontal-
+
+<h2 class="r-fit-text">🔄Charger les données dans python🔄</h2>
+
+-vertical-
+
+Maintenant que :
+1. On a récupéré les données qui nous intéréssent sur le web
+2. On les a stockés dans un format structuré approprié
+
+➡On veut pouvoir accéder à ces données dans python pour les explorer
+
+-vertical-
+
+# Ouvrir des fichiers
+
+```
+with open('file_path.txt', 'r') as file:
+    data = file.readlines()
+```
+
+-vertical-
+
+si on a du json, on peut utiliser la librairie Python `json`
+
+```
+import python
+
+with open('file_path.txt', 'r') as file:
+    data = json.load(file)
+```
+
+-vertical-
+
+Mais si on a rempli un fichier de différents objets json, ça ne va pas marcher :
+
+c'est ce qu'on appelle un fichier jsonlines. On est obligé l'itérer sur les lignes
+
 
 -horizontal-
 
