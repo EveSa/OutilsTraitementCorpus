@@ -78,8 +78,6 @@ Avec le WWW, se mettre d'accord sur les formalismes est devenu important.
 
 ### Comma Separated Values (CSV)
 
-Le nom est explicite
-
 <div class="r-stack">
     <div>
 
@@ -237,7 +235,706 @@ Maintenant que :
 
 On va voir comment ouvrir nos données grâce à un [notebook](/OutilsTraitementCorpus/notebooks/open_data.ipynb)
 
--horizontal-
+<div class="reveal">
+    <div class="slides"><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>On sait ouvrir des fichiers</p>
+    </div>
+    </div>
+    </div>
+    </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"../data/mock_data.txt"</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">data</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+    </div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+    <div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
+    <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+    <pre>['Architecturally, the school has a Catholic character. Atop the Main Building\'s gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend "Venite Ad Me Omnes". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary.']</pre>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>Dans le cas de nos données structurés, on va peut être avoir des fichiers <code>csv</code>...</p>
+    <p>Python a une bibliothèque expres pour lire les csv</p>
+    </div>
+    </div>
+    </div>
+    </div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"../data/mock_data.csv"</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">";"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+    </div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+    <div class="jp-OutputArea-child">
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+    <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+    <pre>['id', ' title', ' context', ' question', ' answers']
+    ['5733be284776f41900661182', ' "University_of_Notre_Dame"', ' "Architecturally, the school has a Catholic character. Atop the Main Building\'s gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend \\"Venite Ad Me Omnes\\". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary."', ' "To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?"', ' { "text": [ "Saint Bernadette Soubirous" ], "answer_start": [ 515 ] }']
+    ['5733be284776f41900661182', ' "University_of_Notre_Dame"', ' "Architecturally, the school has a Catholic character. Atop the Main Building\'s gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend \\"Venite Ad Me Omnes\\". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary."', ' "To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?"', ' { "text": [ "Saint Bernadette Soubirous" ], "answer_start": [ 515 ] }']
+    ['5733be284776f41900661182', ' "University_of_Notre_Dame"', ' "Architecturally, the school has a Catholic character. Atop the Main Building\'s gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend \\"Venite Ad Me Omnes\\". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary."', ' "To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?"', ' { "text": [ "Saint Bernadette Soubirous" ], "answer_start": [ 515 ] }']
+    ['5733be284776f41900661182', ' "University_of_Notre_Dame"', ' "Architecturally, the school has a Catholic character. Atop the Main Building\'s gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend \\"Venite Ad Me Omnes\\". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary."', ' "To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?"', ' { "text": [ "Saint Bernadette Soubirous" ], "answer_start": [ 515 ] }']
+    </pre>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>si on a du json, on peut utiliser la librairie Python <code>json</code></p>
+    </div>
+    </div>
+    </div>
+    </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"../data/mock_data.json"</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">data</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+    </div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+    <div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
+    <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+    <pre>{'id': '5733be284776f41900661182',
+     'title': 'University_of_Notre_Dame',
+     'context': 'Architecturally, the school has a Catholic character. Atop the Main Building\'s gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend "Venite Ad Me Omnes". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary.',
+     'question': 'To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?',
+     'answers': {'text': ['Saint Bernadette Soubirous'], 'answer_start': [515]}}</pre>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>On peut maintenant accéder aux différents champs comme pour un dictionnaire</p>
+    </div>
+    </div>
+    </div>
+    </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+    </div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+    <div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+    <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+    <pre>'5733be284776f41900661182'</pre>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>Mais si on a rempli un fichier de différents objets json, ça ne va pas marcher :</p>
+    <p>c'est ce qu'on appelle un fichier jsonlines. On est obligé l'itérer sur les lignes</p>
+    </div>
+    </div>
+    </div>
+    </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"../data/mock_data_lines.json"</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+    </div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+    <div class="jp-OutputArea-child">
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+    <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+    <pre>{"id":"5733be284776f41900661182", "title":"University_of_Notre_Dame", "context":"Architecturally, the school has a Catholic character. Atop the Main Building's gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend \"Venite Ad Me Omnes\". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary.", "question":"To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?", "answers": { "text": [ "Saint Bernadette Soubirous" ], "answer_start": [ 515 ] }}
+    
+    {"id":"5733be284776f41900661182", "title":"University_of_Notre_Dame", "context":"Architecturally, the school has a Catholic character. Atop the Main Building's gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend \"Venite Ad Me Omnes\". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary.", "question":"To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?", "answers": { "text": [ "Saint Bernadette Soubirous" ], "answer_start": [ 515 ] }}
+    
+    {"id":"5733be284776f41900661182", "title":"University_of_Notre_Dame", "context":"Architecturally, the school has a Catholic character. Atop the Main Building's gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend \"Venite Ad Me Omnes\". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary.", "question":"To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?", "answers": { "text": [ "Saint Bernadette Soubirous" ], "answer_start": [ 515 ] }}
+    
+    {"id":"5733be284776f41900661182", "title":"University_of_Notre_Dame", "context":"Architecturally, the school has a Catholic character. Atop the Main Building's gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend \"Venite Ad Me Omnes\". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary.", "question":"To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?", "answers": { "text": [ "Saint Bernadette Soubirous" ], "answer_start": [ 515 ] }}
+    </pre>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>On peut accéder aux différents objets et à leurs attributs</p>
+    </div>
+    </div>
+    </div>
+    </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'id'</span><span class="p">]</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+    </div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+    <div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
+    <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+    <pre>'5733be284776f41900661182'</pre>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></div><div class="fragment">
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>C'est pas super satisfaisant de devoir itérer sur notre fichier comme ça ...</p>
+    <p>Heureuseuement, il y a d'autres personnes avant nous qui se sont dit la même chose et qui ont crée une librairie pour ouvrir des données un peu mieux que ça.</p>
+    </div>
+    </div>
+    </div>
+    </div></div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>C'est la librairie <code>pandas</code></p>
+    <p>Qui nous permet de lire :</p>
+    <ul>
+    <li>des csv</li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/mock_data.csv"</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">";"</span><span class="p">)</span>
+    <span class="n">data</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+    </div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+    <div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[23]:</div>
+    <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+    <div>
+    <style scoped="">
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+    
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+    
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+    <thead>
+    <tr style="text-align: right;">
+    <th></th>
+    <th>id</th>
+    <th>title</th>
+    <th>context</th>
+    <th>question</th>
+    <th>answers</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <th>0</th>
+    <td>5733be284776f41900661182</td>
+    <td>"University_of_Notre_Dame"</td>
+    <td>"Architecturally, the school has a Catholic c...</td>
+    <td>"To whom did the Virgin Mary allegedly appear...</td>
+    <td>{ "text": [ "Saint Bernadette Soubirous" ], "...</td>
+    </tr>
+    <tr>
+    <th>1</th>
+    <td>5733be284776f41900661182</td>
+    <td>"University_of_Notre_Dame"</td>
+    <td>"Architecturally, the school has a Catholic c...</td>
+    <td>"To whom did the Virgin Mary allegedly appear...</td>
+    <td>{ "text": [ "Saint Bernadette Soubirous" ], "...</td>
+    </tr>
+    <tr>
+    <th>2</th>
+    <td>5733be284776f41900661182</td>
+    <td>"University_of_Notre_Dame"</td>
+    <td>"Architecturally, the school has a Catholic c...</td>
+    <td>"To whom did the Virgin Mary allegedly appear...</td>
+    <td>{ "text": [ "Saint Bernadette Soubirous" ], "...</td>
+    </tr>
+    <tr>
+    <th>3</th>
+    <td>5733be284776f41900661182</td>
+    <td>"University_of_Notre_Dame"</td>
+    <td>"Architecturally, the school has a Catholic c...</td>
+    <td>"To whom did the Virgin Mary allegedly appear...</td>
+    <td>{ "text": [ "Saint Bernadette Soubirous" ], "...</td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <ul>
+    <li>des json</li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [29]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s2">"../data/mock_data_lines.json"</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+    </div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+    <div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[29]:</div>
+    <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+    <div>
+    <style scoped="">
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+    
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+    
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+    <thead>
+    <tr style="text-align: right;">
+    <th></th>
+    <th>id</th>
+    <th>title</th>
+    <th>context</th>
+    <th>question</th>
+    <th>answers</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <th>0</th>
+    <td>5733be284776f41900661182</td>
+    <td>University_of_Notre_Dame</td>
+    <td>Architecturally, the school has a Catholic cha...</td>
+    <td>To whom did the Virgin Mary allegedly appear i...</td>
+    <td>{'text': ['Saint Bernadette Soubirous'], 'answ...</td>
+    </tr>
+    <tr>
+    <th>1</th>
+    <td>5733be284776f41900661182</td>
+    <td>University_of_Notre_Dame</td>
+    <td>Architecturally, the school has a Catholic cha...</td>
+    <td>To whom did the Virgin Mary allegedly appear i...</td>
+    <td>{'text': ['Saint Bernadette Soubirous'], 'answ...</td>
+    </tr>
+    <tr>
+    <th>2</th>
+    <td>5733be284776f41900661182</td>
+    <td>University_of_Notre_Dame</td>
+    <td>Architecturally, the school has a Catholic cha...</td>
+    <td>To whom did the Virgin Mary allegedly appear i...</td>
+    <td>{'text': ['Saint Bernadette Soubirous'], 'answ...</td>
+    </tr>
+    <tr>
+    <th>3</th>
+    <td>5733be284776f41900661182</td>
+    <td>University_of_Notre_Dame</td>
+    <td>Architecturally, the school has a Catholic cha...</td>
+    <td>To whom did the Virgin Mary allegedly appear i...</td>
+    <td>{'text': ['Saint Bernadette Soubirous'], 'answ...</td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>et comme avant, on peut accéder aux différents attributs :</p>
+    <p>Mais avec une syntaxe un peu différente</p>
+    </div>
+    </div>
+    </div>
+    </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [32]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+    </div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+    <div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[32]:</div>
+    <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+    <pre>id                                   5733be284776f41900661182
+    title                                University_of_Notre_Dame
+    context     Architecturally, the school has a Catholic cha...
+    question    To whom did the Virgin Mary allegedly appear i...
+    answers     {'text': ['Saint Bernadette Soubirous'], 'answ...
+    Name: 0, dtype: object</pre>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [34]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s2">"question"</span><span class="p">]</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+    </div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+    <div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[34]:</div>
+    <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+    <pre>0    To whom did the Virgin Mary allegedly appear i...
+    1    To whom did the Virgin Mary allegedly appear i...
+    2    To whom did the Virgin Mary allegedly appear i...
+    3    To whom did the Virgin Mary allegedly appear i...
+    Name: question, dtype: object</pre>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>Pour les corpus de données, on a également une librairie spécifique qui nous est fournie par huggingface 🤗</p>
+    <p>→ C'est la librairie <code>datasets</code></p>
+    </div>
+    </div>
+    </div>
+    </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+    
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">"csv"</span><span class="p">,</span> <span class="n">data_files</span><span class="o">=</span><span class="s2">"../data/mock_data.csv"</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">"train"</span><span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">"json"</span><span class="p">,</span> <span class="n">data_files</span><span class="o">=</span><span class="s2">"../data/mock_data_lines.json"</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">"train"</span><span class="p">)</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>On peut aussi créer son propre <a href="https://github.com/huggingface/datasets/blob/main/templates/new_dataset_script.py">script de DataLoading</a></p>
+    </div>
+    </div>
+    </div>
+    </div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>La bibliothèque <code>datasets</code> permet de charger facilement les données des corpus disponibles sur le hub de <code>hugging face</code> mais est aussi compatible avec la bibliothèque <code>pandas</code></p>
+    </div>
+    </div>
+    </div>
+    </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">Dataset</span>
+    
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">"rajpurkar/squad"</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">"train"</span><span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>On a d'abord des informations sur le dataset</p>
+    </div>
+    </div>
+    </div>
+    </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="n">dataset</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+    </div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+    <div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
+    <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+    <pre>Dataset({
+        features: ['id', 'title', 'context', 'question', 'answers'],
+        num_rows: 87599
+    })</pre>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></div></section></section><section><section>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+    </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+    <p>Et on peut comme avec pandas accéder aux informations contenus dans le dataset (de façon un peu plus directe cette fois)</p>
+    </div>
+    </div>
+    </div>
+    </div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+    <div class="jp-Cell-inputWrapper" tabindex="0">
+    <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+    </div>
+    <div class="jp-InputArea jp-Cell-inputArea">
+    <div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+    <div class="cm-editor cm-s-jupyter">
+    <div class="highlight hl-ipython3"><pre><span></span><span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    </pre></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="jp-Cell-outputWrapper">
+    <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+    </div>
+    <div class="jp-OutputArea jp-Cell-outputArea">
+    <div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[18]:</div>
+    <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+    <pre>{'id': '5733be284776f41900661182',
+     'title': 'University_of_Notre_Dame',
+     'context': 'Architecturally, the school has a Catholic character. Atop the Main Building\'s gold dome is a golden statue of the Virgin Mary. Immediately in front of the Main Building and facing it, is a copper statue of Christ with arms upraised with the legend "Venite Ad Me Omnes". Next to the Main Building is the Basilica of the Sacred Heart. Immediately behind the basilica is the Grotto, a Marian place of prayer and reflection. It is a replica of the grotto at Lourdes, France where the Virgin Mary reputedly appeared to Saint Bernadette Soubirous in 1858. At the end of the main drive (and in a direct line that connects through 3 statues and the Gold Dome), is a simple, modern stone statue of Mary.',
+     'question': 'To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?',
+     'answers': {'answer_start': [515], 'text': ['Saint Bernadette Soubirous']}}</pre>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div></div></section></section>
+    </div>
+    </div>    
 
 ❓ Des questions ❓
 
@@ -254,9 +951,11 @@ On va voir comment ouvrir nos données grâce à un [notebook](/OutilsTraitement
 
 1. Aller requêter notre DB
 ---
+Dans un notebook
+
 1. Ouvrir son corpus avec pandas
 2. Convertir son corpus au format Dataset
-3. Réaliser des métriques sur le corpus
+3. Donner des informations sur son corpus
     a. taille des textes
         - en nombre de mots
         - en nombre de phrases
