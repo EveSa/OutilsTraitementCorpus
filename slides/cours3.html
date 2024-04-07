@@ -9,14 +9,12 @@ cours 3
 
 <h2 class="r-fit-text">🛍️Récupérer de nouvelles données🛍️</h2>
 <h2 class="r-fit-text">⛽Rendre les données exploitable⛽</h2>
-<h2 class="r-fit-text">🔧Les Outils pour explorer les données🔧</h2>
 
 -vertical-
 # Cours 3
 
 <h2 class="r-fit-text">📦Stocker des données📦</h2>
 <h2 class="r-fit-text">🔄Charger les données dans python🔄</h2>
-<h2 class="r-fit-text">🔧Les Outils pour explorer les données🔧</h2>
 
 -horizontal-
 
@@ -80,22 +78,21 @@ Avec le WWW, se mettre d'accord sur les formalismes est devenu important.
 
 ### Comma Separated Values (CSV)
 
+Le nom est explicite
+
 <div class="r-stack">
     <div>
-        <p>Le nom est explicite...</p>
-        <pre><code data-trim data-noescape>
-            id, title, context, question
-            573.., University_of_Notre_Dame, "Architecturally, the school has ...", To whom did the Virgin..., {"text": [ "Saint Bernadette Soubirous" ], ...},..
-            ...
-        </code></pre>
-        <p class="fragment">❗ Il y a un problème dans ce fichier, est ce que vous voyez lequel ?</p>
-    </div>
-    <div class="fragment">
-        <img src="/OutilsTraitementCorpus/slides/img/socrative-qr-code.PNG">
-    </div>
+
+```
+id, title, context, question
+573.., University_of_Notre_Dame, "Architecturally, the school has ...", To whom did the Virgin..., {"text": [ "Saint Bernadette Soubirous" ], ...},..
+...
+```
+
+<p class="fragment">❗ Il y a un problème dans ce fichier, est ce que vous voyez lequel ?</p>
 </div>
-<div>
-    <p class="fragment"> ➡Notre 3e champ est un texte qui contient une virgule !</p>
+
+<img class="fragment" src="/OutilsTraitementCorpus/slides/img/socrative-qr-code.PNG">
 </div>
 
 -vertical-
@@ -238,32 +235,7 @@ Maintenant que :
 
 ➡On veut pouvoir accéder à ces données dans python pour les explorer
 
--vertical-
-
-# Ouvrir des fichiers
-
-```
-with open('file_path.txt', 'r') as file:
-    data = file.readlines()
-```
-
--vertical-
-
-si on a du json, on peut utiliser la librairie Python `json`
-
-```
-import python
-
-with open('file_path.txt', 'r') as file:
-    data = json.load(file)
-```
-
--vertical-
-
-Mais si on a rempli un fichier de différents objets json, ça ne va pas marcher :
-
-c'est ce qu'on appelle un fichier jsonlines. On est obligé l'itérer sur les lignes
-
+On va voir comment ouvrir nos données grâce à un [notebook](/OutilsTraitementCorpus/notebooks/open_data.ipynb)
 
 -horizontal-
 
@@ -275,77 +247,8 @@ c'est ce qu'on appelle un fichier jsonlines. On est obligé l'itérer sur les li
 
 ## Le point bonne pratique
 
-**Commenter son code &rarr; les [docstrings](https://peps.python.org/pep-0257/#what-is-a-docstring)**
+**Les environnements virtuels**
 
-> "Code is read much more often than it is written." Guido
-
--vertical-
-
-1. Les docstrings de module
-Au début un fichier `.py`, on explique à quoi il sert et qu'est ce qu'il contient
-```
-"""Spreadsheet Column Printer
-
-This script allows the user to print to the console all columns in the
-spreadsheet. It is assumed that the first row of the spreadsheet is the
-location of the columns.
-
-This tool accepts comma separated value files (.csv) as well as excel
-(.xls, .xlsx) files.
-
-This script requires that `pandas` be installed within the Python
-environment you are running this script in.
-
-This file can also be imported as a module and contains the following
-functions:
-
-    * get_spreadsheet_cols - returns the column headers of the file
-    * main - the main function of the script
-"""
-```
-
--vertical-
-
-2. Les docstrings de fonction
-```
-"""Gets and prints the spreadsheet's header columns
-
-Parameters
-----------
-file_loc : str
-    The file location of the spreadsheet
-print_cols : bool, optional
-    A flag used to print the columns to the console (default is
-    False)
-
-Returns
--------
-list
-    a list of strings used that are the header columns
-"""
-```
-
--vertical-
-
-3. Les docstrings de Classe
-```
-"""
-A class used to represent an Animal
-
-Attributes
-----------
-says_str : str
-    a formatted string to print out what the animal says
-...
-num_legs : int
-    the number of legs the animal has (default 4)
-
-Methods
--------
-says(sound=None)
-    Prints the animals name and what sound it makes
-"""
-```
 
 -vertical-
 

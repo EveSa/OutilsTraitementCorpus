@@ -10,7 +10,6 @@ cours 3
 
 <h2 class="r-fit-text">📦Stocker des données📦</h2>
 <h2 class="r-fit-text">🔄Charger les données dans python🔄</h2>
-<h2 class="r-fit-text">🔧Les Outils pour explorer les données🔧</h2>
 
 -vertical-
 
@@ -55,9 +54,77 @@ pandas drop
 
 ## Le point bonne pratique
 
-**Les conventions de "nommage"** / *naming convention*
-la [PEP 8](https://peps.python.org/pep-0008/#naming-conventions)
+**Commenter son code &rarr; les [docstrings](https://peps.python.org/pep-0257/#what-is-a-docstring)**
 
+> "Code is read much more often than it is written." Guido
+
+-vertical-
+
+1. Les docstrings de module
+Au début un fichier `.py`, on explique à quoi il sert et qu'est ce qu'il contient
+```
+"""Spreadsheet Column Printer
+
+This script allows the user to print to the console all columns in the
+spreadsheet. It is assumed that the first row of the spreadsheet is the
+location of the columns.
+
+This tool accepts comma separated value files (.csv) as well as excel
+(.xls, .xlsx) files.
+
+This script requires that `pandas` be installed within the Python
+environment you are running this script in.
+
+This file can also be imported as a module and contains the following
+functions:
+
+    * get_spreadsheet_cols - returns the column headers of the file
+    * main - the main function of the script
+"""
+```
+
+-vertical-
+
+2. Les docstrings de fonction
+```
+"""Gets and prints the spreadsheet's header columns
+
+Parameters
+----------
+file_loc : str
+    The file location of the spreadsheet
+print_cols : bool, optional
+    A flag used to print the columns to the console (default is
+    False)
+
+Returns
+-------
+list
+    a list of strings used that are the header columns
+"""
+```
+
+-vertical-
+
+3. Les docstrings de Classe
+```
+"""
+A class used to represent an Animal
+
+Attributes
+----------
+says_str : str
+    a formatted string to print out what the animal says
+...
+num_legs : int
+    the number of legs the animal has (default 4)
+
+Methods
+-------
+says(sound=None)
+    Prints the animals name and what sound it makes
+"""
+```
 
 -vertical-
 
