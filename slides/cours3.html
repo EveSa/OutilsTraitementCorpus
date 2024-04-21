@@ -79,7 +79,7 @@ Avec le WWW, se mettre d'accord sur les formalismes est devenu important.
 ### Comma Separated Values (CSV)
 
 <div class="r-stack">
-    <div>
+    <div style="max-height:300px;font-size:0.35em">
 
 ```
 id, title, context, question
@@ -189,10 +189,6 @@ Elles utilisent un Relational Database Management System (RDBMS) pour stocker le
 
 Les DB sont souvent stockées sur des serveurs distants auquels il faut accéder avec un protocole de communication
 sécurisé (type ssh [secure shell protocol])
-
-@Thmas si tu veux aider
-
-Ici préparer le TP de requête sur DB distante
 
 -vertical-
 
@@ -623,6 +619,7 @@ dataset[0]
      'question': 'To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?',
      'answers': {'answer_start': [515], 'text': ['Saint Bernadette Soubirous']}}
 
+-vertical-
 
 ❓ Des questions ❓
 
@@ -643,8 +640,9 @@ Dans un notebook
 
 1. Ouvrir son corpus avec pandas
 2. Convertir son corpus au format Dataset
-3. Donner des informations sur son corpus
-    a. taille des textes
-        - en nombre de mots
-        - en nombre de phrases
-        - en taille de fichiers
+    - Avec les colonnes de sont corpus de référence
+        - c.a.d. ajouter des colonnes quand il y a en a besoin etc.
+
+Pour avancer sur la séance suivante :
+
+- Lancer l'annotation morphosyntaxique des données textuelles avec votre annotateur préféré (SpaCy si vous savez pas)
