@@ -179,16 +179,7 @@ Sensiblement simimaire au XML à l'exeception de :
 Quand les quantités de données deviennent importantes et que leur gestion est
 critique pour le domaine de l'entreprise on utilise des **bases de données**.
 
--vertical-
-
-les bases de données (DB) les plus utilisées sont les bases de données relationnelles (cf. Cours de SQL).
-Elles utilisent un Relational Database Management System (RDBMS) pour stocker les données et peuvent
-être requêtées grâce à SQL.
-
--vertical-
-
-Les DB sont souvent stockées sur des serveurs distants auquels il faut accéder avec un protocole de communication
-sécurisé (type ssh [secure shell protocol])
+&rarr; On verra ça le cours prochain
 
 -vertical-
 
@@ -619,7 +610,7 @@ dataset[0]
      'question': 'To whom did the Virgin Mary allegedly appear in 1858 in Lourdes France?',
      'answers': {'answer_start': [515], 'text': ['Saint Bernadette Soubirous']}}
 
--vertical-
+-horizontal-
 
 ❓ Des questions ❓
 
@@ -629,13 +620,64 @@ dataset[0]
 
 ## Le point bonne pratique
 
-**Les environnements virtuels**
+**Les environnements/machines virtuels**
 
+1. Les machines virtuelles permettent de créer un environnement commun à toutes les personnes contribuant à un même projet pour éviter le problème du “*but it works on my computer*”. Cette utilisation des machines virtuelles est maintenant dépréciée avec la démocratisation des Dockers
+2. Les machines virtuelles permettent de contourner les restrictions imposée sur une machine tout en gardant un haut niveau de sécurité
+3. Les machines virtuelles permettent de cloisonner efficacement les environnements au même titre qu’un environnement et permet de travailler sur un grand nombre d’OS différent
 
 -vertical-
 
-1. Aller requêter notre DB
----
+### les environnements/machines virtuels
+
+**Comment mettre en place son environnement virtuel ?**
+
+```
+pip install virtualenv
+virtualenv ENV_NAME
+source ./ENV_NAME/bin/activate
+```
+
+-vertical-
+
+**Comment mettre en place son environnement virtuel ?**
+
+̀``̀
+python -m venv env
+source ./ENV_NAME/bin/activate
+```
+
+#### Conda
+
+Conda est avant tout est un gestionnaire de paquet (comme pip)
+
+Mais pour mieux gérer les dépendances des différents paquets, conda a également mis en place un système de management d'environnement.
+
+-vertical-
+
+**Comment mettre en place son environnement conda ?**
+
+``̀
+apt install conda
+conda create --name ENV_NAME -y python=VERSION
+conda activate ENV_NAME
+̀̀```
+
+-vertical-
+
+### Et docker 🐋?
+
+Docker est un systeme de virtualisation. Il permet de developper une application dans un environnement isolé mais partageant les mêmes ressources que la machine.
+
+-vertical-
+
+**Comment utiliser docker ?**
+
+1. Installer [docker](https://docs.docker.com/desktop/install/linux-install/)
+2. 
+
+-vertical-
+
 Dans un notebook
 
 1. Ouvrir son corpus avec pandas
