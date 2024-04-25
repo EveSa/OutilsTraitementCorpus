@@ -31,28 +31,10 @@ Mais on a parlé de bases de données.
 
 Elles sont administrées par des actions *axiomatiques* qui sont partagé par tous les systèmes de bases de données.
 
-- Define database
-- Construct database
-- Manipulate database
-- Share database
-
--vertical-
-
-### Define
-
--vertical-
-
-### Construct
-
--vertical-
-
-### Manipulate
-
--vertical-
-
-### Share
-
-
+- La *définition*
+- Les opération de *modification*
+- Les *recherches*
+- Le *partage/administration*
 
 -vertical-
 
@@ -62,6 +44,7 @@ En indexant les données, on peut encore améliorer cette performance pour le st
 
 -vertical-
 
+<aside class="notes">
 schema creation
 
 -> il ya un certain nombre d'actions qui sont limitées
@@ -69,9 +52,8 @@ schema creation
 SQL
 
 clé primaire - clé etrangère
+</aside>
 
-
--vertical-
 
 les bases de données (DB) les plus utilisées sont les bases de données relationnelles (cf. Cours de SQL).
 Elles utilisent un Relational Database Management System (RDBMS) pour stocker les données et peuvent
@@ -90,11 +72,11 @@ PostGre vs. SQLite
 Les DB sont souvent stockées sur des serveurs distants auquels il faut accéder avec un protocole de communication
 sécurisé (type ssh [secure shell protocol])
 
-&rarr; On peut s'entraîner à gérer ce genre de choses grâce à des environnements virtuels ou des dockers !
+&rarr; On peut s'entraîner à gérer ce genre de choses grâce à des machines virtuelles ou des dockers !
 
 -vertical-
 
-## TP
+## TP - Se connecter en ssh
 
 1. Installer [docker](https://docs.docker.com/desktop/install/linux-install/) sur votre machine
 2. Récupérer le [zip](/OutilsTraitementCorpus/src/dockerssh.zip)
@@ -105,8 +87,19 @@ sécurisé (type ssh [secure shell protocol])
 sudo docker run -d -p 127.0.0.1:22:22 --mount type=volume,src=mock-db,target=/ alpine-sshd:latest
 ```
 6. se connecter en ssh sur le port 22
+```
+ssh user@127.0.0.1
 
 -vertical-
+
+## TP - créer sa base de données
+
+```
+import sqlite3
+con = sqlite3.connect("user@tutorial.db")
+
+
+-horizontal-
 
 <h2 class="r-fit-text">👓Visualiser les données👓</h2>
 
