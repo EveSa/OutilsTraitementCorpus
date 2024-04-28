@@ -230,20 +230,16 @@ La visualisation permet de :
 
 La perception humaine est limitée.
 
-<div class="row">
-    <div class="column">
+<div class="r-fit-text">
         <img src="https://www.popsci.com/uploads/2019/03/18/HJRGWPU4SINA2B6WK5PJ2UBF4M.jpg?auto=webp&optimize=high&width=1440">
-    </div>
-    <div class="column">
         <img class="fragment" src="https://www.popsci.com/uploads/2019/03/18/6QRQCXL4ZJSFJG4NXTX7RBODOU.jpg?auto=webp&optimize=high&width=800">
-    </div>
 </div>
 
 -vertical-
 
 On est bon pour reconnaitre les formes et les ordres de grandeurs
 
-<img class ="r-fit-text" src="https://static.boredpanda.com/blog/wp-content/uploads/2020/09/1291509085855260672-png__700.jpg">
+<img class ="r-stretch" src="https://static.boredpanda.com/blog/wp-content/uploads/2020/09/1291509085855260672-png__700.jpg">
 
 -vertical-
 
@@ -441,12 +437,6 @@ RUN apk add --update --no-cache openssh\
 
 -vertical-
 
-## les utilisateurs
-
-les permissions linux
-
--vertical-
-
 RUN adduser -h /home/user -s /bin/sh -D user
 
 -vertical-
@@ -459,20 +449,20 @@ RUN adduser -h /home/user -s /bin/sh -D user
 
 -vertical-
 
+```
 RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 RUN echo -n "user:defaultpassword" | chpasswd
 ENTRYPOINT ["/entrypoint.sh"]
-
--vertical-
-
-## Qu'est ce qu'un port
+```
 
 -vertical-
 
 1. exposer son conteneur sur un port
 
+```
 EXPOSE 22
 COPY entrypoint.sh /
+```
 
 -vertical-
 
@@ -484,7 +474,10 @@ COPY entrypoint.sh /
 
 <h3 class="r-fit-text">Construire son docker</h3>
 
-1. build le docker avec la commande `sudo docker build -t alpine-sshd .`
+1. build le docker avec la commande 
+```
+sudo docker build -t alpine-sshd .
+```
 
 -vertical-
 
@@ -492,7 +485,10 @@ When a container runs, it uses the various layers from an image for its filesyst
 
 -vertical-
 
-2. créer un volume persitant `sudo docker volume create mock-db`
+2. créer un volume persitant 
+```
+sudo docker volume create mock-db
+```
 
 -vertical-
 
@@ -515,11 +511,11 @@ ssh user@127.0.0.1
 
 On peut directement insérer nos dataframe `pandas` comme des tables sql grâce à la méthode de conversion `to_sql`
 
-̀```
+```
 import sqlite3
 con = sqlite3.connect("tutorial.db")
 dataset.to_sql(con)
-```
+``̀ 
 
 -horizontal-
 
