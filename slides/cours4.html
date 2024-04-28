@@ -29,14 +29,16 @@ Mais on a parlé de bases de données.
 
 -vertical-
 
-## Petit rappel sur les BdD
+### Petit rappel sur les BdD
 
 
-Les bases de données permettent de stocker de larges quantités de données de façon optimisé.
-
-Une base de données est constituée de tables qui sont reliées entre elles par des clés.
+Les bases de données permettent de stocker de larges quantités de données de façon optimisé. Elles sont constituées de tables qui sont reliées entre elles par des clés.
 
 <img src="https://i.stack.imgur.com/dSnpA.png">
+
+-vertical-
+
+### Petit rappel sur les BdD
 
 Chaque élément d'une table doit être identifiable de façon unique : les *clés primaires*
 
@@ -46,7 +48,7 @@ En indexant les données, on peut encore améliorer cette performance pour le st
 
 -vertical-
 
-## Petit rappel sur les BdD
+### Petit rappel sur les BdD
 
 Elles sont administrées par des actions *axiomatiques* qui sont partagé par tous les systèmes de bases de données.
 
@@ -59,6 +61,10 @@ CREATE TABLE nom_de_la_table
 );
 ```
 
+-vertical-
+
+### Petit rappel sur les BdD
+
 - Les opération de *modification*
 ```
 INSERT INTO nom_de_la_table
@@ -67,10 +73,19 @@ VALUES
 (2, "2 valeur de la table");
 ```
 
+-vertical-
+
+### Petit rappel sur les BdD
+
 - Les *recherches*
+
 ``̀`
 SELECT * FROM nom_de_la_table
 ```
+
+-vertical-
+
+### Petit rappel sur les BdD
 
 - Le *partage/administration*
 
@@ -117,6 +132,7 @@ sécurisé (type ssh [secure shell protocol])
 &rarr; On va faire ça dans la première partie TP d'aujourd'hui
 
 -horizontal-
+
 <h2 class="r-fit-text">🎲Statistiques de corpus🎲</h2>
 
 Lorsqu'on collecte de grandes quantités de données, il peut être difficile d'évaluer leur qualité en un coup d'oeil.
@@ -214,8 +230,14 @@ La visualisation permet de :
 
 La perception humaine est limitée.
 
-<img src="https://www.popsci.com/uploads/2019/03/18/HJRGWPU4SINA2B6WK5PJ2UBF4M.jpg?auto=webp&optimize=high&width=1440">
-<img class="fragment" src="https://www.popsci.com/uploads/2019/03/18/6QRQCXL4ZJSFJG4NXTX7RBODOU.jpg?auto=webp&optimize=high&width=800">
+<div class="row">
+    <div class="column">
+        <img src="https://www.popsci.com/uploads/2019/03/18/HJRGWPU4SINA2B6WK5PJ2UBF4M.jpg?auto=webp&optimize=high&width=1440">
+    </div>
+    <div class="column">
+        <img class="fragment" src="https://www.popsci.com/uploads/2019/03/18/6QRQCXL4ZJSFJG4NXTX7RBODOU.jpg?auto=webp&optimize=high&width=800">
+    </div>
+</div>
 
 -vertical-
 
@@ -263,6 +285,19 @@ Pour mieux comprendre on va mesurer les caractéristiques visuelles des variable
 *Ordonnabilité* : à quel point arrive t-on à percevoir un ordre dans les données ?
 *Quantifiabilité* : à quel point arrive t-on à obtenir des valeurs numériques à partir de notre représentation ?
 *Variabilité* : à quel point arrive t-on créer des variantes et toujours réussir à percevoir les changements dans notre représentation ?
+
+-vertical-
+
+<img src="/OutilsTraitementCorpus/slides/img/position_slide.png">
+
+-vertical-
+
+<img src="/OutilsTraitementCorpus/slides/img/taille_slide.png">
+
+
+-vertical-
+
+<img src="/OutilsTraitementCorpus/slides/img/forme_slide.png">
 
 -vertical-
 
