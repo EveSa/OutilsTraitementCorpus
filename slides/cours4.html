@@ -18,7 +18,6 @@ cours 3
 <h2 class="r-fit-text">🔄Structurer les données - part 2🔄</h2>
 <h2 class="r-fit-text">🎲Statistiques de corpus🎲</h2>
 <h2 class="r-fit-text">👓Visualiser les données👓</h2>
-<h2 class="r-fit-text">🧼Nettoyer son corpus🧼</h2>
 
 -horizontal-
 
@@ -147,7 +146,7 @@ Lorsqu'on récupère des articles de presse, certains sont libres de droits et d
 
 -vertical-
 
-# Quelques exemples de caractéristiques à exploiter :
+### Quelques exemples de caractéristiques à exploiter :
 
 **Pour le résumé automatique**
 
@@ -157,7 +156,7 @@ Lorsqu'on récupère des articles de presse, certains sont libres de droits et d
 
 -vertical-
 
-# Quelques exemples de caractéristiques à exploiter :
+### Quelques exemples de caractéristiques à exploiter :
 
 **Pour la transcription**
 
@@ -165,6 +164,22 @@ Lorsqu'on récupère des articles de presse, certains sont libres de droits et d
 - la taille des transcriptions
 - le ratio de compression des transcriptions/audio
 
+-vertical-
+
+### Quelques exemples de caractéristiques à exploiter :
+
+**Pour la traduction**
+
+- Le ratio de type entre le texte source et cible
+- Le ratio de longueur
+
+-vertical-
+
+### Quelques exemples de caractéristiques à exploiter :
+
+Ces caractéristiques sont présentées dans les papiers qui présentent les corpus pour une tâche données
+
+&rarr; Quelles sont les statistiques pour votre tâche ?
 
 -horizontal-
 
@@ -210,7 +225,57 @@ On est bon pour reconnaitre les formes et les ordres de grandeurs
 
 -vertical-
 
-Des bibliothèques spécifiquent existent pour la représentation des données dont les plus connues sont :
+Pourquoi faire de la visualisation ?
+
+    - Faire de la visualisation =
+
+Choisir une représentation pour résoudre un problème
+
+- Une représentation c’est :
+- Des métriques (qu’est-ce que l’on veut représenter ?)
+- Une échelle (comment voir le mieux les données ?)
+- Une projection (comment choisir les variables de représentation ?)
+
+-vertical-
+
+Un cinéma vend des places pour 5€. Il propose aussi un abonnement à 50€, le prix de la place passe alors à 3€. 
+
+À partir de combien de place faut-il prendre un abonnement ?
+
+2 représentations possibles :
+
+<img class="fragment" src="/OutilsTraitementCorpus/slides/img/Reprequation.png">
+
+-vertical-
+
+### Une représentation : choix de l’échelle
+
+Comment voir le mieux les données ?
+
+On va utiliser différentes variables de représentation :
+
+Position, taille, forme, saturation, couleur, etc.
+
+Pour mieux comprendre on va mesurer les caractéristiques visuelles des variables de représentation :
+
+*Sélectivité* : à quel point il est facile de différencier/d’isoler des groupes différents ?
+*Associativité* : à quel point il est facile de créer des groupes ?
+*Ordonnabilité* : à quel point arrive t-on à percevoir un ordre dans les données ?
+*Quantifiabilité* : à quel point arrive t-on à obtenir des valeurs numériques à partir de notre représentation ?
+*Variabilité* : à quel point arrive t-on créer des variantes et toujours réussir à percevoir les changements dans notre représentation ?
+
+-vertical-
+
+### Quelle représentation donne le plus d'information et pourquoi ?
+
+<div>
+<img src="https://www.researchgate.net/publication/284173352/figure/fig1/AS:298122837282824@1448089431764/Research-and-development-budgets-in-2011-by-country-Size-of-circles-indicate-the.png">
+<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fsciencebusiness.net%2Fnews-byte%2Fgovernment-rd-expenditure-fell-2021-after-huge-rise-pandemic-related-spending-research&psig=AOvVaw2-Y7Kx7tq8Nc33yVcJBx8R&ust=1714381542773000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqGAoTCMCXiorH5IUDFQAAAAAdAAAAABCoAQ">
+</div>
+
+-vertical-
+
+Des bibliothèques spécifiques existent pour la représentation des données dont les plus connues sont :
 
 - Matplotlib
 - Seaborn
@@ -222,128 +287,6 @@ Un notebook Matplot/seaborn
 -vertical-
 
 Utiliser pandas pour visualiser les données
-
--horizontal-
-
-<h2 class="r-fit-text">🧼Nettoyer son corpus🧼</h2>
-
--vertical-
-
-detecter les outliers
-
--vertical-
-
-pandas drop
-
-
--vertical-
-
-## TP 1 - Se connecter en ssh à un serveur distant
-
-### Permière partie mettre en place un "faux" serveur grâce à docker
-
-1. Installer [docker](https://docs.docker.com/desktop/install/linux-install/) sur votre machine
-
--vertical-
-
-1. Choix du système : Alpine ou Ubuntu
-
-2. Installer openssh pour pouvoir se connecter au docker
-
-3. Installer python sqlite3 bash py3-pip
-
--vertical-
-
-```
-FROM alpine:latest
-
-RUN apk update && apk add bash
-RUN apk add --update --no-cache openssh\
- sqlite\
- python3\
- py3-pip
-```
-
--vertical-
-
-## les utilisateurs
-
-les permissions linux
-
--vertical-
-
-RUN adduser -h /home/user -s /bin/sh -D user
-
--vertical-
-
-## Les différents types de connection ssh
-
-1. configuration par mot de passe
-
-2. configuration par clé
-
--vertical-
-
-RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
-RUN echo -n "user:defaultpassword" | chpasswd
-ENTRYPOINT ["/entrypoint.sh"]
-
--vertical-
-
-## Qu'est ce qu'un port
-
--vertical-
-
-1. exposer son conteneur sur un port
-
-EXPOSE 22
-COPY entrypoint.sh /
-
--vertical-
-
-# Rappel sur la différence entre docker et machine virtuelle
-
-<img src="https://www.sdxcentral.com/wp-content/uploads/2019/05/ContainersvsVMs_Image.jpg">
-
--vertical-
-
-# Construire son docker
-
-1. build le docker avec la commande `sudo docker build -t alpine-sshd .`
-
--vertical-
-
-When a container runs, it uses the various layers from an image for its filesystem. Each container also gets its own "scratch space" to create/update/remove files. Any changes won't be seen in another container, even if they're using the same image.
-
--vertical-
-
-2. créer un volume persitant `sudo docker volume create mock-db`
-
--vertical-
-
-3. run le docker en montant le volume persitant
-
-```
-sudo docker run -d -p 127.0.0.1:22:22 --mount type=volume,src=mock-db,target=/ alpine-sshd:latest
-```
-
--vertical-
-6. se connecter en ssh sur le port 22
-
-```
-ssh user@127.0.0.1
-```
-
--vertical-
-
-## TP - créer sa base de données
-
-En ligne de commande
-
-̀```
-import sqlite3
-con = sqlite3.connect("user@tutorial.db")
-```
 
 -horizontal-
 
@@ -427,7 +370,131 @@ says(sound=None)
 """
 ```
 
+-horizontal-
+
+## TP 1 - Se connecter en ssh à un serveur distant
+
+### Permière partie mettre en place un "faux" serveur grâce à docker
+
+1. Installer [docker](https://docs.docker.com/desktop/install/linux-install/) sur votre machine
+
 -vertical-
+
+1. Choix du système : Alpine ou Ubuntu
+
+2. Installer openssh pour pouvoir se connecter au docker
+
+3. Installer python sqlite3 bash py3-pip
+
+-vertical-
+
+```
+FROM alpine:latest
+
+RUN apk update && apk add bash
+RUN apk add --update --no-cache openssh\
+ sqlite\
+ python3\
+ py3-pip
+```
+
+-vertical-
+
+## les utilisateurs
+
+les permissions linux
+
+-vertical-
+
+RUN adduser -h /home/user -s /bin/sh -D user
+
+-vertical-
+
+## Les différents types de connection ssh
+
+1. configuration par mot de passe
+
+2. configuration par clé
+
+-vertical-
+
+RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+RUN echo -n "user:defaultpassword" | chpasswd
+ENTRYPOINT ["/entrypoint.sh"]
+
+-vertical-
+
+## Qu'est ce qu'un port
+
+-vertical-
+
+1. exposer son conteneur sur un port
+
+EXPOSE 22
+COPY entrypoint.sh /
+
+-vertical-
+
+<h3 class="r-fit-text">Rappel sur la différence entre docker et machine virtuelle</h3>
+
+<img src="https://www.sdxcentral.com/wp-content/uploads/2019/05/ContainersvsVMs_Image.jpg">
+
+-vertical-
+
+<h3 class="r-fit-text">Construire son docker</h3>
+
+1. build le docker avec la commande `sudo docker build -t alpine-sshd .`
+
+-vertical-
+
+When a container runs, it uses the various layers from an image for its filesystem. Each container also gets its own "scratch space" to create/update/remove files. Any changes won't be seen in another container, even if they're using the same image.
+
+-vertical-
+
+2. créer un volume persitant `sudo docker volume create mock-db`
+
+-vertical-
+
+3. run le docker en montant le volume persitant
+
+```
+sudo docker run -d -p 127.0.0.1:22:22 --mount type=volume,src=mock-db,target=/ alpine-sshd:latest
+```
+
+-vertical-
+6. se connecter en ssh sur le port 22
+
+```
+ssh user@127.0.0.1
+```
+
+-vertical-
+
+<h3 class="r-fit-text">Créer sa base de données</h3>
+
+On peut directement insérer nos dataframe `pandas` comme des tables sql grâce à la méthode de conversion `to_sql`
+
+̀```
+import sqlite3
+con = sqlite3.connect("tutorial.db")
+dataset.to_sql(con)
+```
+
+-horizontal-
+
+### TP 2 - Trouver les statistiques adaptées à son corpus
+
+À partir du corpus de référence que vous avez choisi
+
+- Trouvez les statistiques qui ont été effectuées pour prouver la qualité du corpus
+- Les implémenter et les calculer pour votre corpus
+- Est-ce que le calcul est couteux ?
+    - si oui, stocker les résultats dans votre structure de données
+    - si non, faire une méthode pour pouvoir facilement appliquer le calcul sur vos données.
+
+-horizontal-
+
+### TP 3 - Visualiser les statistiques de corpus
 
 1. Visualiser votre corpus à partir de statistiques de textes
 
@@ -435,13 +502,4 @@ says(sound=None)
 
     b. mots fréquents (zipf)
 
-    c. ...
-
-    2. Eliminer les *outliers* detectés grâce à la visualisation
-3. Balancer les classes
-
-    a. En faisant de l'augmentation de données
-
-    b. En faisant de la reduction de données
-
-4. Splitter son corpus en test et train
+    c. les statistiques adaptées à votre tâche
