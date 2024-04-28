@@ -15,13 +15,14 @@ cours 3
 
 # Cours 4
 
-<h2 class="r-fit-text">🔄Charger les données dans python - part 2 🔄</h2>
+<h2 class="r-fit-text">🔄Structurer les données - part 2🔄</h2>
+<h2 class="r-fit-text">🎲Statistiques de corpus🎲</h2>
 <h2 class="r-fit-text">👓Visualiser les données👓</h2>
 <h2 class="r-fit-text">🧼Nettoyer son corpus🧼</h2>
 
 -horizontal-
 
-<h2 class="r-fit-text">🔄Charger les données dans python - part 2 🔄</h2>
+<h2 class="r-fit-text">🔄Structurer les données - part 2🔄</h2>
 
 On a pu charger nos données dans python.
 
@@ -29,18 +30,58 @@ Mais on a parlé de bases de données.
 
 -vertical-
 
-Elles sont administrées par des actions *axiomatiques* qui sont partagé par tous les systèmes de bases de données.
+## Petit rappel sur les BdD
 
-- La *définition*
-- Les opération de *modification*
-- Les *recherches*
-- Le *partage/administration*
-
--vertical-
 
 Les bases de données permettent de stocker de larges quantités de données de façon optimisé.
 
+Une base de données est constituée de tables qui sont reliées entre elles par des clés.
+
+<img src="https://i.stack.imgur.com/dSnpA.png">
+
+Chaque élément d'une table doit être identifiable de façon unique : les *clés primaires*
+
+Chaque élément d'une table peut être relié à des éléments d'autres tables par leurs identifants unique : les *clés étrangères*
+
 En indexant les données, on peut encore améliorer cette performance pour le stockage et la recherche.
+
+-vertical-
+
+## Petit rappel sur les BdD
+
+Elles sont administrées par des actions *axiomatiques* qui sont partagé par tous les systèmes de bases de données.
+
+- La *définition*
+```
+CREATE TABLE nom_de_la_table
+(
+    id INT PRIMARY KEY NOT NULL,
+    colonne1 VARCHAR(500)
+);
+```
+
+- Les opération de *modification*
+```
+INSERT INTO nom_de_la_table
+VALUES
+(1, "1 valeur de la table"),
+(2, "2 valeur de la table");
+```
+
+- Les *recherches*
+``̀`
+SELECT * FROM nom_de_la_table
+```
+
+- Le *partage/administration*
+
+&rarr; gérer les utilisateurs, les données, etc...
+
+-vertical-
+
+Le plus important reste le language de requête :
+
+Il faut savoir naviguer entre les différentes tables en utilisant les identifiants des objets qu'elles contiennent
 
 -vertical-
 
@@ -52,7 +93,7 @@ schema creation
 SQL
 
 clé primaire - clé etrangère
-</aside>
+
 
 
 les bases de données (DB) les plus utilisées sont les bases de données relationnelles (cf. Cours de SQL).
@@ -68,44 +109,24 @@ PostGre vs. SQLite
 ```
 
 -vertical-
+</aside>
 
 Les DB sont souvent stockées sur des serveurs distants auquels il faut accéder avec un protocole de communication
 sécurisé (type ssh [secure shell protocol])
 
 &rarr; On peut s'entraîner à gérer ce genre de choses grâce à des machines virtuelles ou des dockers !
-
--vertical-
-
-## TP - Se connecter en ssh
-
-1. Installer [docker](https://docs.docker.com/desktop/install/linux-install/) sur votre machine
-2. Récupérer le [zip](/OutilsTraitementCorpus/src/dockerssh.zip)
-3. build le docker avec la commande `sudo docker build -t alpine-sshd .`
-4. créer un volume persitant `sudo docker volume create mock-db`
-5. run le docker en montant le volume persitant
-```
-sudo docker run -d -p 127.0.0.1:22:22 --mount type=volume,src=mock-db,target=/ alpine-sshd:latest
-```
-6. se connecter en ssh sur le port 22
-```
-ssh user@127.0.0.1
-
--vertical-
-
-## TP - créer sa base de données
-
-```
-import sqlite3
-con = sqlite3.connect("user@tutorial.db")
-
+&rarr; On va faire ça dans la première partie TP d'aujourd'hui
 
 -horizontal-
-
-<h2 class="r-fit-text">👓Visualiser les données👓</h2>
+<h2 class="r-fit-text">🎲Statistiques de corpus🎲</h2>
 
 Lorsqu'on collecte de grandes quantités de données, il peut être difficile d'évaluer leur qualité en un coup d'oeil.
 
-On va donc passer par des représentations de leurs caractéristiques pour estimer leur qualité
+On va donc passer par des représentations de leurs caractéristiques pour estimer leur qualité.
+
+-vertical-
+
+Chaque tâche dispose de statistiques pour évualer la qualité des données récupérées.
 
 -vertical-
 
@@ -144,6 +165,49 @@ Lorsqu'on récupère des articles de presse, certains sont libres de droits et d
 - la taille des transcriptions
 - le ratio de compression des transcriptions/audio
 
+
+-horizontal-
+
+<h2 class="r-fit-text">👓Visualiser les données👓</h2>
+
+
+-vertical-
+
+La visualisation permet de :
+
+- *mieux appréhender* les *données et leur structure*
+- pouvoir faire des *comparaisons* avec d’autres données
+- vulgariser/communiquer avec des non-experts
+- résoudre un problème
+- pouvoir acquérir de nouvelles connaissances
+
+-vertical-
+
+## Le Quartet d'Anscombe
+
+<div class="r-stack">
+    <div>
+        <img src="/OutilsTraitementCorpus/slides/img/tableauQuartetAnscombe.png">
+        <img src="/OutilsTraitementCorpus/slides/img/tableauQuartetAnscombe_tableauvaleur.png">
+    </div>
+    <div>
+        <img class="fragment" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Anscombe.svg/langfr-1920px-Anscombe.svg.png">
+    </div>
+</div>
+
+-vertical-
+
+La perception humaine est limitée.
+
+<img src="https://www.popsci.com/uploads/2019/03/18/HJRGWPU4SINA2B6WK5PJ2UBF4M.jpg?auto=webp&optimize=high&width=1440">
+<img class="fragment" src="https://www.popsci.com/uploads/2019/03/18/6QRQCXL4ZJSFJG4NXTX7RBODOU.jpg?auto=webp&optimize=high&width=800">
+
+-vertical-
+
+On est bon pour reconnaitre les formes et les ordres de grandeurs
+
+<img src="https://static.boredpanda.com/blog/wp-content/uploads/2020/09/1291509085855260672-png__700.jpg">
+
 -vertical-
 
 Des bibliothèques spécifiquent existent pour la représentation des données dont les plus connues sont :
@@ -170,6 +234,116 @@ detecter les outliers
 -vertical-
 
 pandas drop
+
+
+-vertical-
+
+## TP 1 - Se connecter en ssh à un serveur distant
+
+### Permière partie mettre en place un "faux" serveur grâce à docker
+
+1. Installer [docker](https://docs.docker.com/desktop/install/linux-install/) sur votre machine
+
+-vertical-
+
+1. Choix du système : Alpine ou Ubuntu
+
+2. Installer openssh pour pouvoir se connecter au docker
+
+3. Installer python sqlite3 bash py3-pip
+
+-vertical-
+
+```
+FROM alpine:latest
+
+RUN apk update && apk add bash
+RUN apk add --update --no-cache openssh\
+ sqlite\
+ python3\
+ py3-pip
+```
+
+-vertical-
+
+## les utilisateurs
+
+les permissions linux
+
+-vertical-
+
+RUN adduser -h /home/user -s /bin/sh -D user
+
+-vertical-
+
+## Les différents types de connection ssh
+
+1. configuration par mot de passe
+
+2. configuration par clé
+
+-vertical-
+
+RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+RUN echo -n "user:defaultpassword" | chpasswd
+ENTRYPOINT ["/entrypoint.sh"]
+
+-vertical-
+
+## Qu'est ce qu'un port
+
+-vertical-
+
+1. exposer son conteneur sur un port
+
+EXPOSE 22
+COPY entrypoint.sh /
+
+-vertical-
+
+# Rappel sur la différence entre docker et machine virtuelle
+
+<img src="https://www.sdxcentral.com/wp-content/uploads/2019/05/ContainersvsVMs_Image.jpg">
+
+-vertical-
+
+# Construire son docker
+
+1. build le docker avec la commande `sudo docker build -t alpine-sshd .`
+
+-vertical-
+
+When a container runs, it uses the various layers from an image for its filesystem. Each container also gets its own "scratch space" to create/update/remove files. Any changes won't be seen in another container, even if they're using the same image.
+
+-vertical-
+
+2. créer un volume persitant `sudo docker volume create mock-db`
+
+-vertical-
+
+3. run le docker en montant le volume persitant
+
+```
+sudo docker run -d -p 127.0.0.1:22:22 --mount type=volume,src=mock-db,target=/ alpine-sshd:latest
+```
+
+-vertical-
+6. se connecter en ssh sur le port 22
+
+```
+ssh user@127.0.0.1
+```
+
+-vertical-
+
+## TP - créer sa base de données
+
+En ligne de commande
+
+̀```
+import sqlite3
+con = sqlite3.connect("user@tutorial.db")
+```
 
 -horizontal-
 
