@@ -47,6 +47,7 @@ Tous vos devoirs devront m’être parvenus avant le 17 mai
   - [notebook](/notebooks/web_scrap.ipynb)
 - Cours 4
   - [slides](/slides/cours4.html)
+  - [notebook](/notebooks/visualise_data.ipynb)
   - [Dockerfile](/src/dockerssh.zip)
 - Cours 5
   - [slides](/slides/cours5.html)
