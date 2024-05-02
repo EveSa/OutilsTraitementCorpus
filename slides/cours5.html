@@ -26,21 +26,86 @@ cours 3
 
 -vertical-
 
-detecter les outliers
+On a visualisé nos données avec les métriques adaptées à notre tâche
+
+-vertical-
+
+### Rappel
+
+Avec ces observations, on va également pouvoir observer si on a des items qui ne correspondent pas à ce que l'on voulait récupérer
+
+>*par exemple :*
+Lorsqu'on récupère des articles de presse, certains sont libres de droits et d'autres sont tronqués après quelques lignes d'informations
+&rarr; visualiser la taille des textes et des résumés va nous permettre d'éliminer les élèments non pertinents.
+
+-vertical-
+
+### detecter les données aberrantes (*outliers*)
+
+Qu'est ce qu'un *outlier* ?
+
+<img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*O3lOgPwuHP7Vfc1T6NDRrQ.png">
+
+-vertical-
+
+Il y a deux raison pour avoir ce genre de profil :
+
+- Une erreur de mesure &rarr; Certains élèments de notre corpus ont été mal récupérés
+- Une grande variabilité des données &rarr; les caratéristiques que l'on observe ne sont pas pertinentes pour juger de la qualité de nos données
+
+-vertical-
+
+Determiner si un objet est aberrant ou pas a à voir avec la notion de distribution statistiques.
+
+Une distribution est une fonction qui associe une fréquence d'apparition à une classe de valeur. Cette fonction permet de résumer l'information contenue dans un ensemble de données. (cf. cours de stats de Damien Nouvel)
+
+-vertical-
+
+### Rappel sur les distributions
+
+Lorsqu'on représente nos données, on le fait de manière discrète.
+
+<img src="https://www.commentprogresser.com/img/statistique/distribution/distribution-largeur-classe-histogramme.png">
+
+On represente combien d'objets tombent dans une fenêtre de valeur données.
+
+-vertical-
+
+On peut changer la largeur de la fenêtre avec le paramètre de `bin`
+
+```
+import matplotlib.pyplot as plt
+
+plt.hist(height, edgecolor="red", bins=5) 
+```
+
+<img src="https://www.commentprogresser.com/img/statistique/distribution/distribution-impact-augmentation-nombre-classe-graphique.PNG">
+
+-vertical-
+
+Si on pousse notre représentation à l'extrême, On obtient une ligne continue
+
+<img src="https://www.commentprogresser.com/img/statistique/distribution/distributionpoidsgraph.png">
+
+&rarr; c'est la *densité de probabilité*
+
+Comment retirer les données non pertinentes de nos structures de données ?
+
+- pour les `pd.DataFrame`
+- pour les `Dataset`
+- pour les BDD ?
 
 -vertical-
 
 pandas drop
 
--horizontal-
+-vertical-
 
-<h2 class="r-fit-text">📏Métriques d'évaluation📏</h2>
+dataset drop
 
 -vertical-
 
-ORACLE
-
-LEAD
+table DROP ? no
 
 -horizontal-
 
@@ -54,11 +119,26 @@ test de significativité
 
 -horizontal-
 
+<h2 class="r-fit-text">📏Métriques d'évaluation📏</h2>
+
+-vertical-
+
+ORACLE
+
+-vertical-
+
+LEAD
+
+-horizontal-
+
 ❓ Des questions ❓
 
 💡 Des idées 💡
 
+<img src="/OutilsTraitementCorpus/slides/img/socrative-qr-code.PNG">
+
 -vertical-
+
 
 ## Le point bonne pratique
 
