@@ -51,5 +51,6 @@ Tous vos devoirs devront m’être parvenus avant le 17 mai
   - [Dockerfile](/src/dockerssh.zip)
 - Cours 5
   - [slides](/slides/cours5.html)
+  - [notebook](/notebooks/significativity_test.ipynb)
 - Cours 6
   - [slides](/slides/cours6.html)
