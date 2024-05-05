@@ -323,35 +323,36 @@ Ou pour de la génération de texte :
 
 Intuitivement, la perplexité peut être comprise comme une mesure de l’incertitude.
 
-La perplexité d'un modèle de langage peut être considérée comme le niveau de perplexité lors de la prédiction du symbole suivant. Considérons un modèle de langage avec une entropie de trois bits, dans lequel chaque bit code deux résultats possibles d'égale probabilité. Cela signifie que lors de la prédiction du prochain symbole, ce modèle de langage doit choisir parmi les options possibles. Ainsi, nous pouvons affirmer que ce modèle de langage a une perplexité de 8.
+La perplexité d'un modèle de langage peut être considérée comme le niveau de perplexité lors de la prédiction du symbole suivant. Considérons un modèle de langage avec une entropie de trois bits, dans lequel chaque bit code deux résultats possibles d'égale probabilité. Cela signifie que lors de la prédiction du prochain symbole, ce modèle de langage doit choisir parmi 2^3 = 8 options possibles. Ainsi, nous pouvons affirmer que ce modèle de langage a une perplexité de 8.
 
 -vertical-
 
 ### Les métriques spécifiques
 
-Chaque tâches disposent de métriques d'évaluation spécifiques.
+Des métriques sont adaptées à des tâches en particulier comme la traduction automatique ou la détection d'entité nommée.
 
-On connaît les métriques d'évaluation de la classification :
+Ces métriques sont utilisées pour comparer les modèles mais peuvent aussi être utilisées pour évaluer les corpus !
 
-precision, rappel, f-mesure
-
-Mais pour de la génération de texte, ce n'est pas si simple :
-
-&rarr; à quoi comparer le texte produit ?
+&rarr; c'est ce qui va nous intéresser ici.
 
 -vertical-
 
-C'est pour évaluer ce genre de processus qu'on a mis en place des métriques d'évaluation spécifiques
+Pour donner aux personnes qui vont utiliser votre corpus des repères sur les scores qu'ils doivent obtenir, on donne :
 
-Certaines
-
--vertical-
-
-ORACLE
+- une limite haute au score qu'il est possible d'obtenir (qu'on appelle souvent ORACLE)
+- une limite basse (LEAD pour le résumé automatique par exemple)
 
 -vertical-
 
-LEAD
+&rarr; Si les modèles sont au dessus de ORACLE ou en dessous de la borne inférieure : il y a un problème dans le processus.
+
+&rarr; Pour certains dataset, le meilleur score qu'il est possible d'obtenir n'est pas de 1. Il est important de spécifier quel est le score maximal pour avoir une bonne idée de la qualité de notre modèle.
+
+-vertical-
+
+### Les métriques de corpus
+
+Lorsque votre corpus propose une tâche un peu différente des autres corpus, vous pouvez proposer une métrique adaptée.
 
 -horizontal-
 
@@ -383,6 +384,8 @@ la [PEP 8](https://peps.python.org/pep-0008/#naming-conventions)
 4. Splitter son corpus en test et train
 
 5. Evaluer son corpus avec les métriques adaptées
+
+6. Proposer une métrique pour son corpus autre que les métriques de la tâche
 
 <!--
 -vertical-
