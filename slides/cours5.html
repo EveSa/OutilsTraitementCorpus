@@ -27,7 +27,7 @@ cours 5
 
 Pour choisir les bonnes caractéristiques à mettre en relation pour observer nos données, on peut utiliser la corrélation.
 
-<img src="https://www.simplypsychology.org/wp-content/uploads/correlation.jpg">
+<img class="r-stretch" src="https://www.simplypsychology.org/wp-content/uploads/correlation.jpg">
 
 -vertical-
 
@@ -35,7 +35,7 @@ Est ce que la temperature est correlée à la couverture nuageuse?
 
 &rarr; pour le déterminer on va représenter les deux variables dans le même espace :
 
-<img src="/OutilsTraitementCorpus/slides/img/output_couverturenuageuse_temperature.png">
+<img class="r-stretch" src="/OutilsTraitementCorpus/slides/img/output_couverturenuageuse_temperature.png">
 
 -vertical-
 
@@ -51,7 +51,9 @@ Comme on observait précédemment,
 
 <img src="https://www.simplypsychology.org/wp-content/uploads/correlation.jpg">
 
-On peut avoir une corrélation positive ou une corrélation négative :
+<p class="r-fit-text">On peut avoir une corrélation positive ou une corrélation négative :</p>
+
+-vertical-
 
 - Si la corrélation est &lt;0, elle est négative
 
@@ -74,7 +76,10 @@ On dénote par alpha la valeur en dessous de laquelle il est admis qu'un résult
 
 -vertical-
 
-Dans de nombreux domaines, alpha = 0.05, mais divers seuils peuvent être présents, pour dénoter significatif (souvent alpha = 0.05), très significatif (souvent alpha = 0.01), extrêmement significatif (souvent alpha = 0.001), <i>etc</i>.
+Dans de nombreux domaines, alpha = 0.05, mais divers seuils peuvent être présents :
+- pour dénoter significatif (souvent alpha = 0.05)
+- très significatif (souvent alpha = 0.01)
+- extrêmement significatif (souvent alpha = 0.001), <i>etc</i>.
 
 <small>Dans des domaines spécifiques tels que l'astronomie, la significativité est exprimée sous la forme d'écart-types, du fait des distributions gaussiennes, auquel cas un résultat est considéré significatif à partir de 5 écart-types.</small>
 
@@ -83,6 +88,24 @@ Dans de nombreux domaines, alpha = 0.05, mais divers seuils peuvent être prése
 La p-value est impactée par la quantité de données : plus on a de données, plus le résultat d'ensemble est représentatif de la réalité de terrain.
 
 Avec beaucoup de données, il est possible d'avoir des p-values très basses, considérez dans ce cas l'utilisation de la notation scientifique: 1.5e-10.
+
+-vertical-
+
+### p-value
+
+Dans un pile-ou-face, on souhaite savoir si la pièce est biaisée.
+Moyen: lancer la pièce un grand nombre de fois, et voir si une tendance émerge.
+
+> Exemple : lancer_la_piece(n=256, p=0.25)
+
+_Problème: même si la pièce n'est pas biaisée, la série qu'on observe reste possible._
+
+Se pose alors la question : quelle est la probabilité d'observer une série au moins aussi extrême que celle observée (dans notre cas, s'écarter encore plus du 50/50).
+Cela correspond à la *p-value*.
+
+-vertical-
+
+[notebook test de significativité](/OutilsTraitementCorpus/notebooks/significativity_test.ipynb)
 
 -horizontal-
 
@@ -164,6 +187,7 @@ Une valeur aberrante est dite:
 On peut aussi représenter ça sous forme de boîte 
 
 <img src="https://cdn.kastatic.org/ka-perseus-graphie/3e7f4099e3e75172481886495dca4e064732a413.svg">
+
 <img src="https://cdn.kastatic.org/ka-perseus-graphie/09ccd0330dd307840c27ca250e6c0ed7fa7f7b8e.svg">
 
 -vertical-
@@ -180,6 +204,44 @@ On veut enlever les données abérrantes de notre corpus pour conserver les cara
 
 -vertical-
 
+Comment retirer les données non pertinentes de nos structures de données ?
+
+- pour les `pd.DataFrame`
+- pour les `Dataset`
+- pour les BDD ?
+
+-vertical-
+
+Avec `pandas` on une méthode pour dédupliquer les données:
+
+```DataFrame.drop_duplicates(subset=None, *, keep='first', inplace=False, ignore_index=False)```
+
+Et une méthode pour supprimer les données suivant les index
+
+```DataFrame.drop(labels=None, *, axis=0, index=None, columns=None, level=None, inplace=False, errors='raise')```
+
+-vertical-
+
+La bibliothèque `Datasets` n'a pas de deduplication pré construite
+
+On peut passer par pandas avec `to_pandas`
+
+
+Ou construire ses propres [fonction de déduplication](https://github.com/huggingface/transformers/blob/main/examples/research_projects/codeparrot/scripts/preprocessing.py)
+
+-vertical-
+
+Pour les BDD, on a aussi une commande `drop` mais ⚠ Ce n'est pas pour enlever simplement un point de données !
+
+&rarr; La commande DROP est utilisée pour supprimer une base de données
+
+Pour supprimer une ligne de données, on va utiliser la commande `delete`
+
+```
+DELETE FROM table_name WHERE condition;
+```
+-vertical-
+
 ### Balancer ses données - les problématiques de classes
 
 Lorsqu'on travaille sur de la classification, on veut avoir un échantillon représentatif des différentes classes que l'on cherche à prédire.
@@ -190,7 +252,137 @@ Pour éviter d'obtenir un modèle qui ne sait prédire que les classes majoritai
 
 -vertical-
 
+Pour Un problème de classification, on a deux méthodes :
 
+- la réduction de données
+
+- l'augmentation de données
+
+-vertical-
+
+### La réduction de données
+
+Pour balancer un corpus avec réduction de données, c'est facile :
+
+On va diminuer la prégnance des classes majoritaires pour avoir le même nombres d'exemple pour chaques classes.
+
+Pour le down sampling, on peut utiliser la bibliothèque `scikit learn`
+
+```
+sklearn.utils.resample(*arrays, replace=True, n_samples=None, random_state=None, stratify=None)
+```
+
+Où on donnera `n_samples` le nombre d'éléments dans la plus petite classe
+
+ou on peut implementer notre propre méthode
+
+
+
+
+-horizontal-
+
+<h2 class="r-fit-text">📏Métriques d'évaluation📏</h2>
+
+-vertical-
+
+On distingue 3 types de métriques différentes:
+
+- les métriques génériques (applicables sur un grand nombre de tâches et de corpus)
+- les métriques adaptées à une tâche (applicable pour une tâche ou un ensemble de tâches donnés)
+- les métriques de corpus (spécifique à un corpus benchmark)
+
+-vertical-
+
+### Les métriques génériques
+
+Pour les tâches de machine learning classique sur des données supervisée, on connaît des métriques:
+
+<div class="r-fit-text">
+<ul>
+    <li>la précision</li>
+    <li>le rappel</li>
+    <li>la f-mesure</li>
+</ul>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Precisionrecall.svg/800px-Precisionrecall.svg.png">
+</div>
+
+-vertical-
+
+<div class="r-fit-text">
+- l'accuracy
+
+<img src="https://www.portaspecs.com/wp-content/uploads/2019/09/Image-1.png">
+</div>
+
+Ou pour de la génération de texte :
+
+- la perplexité
+
+-vertical-
+
+Intuitivement, la perplexité peut être comprise comme une mesure de l’incertitude.
+
+La perplexité d'un modèle de langage peut être considérée comme le niveau de perplexité lors de la prédiction du symbole suivant. Considérons un modèle de langage avec une entropie de trois bits, dans lequel chaque bit code deux résultats possibles d'égale probabilité. Cela signifie que lors de la prédiction du prochain symbole, ce modèle de langage doit choisir parmi les options possibles. Ainsi, nous pouvons affirmer que ce modèle de langage a une perplexité de 8.
+
+-vertical-
+
+### Les métriques spécifiques
+
+Chaque tâches disposent de métriques d'évaluation spécifiques.
+
+On connaît les métriques d'évaluation de la classification :
+
+precision, rappel, f-mesure
+
+Mais pour de la génération de texte, ce n'est pas si simple :
+
+&rarr; à quoi comparer le texte produit ?
+
+-vertical-
+
+C'est pour évaluer ce genre de processus qu'on a mis en place des métriques d'évaluation spécifiques
+
+Certaines
+
+-vertical-
+
+ORACLE
+
+-vertical-
+
+LEAD
+
+-horizontal-
+
+❓ Des questions ❓
+
+💡 Des idées 💡
+
+<img src="/OutilsTraitementCorpus/slides/img/socrative-qr-code.PNG">
+
+-vertical-
+
+
+## Le point bonne pratique
+
+
+**Les conventions de "nommage"** / *naming convention*
+la [PEP 8](https://peps.python.org/pep-0008/#naming-conventions)
+
+
+-vertical-
+
+1. Mesurer la correlation entre deux variables de votre corpus (ex. longueur des textes/longueur des résumés)
+    a. Comment augmenter la p-value si elle n'est pas significative ?
+
+2. Eliminer les données abérrantes
+
+3. Augmenter ses données
+
+4. Splitter son corpus en test et train
+
+5. Evaluer son corpus avec les métriques adaptées
 
 <!--
 -vertical-
@@ -235,93 +427,3 @@ car on peut obtenir la probabilité d'avoir une valeur contenue dans un interval
 
 <img src="https://www.commentprogresser.com/img/statistique/distribution/distribution-poids-graph-amplitude.png">
 --> 
-
--vertical-
-
-Comment retirer les données non pertinentes de nos structures de données ?
-
-- pour les `pd.DataFrame`
-- pour les `Dataset`
-- pour les BDD ?
-
--vertical-
-
-Avec `pandas` on une méthode pour dédupliquer les données:
-
-```DataFrame.drop_duplicates(subset=None, *, keep='first', inplace=False, ignore_index=False)```
-
-Et une méthode pour supprimer les données suivant les index
-
-```DataFrame.drop(labels=None, *, axis=0, index=None, columns=None, level=None, inplace=False, errors='raise')```
-
--vertical-
-
-La bibliothèque `Datasets` n'a pas de deduplication pré construite
-
-On peut passer par pandas avec `to_pandas`
-
-
-Ou construire ses propres [fonction de déduplication](https://github.com/huggingface/transformers/blob/main/examples/research_projects/codeparrot/scripts/preprocessing.py)
-
--vertical-
-
-Pour les BDD, on a aussi une commande `drop` mais ⚠ Ce n'est pas pour enlever simplement un point de données !
-
-&rarr; La commande DROP est utilisée pour supprimer une base de données
-
-Pour supprimer une ligne de données, on va utiliser la commande `delete`
-
-```
-DELETE FROM table_name WHERE condition;
-```
-
--horizontal-
-
-<h2 class="r-fit-text">📏Métriques d'évaluation📏</h2>
-
--vertical-
-
-Chaque tâches disposent de métriques d'évaluation spécifiques
-
--vertical-
-
-ORACLE
-
--vertical-
-
-LEAD
-
--horizontal-
-
-❓ Des questions ❓
-
-💡 Des idées 💡
-
-<img src="/OutilsTraitementCorpus/slides/img/socrative-qr-code.PNG">
-
--vertical-
-
-
-## Le point bonne pratique
-
-
-**Les conventions de "nommage"** / *naming convention*
-la [PEP 8](https://peps.python.org/pep-0008/#naming-conventions)
-
-
--vertical-
-
-1. Measure correlation between two features of your dataset
-    a. if the correlation is not significant how do you improve the p-value ?
-
-2. Eliminer les données abérrantes
-
-3. Balancer les classes
-
-    a. En faisant de l'augmentation de données
-
-    b. En faisant de la reduction de données
-
-4. Splitter son corpus en test et train
-
-5. Evaluer son corpus avec les métriques adaptées
