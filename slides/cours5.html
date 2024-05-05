@@ -39,7 +39,7 @@ Est ce que la temperature est correlée à la couverture nuageuse?
 
 -vertical-
 
-Ici, il ne semble pas que les données corrèllent mais comment le vérifier ?
+Ici, il n'est pas clair que les données corrèllent mais comment le vérifier ?
 
 &rarr; On va faire des tests de correlation
 
@@ -75,11 +75,13 @@ On dénote par alpha la valeur en dessous de laquelle il est admis qu'un résult
 -vertical-
 
 Dans de nombreux domaines, alpha = 0.05, mais divers seuils peuvent être présents, pour dénoter significatif (souvent alpha = 0.05), très significatif (souvent alpha = 0.01), extrêmement significatif (souvent alpha = 0.001), <i>etc</i>.
+
 <small>Dans des domaines spécifiques tels que l'astronomie, la significativité est exprimée sous la forme d'écart-types, du fait des distributions gaussiennes, auquel cas un résultat est considéré significatif à partir de 5 écart-types.</small>
 
 -vertical-
 
 La p-value est impactée par la quantité de données : plus on a de données, plus le résultat d'ensemble est représentatif de la réalité de terrain.
+
 Avec beaucoup de données, il est possible d'avoir des p-values très basses, considérez dans ce cas l'utilisation de la notation scientifique: 1.5e-10.
 
 -horizontal-
@@ -88,22 +90,27 @@ Avec beaucoup de données, il est possible d'avoir des p-values très basses, co
 
 -vertical-
 
+### Dédupliquer les données
+
 Il faut dédupliquer les données, pour ne pas biaiser l'apprentissage.
-<!-- Dans un apprentissage, un modèle va optimiser un gradient, mais celui-ci est influencé à tort plusieurs fois s'il -->
-<!--Si l'on ne déduplique pas, un exemple va avoir une influence démesurée.-->
-<!--Un système qui apprend va approximer ses données d'entrainement comme étant la véritable distribution, or, les duplications biaisent la vérité terrain.-->
-Un système qui apprend va approximer une vérité terrain à partir de ses données d'entrainement, qui ne sont qu'un faible échantillon de la vérité de terrain ; par conséquent, toute surreprésentation d'un exemple du fait d'une duplication va biaiser le système en lui faisant croire que cet exemple est plus fréquent qu'il ne l'est vraiment.
+
+Un système qui apprend va approximer une vérité terrain à partir de ses données d'entrainement, qui ne sont qu'un faible échantillon de la vérité de terrain
+
+&rarr; par conséquent, toute surreprésentation d'un exemple du fait d'une duplication va biaiser le système en lui faisant croire que cet exemple est plus fréquent qu'il ne l'est vraiment.
 
 -vertical-
 
 [https://hplt-project.org/datasets/v1.2](Corpus HPLT)
 
-Comparez la version "raw", la version "deduped", et la version "cleaned" concernant leurs tailles.
-
+Comparez la version "raw", la version "deduped"
 
 -vertical-
 
+### Nettoyer les données
+
 On a visualisé nos données avec les métriques adaptées à notre tâche
+
+&rarr; Les métriques mettent en lien des variables qui sont correlées
 
 -vertical-
 
@@ -159,6 +166,32 @@ On peut aussi représenter ça sous forme de boîte
 <img src="https://cdn.kastatic.org/ka-perseus-graphie/3e7f4099e3e75172481886495dca4e064732a413.svg">
 <img src="https://cdn.kastatic.org/ka-perseus-graphie/09ccd0330dd307840c27ca250e6c0ed7fa7f7b8e.svg">
 
+-vertical-
+
+On veut enlever les données abérrantes de notre corpus pour conserver les caractéristiques voulues de notre modèle
+
+&rarr; Si on veut avoir un modèle de résumé automatique, on veut absolument enlever les paires texte-résumé qui ont un ratio de compression trop élevé
+
+-vertical-
+
+⚠ Attention toutefois à vérifier que vous n'enlevez pas trop de données avec cette méthode et que les données enlevées sont variées
+
+&rarr; Dans le cas d'une tâche de classification, si tous les **outliers** sont des items de la même classe, il va vous manquer des données pour cette classe.
+
+-vertical-
+
+### Balancer ses données - les problématiques de classes
+
+Lorsqu'on travaille sur de la classification, on veut avoir un échantillon représentatif des différentes classes que l'on cherche à prédire.
+
+Parfois, certaines classes sont plus accessibles que d'autres :
+
+Pour éviter d'obtenir un modèle qui ne sait prédire que les classes majoritaires, on va balancer notre dataset.
+
+-vertical-
+
+
+
 <!--
 -vertical-
 
@@ -205,7 +238,6 @@ car on peut obtenir la probabilité d'avoir une valeur contenue dans un interval
 
 -vertical-
 
-
 Comment retirer les données non pertinentes de nos structures de données ?
 
 - pour les `pd.DataFrame`
@@ -214,29 +246,42 @@ Comment retirer les données non pertinentes de nos structures de données ?
 
 -vertical-
 
-pandas drop
+Avec `pandas` on une méthode pour dédupliquer les données:
+
+```DataFrame.drop_duplicates(subset=None, *, keep='first', inplace=False, ignore_index=False)```
+
+Et une méthode pour supprimer les données suivant les index
+
+```DataFrame.drop(labels=None, *, axis=0, index=None, columns=None, level=None, inplace=False, errors='raise')```
 
 -vertical-
 
-dataset drop
+La bibliothèque `Datasets` n'a pas de deduplication pré construite
+
+On peut passer par pandas avec `to_pandas`
+
+
+Ou construire ses propres [fonction de déduplication](https://github.com/huggingface/transformers/blob/main/examples/research_projects/codeparrot/scripts/preprocessing.py)
 
 -vertical-
 
-table DROP ? no
+Pour les BDD, on a aussi une commande `drop` mais ⚠ Ce n'est pas pour enlever simplement un point de données !
 
--horizontal-
+&rarr; La commande DROP est utilisée pour supprimer une base de données
 
-<h2 class="r-fit-text">🔼Significativité des résultats⏫</h2>
+Pour supprimer une ligne de données, on va utiliser la commande `delete`
 
--vertical-
-
-p value
-
-test de significativité
+```
+DELETE FROM table_name WHERE condition;
+```
 
 -horizontal-
 
 <h2 class="r-fit-text">📏Métriques d'évaluation📏</h2>
+
+-vertical-
+
+Chaque tâches disposent de métriques d'évaluation spécifiques
 
 -vertical-
 
