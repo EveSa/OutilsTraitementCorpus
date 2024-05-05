@@ -17,9 +17,9 @@ cours 5
 # Cours 5
 
 <h2 class="r-fit-text">Selectionner des caractéristiques</h2>
+<h2 class="r-fit-text">🔼Significativité des résultats⏫</h2>
 <h2 class="r-fit-text">🧼Nettoyer son corpus🧼</h2>
 <h2 class="r-fit-text">📏Métriques d'évaluation📏</h2>
-<h2 class="r-fit-text">🔼Significativité des résultats⏫</h2>
 
 -horizontal-
 
@@ -100,7 +100,7 @@ Moyen: lancer la pièce un grand nombre de fois, et voir si une tendance émerge
 
 _Problème: même si la pièce n'est pas biaisée, la série qu'on observe reste possible._
 
-Se pose alors la question : quelle est la probabilité d'observer une série au moins aussi extrême que celle observée (dans notre cas, s'écarter encore plus du 50/50).
+Se pose alors la question : quelle est la probabilité d'observer une série au moins aussi extrême que celle observée (dans notre cas, s'écarter encore plus du 50/50). (cf. les cours de Damien Nouvel)
 Cela correspond à la *p-value*.
 
 -vertical-
@@ -126,6 +126,8 @@ Un système qui apprend va approximer une vérité terrain à partir de ses donn
 (https://hplt-project.org/datasets/v1.2)[Corpus HPLT]
 
 Comparez la version "raw" et la version "deduped"
+
+<p class="fragment">22 TB of raw files &rarr; 11 TB of deduped files</p>
 
 -vertical-
 
@@ -402,9 +404,9 @@ Pour donner aux personnes qui vont utiliser votre corpus des repères sur les sc
 
 -vertical-
 
-&rarr; Si les modèles sont au dessus de ORACLE ou en dessous de la borne inférieure : il y a un problème dans le processus.
+&rarr; Si les modèles sont au dessus de l'oracle ou en dessous de la borne inférieure : il y a un problème dans le processus.
 
-&rarr; Pour certains dataset, le meilleur score qu'il est possible d'obtenir n'est pas de 1. Il est important de spécifier quel est le score maximal pour avoir une bonne idée de la qualité de notre modèle.
+&rarr; Pour certains dataset, le meilleur score qu'il est possible d'obtenir n'est pas de 100%. Il est important de spécifier quel est le score maximal pour avoir une bonne idée de la qualité de notre modèle.
 
 -vertical-
 
