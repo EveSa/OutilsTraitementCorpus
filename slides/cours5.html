@@ -98,6 +98,10 @@ Moyen: lancer la pièce un grand nombre de fois, et voir si une tendance émerge
 
 > Exemple : lancer_la_piece(n=256, p=0.25)
 
+<p class="r-fit-text">Résultat : pile, face, pile, face, pile, pile, pile, face, pile, pile</p>
+
+-vertical-
+
 _Problème: même si la pièce n'est pas biaisée, la série qu'on observe reste possible._
 
 Se pose alors la question : quelle est la probabilité d'observer une série au moins aussi extrême que celle observée (dans notre cas, s'écarter encore plus du 50/50). (cf. les cours de Damien Nouvel)
@@ -188,9 +192,12 @@ Une valeur aberrante est dite:
 
 On peut aussi représenter ça sous forme de boîte 
 
-<img class="r-fit-text" src="https://cdn.kastatic.org/ka-perseus-graphie/3e7f4099e3e75172481886495dca4e064732a413.svg">
-
+<div class="r-fit-text">
+<img src="https://cdn.kastatic.org/ka-perseus-graphie/3e7f4099e3e75172481886495dca4e064732a413.svg">
+</div>
+<div class="r-fit-text">
 <img class="r-fit-text" src="https://cdn.kastatic.org/ka-perseus-graphie/09ccd0330dd307840c27ca250e6c0ed7fa7f7b8e.svg">
+</div>
 
 -vertical-
 
@@ -206,11 +213,17 @@ On veut enlever les données abérrantes de notre corpus pour conserver les cara
 
 -vertical-
 
+On peut également couper la distribution pour éviter les valeurs trop éloignées
+
+<img class="r-stretch" src="https://media.nngroup.com/media/editor/2021/11/29/ecommerce-long-tails.jpg">
+
 -vertical-
 
 (https://hplt-project.org/datasets/v1.2)[Corpus HPLT]
 
 Comparez la version "deduped" et la version "cleaned"
+
+<p class="fragment">11 TB of deduped files &rarr; 8.6 TB of cleaned files</p>
 
 -vertical-
 
@@ -358,6 +371,7 @@ On distingue 3 types de métriques différentes:
 Pour les tâches de machine learning classique sur des données supervisée, on connaît des métriques:
 
 <div class="r-stretch">
+
 <ul>
     <li>la précision</li>
     <li>le rappel</li>
@@ -370,7 +384,8 @@ Pour les tâches de machine learning classique sur des données supervisée, on 
 -vertical-
 
 <div class="r-stretch">
-- l'accuracy
+
+<p>l'accuracy</p>
 
 <img src="https://www.portaspecs.com/wp-content/uploads/2019/09/Image-1.png">
 
@@ -383,6 +398,8 @@ Ou pour de la génération de texte :
 -vertical-
 
 Intuitivement, la perplexité peut être comprise comme une mesure de l’incertitude.
+
+<img src="https://thegradient.pub/content/images/2019/10/lm-1.png">
 
 La perplexité d'un modèle de langage peut être considérée comme le niveau de perplexité lors de la prédiction du symbole suivant. Considérons un modèle de langage avec une entropie de trois bits, dans lequel chaque bit code deux résultats possibles d'égale probabilité. Cela signifie que lors de la prédiction du prochain symbole, ce modèle de langage doit choisir parmi 2^3 = 8 options possibles. Ainsi, nous pouvons affirmer que ce modèle de langage a une perplexité de 8.
 
