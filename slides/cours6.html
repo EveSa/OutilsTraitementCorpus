@@ -166,7 +166,7 @@ pip install pre-commit
 3. Le rendre executable avec `chmod +x` si nécessaire
 
 ```
-#!/bin/sh
+#!/bin/bash
 
 # On récupère les fichiers que l'on veut traiter
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".jsx\{0,1\}$")
