@@ -15,8 +15,88 @@ cours 6
 
 # Cours 6
 
+<h2 class="r-fit-text">Découper son corpus</h2>
 <h2 class="r-fit-text">🤗Partager ses résultats🤗</h2>
-<h2 class="r-fit-text"></h2>
+
+-horizontal-
+
+<h2 class="r-fit-text">Découper son corpus</h2>
+
+Vous savez qu'il est nécessaire de découper son corpus en _train_, _test_ et parfois _dev_
+
+&rarr; Est-ce que vous vous rappelez de pourquoi ?
+
+-vertical-
+
+# Pourquoi on découpe les corpus ?
+
+Les modèles de Machine Learning et Deep Learning apprennent des règles pour prédire des comportements sur les données d'un corpus.
+
+&rarr; ces données deviennent leur réalité.
+
+Pour être sûr.e.s qu'un modèle n'a pas simplement appris par coeur à prédire le corpus de données qu'on lui a donné pour apprendre,  on veut le confronter à un autre jeu de données. C'est sur ces données là qu'on va appliquer les métriques d'évaluation (les mêmes que celles qu'on a appliquées à notre corpus mais pour notre modèle cette fois) : c'est la partition de _test_.
+
+-vertical-
+
+On a donc:
+- La partition sur laquelle les modèles apprennent : la partition de _train_
+- la partition sur lequelle on vérifie que le modèle généralise bien : la partition de _test_
+- et la partition de _dev_
+
+-vertical-
+
+### A quoi sert la partition de _dev_ ?
+
+<div class="fragment">
+  Parfois, on a pas un modèle qui fonctionne du premier coup :
+  
+  il a sur-appris les données du _train_ et on s'en rend compte quand on passe sur le _test_ ...
+
+  Alors on change un peu les paramètres et on recommence...
+</div>
+
+<div class="fragment">
+  ⚠️ Si on fait ça, on tue le principe de la partition _test_ : on va utiliser le _test_ pour affiner les règlages de notre modèle et on ne va plus savoir s'il généralise bien sur des données nouvelles !
+</div>
+
+-vertical-
+
+### A quoi sert la partition de _dev_ ?
+
+C'est donc tout l'objectif de la partition _dev_.
+
+On va l'utiliser pour vérifier que notre modèle est opérationnel sur des données sur lesquels il n'a pas appris
+
+Mais on va aussi pouvoir l'utiliser pour affiner certains paramètres et améliorer les résultats avec plusieurs itérations de traitements.
+
+-vertical-
+
+### Comment découper son corpus ?
+
+Comme d'habitude, on se souvient que les modèles ont besoin d'énormément de données pour leur entrainement. On va donc vouloir garder une majorité des données pour l'entraînement. Il faut toutefois avoir un échantillon représentatif des données pour l'évaluation.
+
+Par défaut, on donne 70% du corpus pour l'entrainement et 30% pour la validation.
+
+-vertical-
+
+### Comment découper son corpus ?
+
+Des libraires adaptées au ML ou au DL donnent des outils pour découper les corpus.
+
+On peut noter `scikit-learn` qu'on a déjà utilisé pour l'augmentation de données la semaine dernière
+
+̀`̀̀ ̀ 
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.05, random_state=0)
+```
+
+`Datasets` permet également de découper son corpus.
+
+̀ ``
+dataset.train_test_split(test_size=0.1)
+```
 
 -horizontal-
 
@@ -45,6 +125,8 @@ Les cartes des corpus sont des fichiers YAML
 ❓ Des questions ❓
 
 💡 Des idées 💡
+
+<img class="r-stretch" src="/OutilsTraitementCorpus/slides/img/socrative-qr-code.PNG">
 
 -vertical-
 
