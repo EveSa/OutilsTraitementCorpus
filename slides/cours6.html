@@ -48,7 +48,183 @@ Les cartes des corpus sont des fichiers YAML
 
 -vertical-
 
-## Le point bonne pratique
+<h2 class="r-fit-text">Le point bonne pratique &rarr; Les _linters_ de code</h2>
+
+Un _linter_ est une implementation de règles de code qui permet de vérifier automatiquement la qualité de votre code.
+
+En python, les règles de code sont définies par la PEP (Python Extension Proposal) dont on a déjà beaucoup parlé.
+
+Maintenant, les IDE embarquent des _linters_ directement dans leur interface ce qui leur permet de vous indiquer quand une variable est mal nommée par exemple.
+
+-vertical-
+
+On distingue deux types de _linters_ :
+
+- les _linters_ logiques &rarr; qui corrigent les erreurs de code
+- les _linters_ stylistiques &rarr; qui corrigent le code qui ne se conforme pas à la PEP
+
+    <table class="table table-hover">
+    <thead>
+    <tr>
+    <th>Linter</th>
+    <th>Category</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><a href="https://www.pylint.org/">Pylint</a></td>
+    <td>Logical &amp; Stylistic</td>
+    <td>Checks for errors, tries to enforce a coding standard, looks for code smells</td>
+    </tr>
+    <tr>
+    <td><a href="https://github.com/PyCQA/pyflakes">PyFlakes</a></td>
+    <td>Logical</td>
+    <td>Analyzes programs and detects various errors</td>
+    </tr>
+    <tr>
+    <td><a href="https://github.com/PyCQA/pycodestyle">pycodestyle</a></td>
+    <td>Stylistic</td>
+    <td>Checks against some of the style conventions in PEP 8</td>
+    </tr>
+    <tr>
+    <td><a href="https://github.com/PyCQA/pydocstyle">pydocstyle</a></td>
+    <td>Stylistic</td>
+    <td>Checks compliance with Python docstring conventions</td>
+    </tr>
+    <tr>
+    <td><a href="https://github.com/PyCQA/bandit">Bandit</a></td>
+    <td>Logical</td>
+    <td>Analyzes code to find common security issues</td>
+    </tr>
+    <tr>
+    <td><a href="http://mypy-lang.org/">MyPy</a></td>
+    <td>Logical</td>
+    <td>Checks for optionally-enforced static types</td>
+    </tr>
+    </tbody>
+    </table>
+
+-vertical-
+
+Pour aller plus loin, on peut utiliser les _formatters_
+
+Des outils très utiles pour obtenir du code propre
+
+&rarr; Ils appliquent les conseils des _linters_ directement sur votre code.
+
+On utilise majoritairement `black` pour le formattage de code
+
+et `isort` pour le tri des paquets
+
+̀``̀̀̀ 
+pip install black
+black src/*
+`̀̀̀ ̀ 
+
+```
+pip install isort
+python -m isort src/*
+```
+
+-vertical-
+
+Pour aller *encore* plus loin :
+
+Si vous ne voulez pas vous embêter à lancer les commandes `black` et `isort` à chaque fois que vous faites une modification de votre code (et c'est un bon reflexe : la qualité première de l'informaticien, c'est la flemme !)
+
+Vous pouvez mettre en place un processus automatisé : 
+- avant de commit votre code &rarr; avec des _hooks_
+- au moment de tester votre code &rarr; avec l'intégration continue (CI)
+
+-vertical-
+
+### Les _hooks_
+
+Les _hooks_ sont des programmes qui se lancent automatiquement à des moments spécifiques de l'execution de `git`
+
+On peut lancer des programmes à pleins de moments différents :
+- au moment du commit : `pre-commit`
+- pour vérifier le format de votre message de commit : `prepare-commit-msg`
+- pre-push , ... à chaque action en fait !
+
+Mettre des [hooks](https://git-scm.com/docs/githooks) en place, c'est très simple :
+
+On a deux méthodes
+
+1. La plus simple : passer par le paquet `pre-commit` et écrire un fichier YAML de configuration
+
+```
+pip install pre-commit 
+
+2. La plus propre : Aller modifier le fichier `pre-commit` qu'il y a déjà dans votre repo `.git/hooks`
+
+-vertical-
+
+1. dans le dossier `hooks` de votre _repo_ git
+2. créer un programme executable que vous nommez du nom du hook (`pre-commit` par exemple) avec les commandes que vous voulez faire passer pour votre hook
+3. Le rendre executable avec `chmod +x` si nécessaire
+
+```
+#!/bin/sh
+
+# On récupère les fichiers que l'on veut traiter
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".jsx\{0,1\}$")
+
+if [[ "$STAGED_FILES" = "" ]]; then
+  exit 0
+fi
+
+PASS=true
+
+echo "\nlinting:\n"
+
+# Check for black
+which black &> /dev/null
+if [[ "$?" == 1 ]]; then
+  echo "\t\033[41mPlease install black\033[0m"
+  exit 1
+fi
+
+# Check for isort
+which isort &> /dev/null
+if [[ "$?" == 1 ]]; then
+  echo "\t\033[41mPlease install isort\033[0m"
+  exit 1
+fi
+
+for FILE in $STAGED_FILES
+do
+  black "$FILE"
+  isort "$FILE"
+
+  if [[ "$?" == 0 ]]; then
+    echo "\t\033[32mLinting Passed: $FILE\033[0m"
+  else
+    echo "\t\033[41mLinting Failed: $FILE\033[0m"
+    PASS=false
+  fi
+done
+
+echo "\nValidation completed!\n"
+
+if ! $PASS; then
+  echo "\033[41mCOMMIT FAILED:\033[0m Your commit contains files that should pass black and isort but do not. Please fix the black errors and try again.\n"
+  exit 1
+else
+  echo "\033[42mCOMMIT SUCCEEDED\033[0m\n"
+fi
+
+exit $?
+``̀ 
+
+
+
+-vertical-
+
+Des ressources pour les bonnes pratiques de python :
+- https://realpython.com/python-code-quality/
+- https://realpython.com/python-pep8/
 
 
 
