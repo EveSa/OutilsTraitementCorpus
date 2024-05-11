@@ -30,11 +30,13 @@ Vous savez qu'il est nécessaire de découper son corpus en _train_, _test_ et p
 
 ### Pourquoi on découpe les corpus ?
 
+<div class="r-stretch">
 Les modèles de Machine Learning et Deep Learning apprennent des règles pour prédire des comportements sur les données d'un corpus.
 
 &rarr; ces données deviennent leur réalité.
 
-Pour être sûr.e.s qu'un modèle n'a pas simplement appris par coeur à prédire le corpus de données qu'on lui a donné pour apprendre,  on veut le confronter à un autre jeu de données. C'est sur ces données là qu'on va appliquer les métriques d'évaluation (les mêmes que celles qu'on a appliquées à notre corpus mais pour notre modèle cette fois) : c'est la partition de _test_.
+Pour être sûr.e.s qu'un modèle n'a pas simplement appris par coeur à prédire le corpus de données qu'on lui a donné pour apprendre,  on veut le confronter à un autre jeu de données. C'est sur ces données là qu'on va appliquer les métriques d'évaluation (les mêmes que celles qu'on a appliquées à notre corpus mais pour notre modèle cette fois) : c'est la partition de <i>test</i>.
+</div>
 
 -vertical-
 
@@ -96,7 +98,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 `Datasets` permet également de découper son corpus avec la méthode [`train_test_split`](https://huggingface.co/docs/datasets/v2.4.0/en/package_reference/main_classes#datasets.Dataset.train_test_split)
 
-̀ ``
+```
 dataset.train_test_split(test_size=0.1)
 ```
 
@@ -107,7 +109,8 @@ dataset.train_test_split(test_size=0.1)
 Les fonctions de _split_ ont de nombreux paramètres comme on peut le voir dans la doc.
 
 - _shuffle_ : (par défault à _True_) mélange les entrées de notre corpus
-  - &rarr; Pourquoi c'est important ? Lorsqu'on a effectué notre nettoyage sur le corpus, on est passé par des étapes de tris : si notre corpus est toujours trié on va avoir un corpus de train et de test très mal équilibré
+  - &rarr; Pourquoi c'est important ?
+  - Lorsqu'on a effectué notre nettoyage sur le corpus, on est passé par des étapes de tris : si notre corpus est toujours trié on va avoir un corpus de train et de test très mal équilibré
 
 -vertical-
 
@@ -133,9 +136,26 @@ pour ça on va renseigner la carte de notre corpus a.k.a. la *dataset card*
 
 -vertical-
 
-## Les cartes des datasets
+### Les cartes des datasets
 
+Les _dataset card_ sont les README.md des corpus. Hugging face les présente comme suit
+
+> Pour informer les utilisateurs sur la manière d’utiliser les données de manière responsable, il est judicieux d’inclure des informations sur tout biais potentiel dans l’ensemble de données. Généralement, les fiches d'ensemble de données aident les utilisateurs à comprendre le contenu de l'ensemble de données et donnent un contexte sur la manière dont l'ensemble de données doit être utilisé.
 Les cartes des corpus sont des fichiers YAML
+
+-vertical-
+
+### Les cartes des datasets
+
+> Vous pouvez également ajouter des métadonnées d'ensemble de données à votre carte. Les métadonnées décrivent des informations importantes sur un ensemble de données telles que sa licence, sa langue et sa taille. Il contient également des balises pour aider les utilisateurs à découvrir un ensemble de données sur le Hub et des options de configuration des fichiers de données. Les balises sont définies dans une section de métadonnées YAML en haut du fichier README.md.
+
+YAML : un language déclaratif créé sur `json`
+
+-horizontal-
+
+## Recap' du cours
+
+
 
 -horizontal-
 
