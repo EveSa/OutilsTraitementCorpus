@@ -28,7 +28,7 @@ Vous savez qu'il est nécessaire de découper son corpus en _train_, _test_ et p
 
 -vertical-
 
-# Pourquoi on découpe les corpus ?
+### Pourquoi on découpe les corpus ?
 
 Les modèles de Machine Learning et Deep Learning apprennent des règles pour prédire des comportements sur les données d'un corpus.
 
@@ -56,7 +56,7 @@ On a donc:
 </div>
 
 <div class="fragment">
-  ⚠️ Si on fait ça, on tue le principe de la partition _test_ : on va utiliser le _test_ pour affiner les règlages de notre modèle et on ne va plus savoir s'il généralise bien sur des données nouvelles !
+  ⚠️ Si on fait ça, on tue le principe de la partition <i>test</i> : on va utiliser le <i>test</i> pour affiner les règlages de notre modèle et on ne va plus savoir s'il généralise bien sur des données nouvelles !
 </div>
 
 -vertical-
@@ -85,7 +85,7 @@ Des libraires adaptées au ML ou au DL donnent des outils pour découper les cor
 
 On peut noter `scikit-learn` qu'on a déjà utilisé pour l'augmentation de données la semaine dernière
 
-̀`̀̀ ̀ 
+```
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -107,13 +107,12 @@ dataset.train_test_split(test_size=0.1)
 Les fonctions de _split_ ont de nombreux paramètres comme on peut le voir dans la doc.
 
 - _shuffle_ : (par défault à _True_) mélange les entrées de notre corpus
+  - &rarr; Pourquoi c'est important ? Lorsqu'on a effectué notre nettoyage sur le corpus, on est passé par des étapes de tris : si notre corpus est toujours trié on va avoir un corpus de train et de test très mal équilibré
 
-&rarr; Pourquoi c'est important ?
-  - Lorsqu'on a effectué notre nettoyage sur le corpus, on est passé par des étapes de tris : si notre corpus est toujours trié on va avoir un corpus de train et de test très mal équilibré
+-vertical-
 
 - _stratify_: mélange les entrées de notre corpus en fonction d'une colonne
-
-&rarr; encore ?
+  - &rarr; encore ?
   - trier aléatoirement notre jeu de donnée comporte toujours un risque que nos partitions soient mal équilibré. On peut donc forcer à avoir une bonne repartition de nos données en stratifiant sur une colonne en particulier
 
 -horizontal-
