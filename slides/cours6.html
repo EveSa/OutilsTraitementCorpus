@@ -22,7 +22,7 @@ cours 6
 
 <h2 class="r-fit-text">Découper son corpus</h2>
 
-Vous savez qu'il est nécessaire de découper son corpus en _train_, _test_ et parfois _dev_
+Vous savez qu'il est nécessaire de découper son corpus en _train_, _test_ et parfois _dev_ (aussi appelé _validation_)
 
 &rarr; Est-ce que vous vous rappelez de pourquoi ?
 
@@ -92,11 +92,29 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.05, random_state=0)
 ```
 
-`Datasets` permet également de découper son corpus.
+-vertical-
+
+`Datasets` permet également de découper son corpus avec la méthode [`train_test_split`](https://huggingface.co/docs/datasets/v2.4.0/en/package_reference/main_classes#datasets.Dataset.train_test_split)
 
 ̀ ``
 dataset.train_test_split(test_size=0.1)
 ```
+
+-vertical-
+
+### Les paramètres des fonctions de _split_
+
+Les fonctions de _split_ ont de nombreux paramètres comme on peut le voir dans la doc.
+
+- _shuffle_ : (par défault à _True_) mélange les entrées de notre corpus
+
+&rarr; Pourquoi c'est important ?
+  - Lorsqu'on a effectué notre nettoyage sur le corpus, on est passé par des étapes de tris : si notre corpus est toujours trié on va avoir un corpus de train et de test très mal équilibré
+
+- _stratify_: mélange les entrées de notre corpus en fonction d'une colonne
+
+&rarr; encore ?
+  - trier aléatoirement notre jeu de donnée comporte toujours un risque que nos partitions soient mal équilibré. On peut donc forcer à avoir une bonne repartition de nos données en stratifiant sur une colonne en particulier
 
 -horizontal-
 
@@ -199,10 +217,10 @@ On utilise majoritairement `black` pour le formattage de code
 
 et `isort` pour le tri des paquets
 
-̀``̀̀̀ 
+̀```
 pip install black
 black src/*
-`̀̀̀ ̀ 
+``` 
 
 ```
 pip install isort
@@ -232,16 +250,40 @@ On peut lancer des programmes à pleins de moments différents :
 
 Mettre des [hooks](https://git-scm.com/docs/githooks) en place, c'est très simple :
 
+-vertical-
+
 On a deux méthodes
 
 1. La plus simple : passer par le paquet `pre-commit` et écrire un fichier YAML de configuration
 
-```
-pip install pre-commit 
+&rarr; Il contient déjà des [_hooks_ tout prêts à être utilisés](https://pre-commit.com/hooks.html) !
 
 2. La plus propre : Aller modifier le fichier `pre-commit` qu'il y a déjà dans votre repo `.git/hooks`
 
 -vertical-
+
+### Mettre des _hooks_ en place avec `pre-commit`
+
+```
+pip install pre-commit
+```
+```
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+-   repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+    -   id: black
+```
+
+-vertical-
+
+### Mettre des _hooks_ en place : la voie classique
 
 1. dans le dossier `hooks` de votre _repo_ git
 2. créer un programme executable que vous nommez du nom du hook (`pre-commit` par exemple) avec les commandes que vous voulez faire passer pour votre hook
@@ -302,6 +344,8 @@ exit $?
 
 -vertical-
 
+### L'Intégration Continue
+
 La CI est une bonne pratique de développement opérationnel (DevOps)
 
 On peut mettre une [CI en place très facilement avec Gitlab](https://docs.gitlab.com/ee/ci/) en suivant ce [tutoriel](https://docs.gitlab.com/ee/ci/quick_start/#ensure-you-have-runners-available)
@@ -314,12 +358,39 @@ Des ressources pour les bonnes pratiques de python :
 - https://realpython.com/python-code-quality/
 - https://realpython.com/python-pep8/
 
+-vertical-
 
+## Un exemple de process automatisés pour le TAL
+
+&rarr; Le projet Universal Dependencies
+
+On peut retrouver les differentes étapes (_stage_) de la vérification des données sur leur [page](https://universaldependencies.org/validation-rules.html)
+
+<div class="r-fit-text">
+  <div>
+1. Vérification du format des données (CoNLL-U)
+2. Vérification des informations morphosyntaxique (Tous les _tags_ sont des _tag_ CoNLL-U, il ne manque pas de relation)
+3. Vérification des relations (le sens des relations, ...)
+4. Vérification des particularités de langues pour les _tags_
+5. Vérification des particularités de langues pour les _relations_
+6. Vérification que toutes les relations comportent les options voulues 
+  </div>
+<img src="/OutilsTraitementCorpus/slides/img/générique-spécifique.png">
+</div>
 
 -vertical-
 
-1. Faire la carte de son Dataset
-2. Le publier sur huggingFace
+## Un exemple de process automatisés pour le TAL
+
+&rarr; Le projet Universal Dependencies
+
+La [sortie](http://quest.ms.mff.cuni.cz/udvalidator/cgi-bin/unidep/validation-report.pl) se présente comme un fichier de log.
+
+-vertical-
+
+1. Split son corpus en train, dev, test
+2. Faire la carte de son Dataset
+3. Optionnel : si vous pensez que votre corpus est intéressant &rarr; Le publier sur huggingFace
 
 N'oubliez pas pour l'évaluation de votre repo, je vais surtout regarder si vous vous en êtes tenus aux points bonnes pratiques
 - une bonne organisation de votre répertoire de travail
