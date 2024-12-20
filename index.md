@@ -54,3 +54,5 @@ Tous vos devoirs devront m’être parvenus avant le 17 mai
   - [notebook](/notebooks/significativity_test.ipynb)
 - Cours 6
   - [slides](/slides/cours6.html)
+
+Accès à la newsletter &rarr; [newsletter](./newsletter.md)
