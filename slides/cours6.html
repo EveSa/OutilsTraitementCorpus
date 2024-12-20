@@ -13,6 +13,55 @@ cours 6
 
 -vertical-
 
+<table class="r-stretch r-fit-text">
+  <thead>
+      <tr>
+      <th>Type</th>
+      <th>Naming Convention</th>
+      <th>Examples</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>Function</td>
+      <td>Use a lowercase word or words. Separate words by underscores to improve readability.</td>
+      <td><code>function</code>, <code>python_function</code></td>
+      </tr>
+      <tr>
+      <td>Variable</td>
+      <td>Use a lowercase single letter, word, or words. Separate words with underscores to improve readability.</td>
+      <td><code>x</code>, <code>var</code>, <code>python_variable</code></td>
+      </tr>
+      <tr>
+      <td>Class</td>
+      <td>Start each word with a capital letter. Don’t separate words with underscores. This style is called <a href="https://en.wikipedia.org/wiki/Camel_case">camel case or Pascal case</a>.</td>
+      <td><code>Model</code>, <code>PythonClass</code></td>
+      </tr>
+      <tr>
+      <td>Method</td>
+      <td>Use a lowercase word or words. Separate words with underscores to improve readability.</td>
+      <td><code>class_method</code>, <code>method</code></td>
+      </tr>
+      <tr>
+      <td>Constant</td>
+      <td>Use an uppercase single letter, word, or words. Separate words with underscores to improve readability.</td>
+      <td><code>CONSTANT</code>, <code>PYTHON_CONSTANT</code>, <code>PYTHON_LONG_CONSTANT</code></td>
+      </tr>
+      <tr>
+      <td>Module</td>
+      <td>Use a short, lowercase word or words. Separate words with underscores to improve readability.</td>
+      <td><code>module.py</code>, <code>python_module.py</code></td>
+      </tr>
+      <tr>
+      <td>Package</td>
+      <td>Use a short, lowercase word or words. Don’t separate words with underscores.</td>
+      <td><code>package</code>, <code>pythonpackage</code></td>
+      </tr>
+</tbody>
+</table>
+
+-vertical-
+
 # Cours 6
 
 <h2 class="r-fit-text">Découper son corpus</h2>
@@ -22,19 +71,21 @@ cours 6
 
 <h2 class="r-fit-text">Découper son corpus</h2>
 
-Vous savez qu'il est nécessaire de découper son corpus en _train_, _test_ et parfois _dev_
+Vous savez qu'il est nécessaire de découper son corpus en _train_, _test_ et parfois _dev_ (aussi appelé _validation_)
 
 &rarr; Est-ce que vous vous rappelez de pourquoi ?
 
 -vertical-
 
-# Pourquoi on découpe les corpus ?
+### Pourquoi on découpe les corpus ?
 
+<div class="r-stretch">
 Les modèles de Machine Learning et Deep Learning apprennent des règles pour prédire des comportements sur les données d'un corpus.
 
 &rarr; ces données deviennent leur réalité.
 
-Pour être sûr.e.s qu'un modèle n'a pas simplement appris par coeur à prédire le corpus de données qu'on lui a donné pour apprendre,  on veut le confronter à un autre jeu de données. C'est sur ces données là qu'on va appliquer les métriques d'évaluation (les mêmes que celles qu'on a appliquées à notre corpus mais pour notre modèle cette fois) : c'est la partition de _test_.
+Pour être sûr.e.s qu'un modèle n'a pas simplement appris par coeur à prédire le corpus de données qu'on lui a donné pour apprendre,  on veut le confronter à un autre jeu de données. C'est sur ces données là qu'on va appliquer les métriques d'évaluation (les mêmes que celles qu'on a appliquées à notre corpus mais pour notre modèle cette fois) : c'est la partition de <i>test</i>.
+</div>
 
 -vertical-
 
@@ -56,7 +107,7 @@ On a donc:
 </div>
 
 <div class="fragment">
-  ⚠️ Si on fait ça, on tue le principe de la partition _test_ : on va utiliser le _test_ pour affiner les règlages de notre modèle et on ne va plus savoir s'il généralise bien sur des données nouvelles !
+  ⚠️ Si on fait ça, on tue le principe de la partition <i>test</i> : on va utiliser le <i>test</i> pour affiner les règlages de notre modèle et on ne va plus savoir s'il généralise bien sur des données nouvelles !
 </div>
 
 -vertical-
@@ -85,18 +136,36 @@ Des libraires adaptées au ML ou au DL donnent des outils pour découper les cor
 
 On peut noter `scikit-learn` qu'on a déjà utilisé pour l'augmentation de données la semaine dernière
 
-̀`̀̀ ̀ 
+```
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.05, random_state=0)
 ```
 
-`Datasets` permet également de découper son corpus.
+-vertical-
 
-̀ ``
+`Datasets` permet également de découper son corpus avec la méthode [`train_test_split`](https://huggingface.co/docs/datasets/v2.4.0/en/package_reference/main_classes#datasets.Dataset.train_test_split)
+
+```
 dataset.train_test_split(test_size=0.1)
 ```
+
+-vertical-
+
+### Les paramètres des fonctions de _split_
+
+Les fonctions de _split_ ont de nombreux paramètres comme on peut le voir dans la doc.
+
+- _shuffle_ : (par défault à _True_) mélange les entrées de notre corpus
+  - &rarr; Pourquoi c'est important ?
+  - Lorsqu'on a effectué notre nettoyage sur le corpus, on est passé par des étapes de tris : si notre corpus est toujours trié on va avoir un corpus de train et de test très mal équilibré
+
+-vertical-
+
+- _stratify_: mélange les entrées de notre corpus en fonction d'une colonne
+  - &rarr; encore ?
+  - trier aléatoirement notre jeu de donnée comporte toujours un risque que nos partitions soient mal équilibré. On peut donc forcer à avoir une bonne repartition de nos données en stratifiant sur une colonne en particulier
 
 -horizontal-
 
@@ -116,19 +185,35 @@ pour ça on va renseigner la carte de notre corpus a.k.a. la *dataset card*
 
 -vertical-
 
-## Les cartes des datasets
+### Les cartes des datasets
 
-Les cartes des corpus sont des fichiers YAML
+Les _dataset card_ sont les README.md des corpus. Hugging face les présente comme suit
 
--horizontal-
-
-❓ Des questions ❓
-
-💡 Des idées 💡
-
-<img class="r-stretch" src="/OutilsTraitementCorpus/slides/img/socrative-qr-code.PNG">
+<blockquote class="r-stretch r-fit-text">Pour informer les utilisateurs sur la manière d’utiliser les données de manière responsable, il est judicieux d’inclure des informations sur tout biais potentiel dans l’ensemble de données. Généralement, les fiches d'ensemble de données aident les utilisateurs à comprendre le contenu de l'ensemble de données et donnent un contexte sur la manière dont l'ensemble de données doit être utilisé.
+Les cartes des corpus sont des fichiers YAML</blockquote>
 
 -vertical-
+
+### Les cartes des datasets
+
+<div class="r-stretch r-fit-text">
+
+> Vous pouvez également ajouter des métadonnées d'ensemble de données à votre carte. Les métadonnées décrivent des informations importantes sur un ensemble de données telles que sa licence, sa langue et sa taille. Il contient également des balises pour aider les utilisateurs à découvrir un ensemble de données sur le Hub et des options de configuration des fichiers de données. Les balises sont définies dans une section de métadonnées YAML en haut du fichier README.md.
+
+</div>
+
+-vertical-
+
+### Les cartes des datasets
+
+Vous puvez spécifier ces informations soit :
+
+- à l'aide d'un fichier YAML : un language déclaratif créé sur `json`
+- soit directement dans l'interface graphique de huggingface 
+
+<img src="https://cdn-lfs.huggingface.co/datasets/huggingface/documentation-images/d1ea07877375083ade36e7cea7397a62a64d82838b41d5c5a5d56293db002f4f?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27datasets-metadata-ui.png%3B+filename%3D%22datasets-metadata-ui.png%22%3B&response-content-type=image%2Fpng&Expires=1715851046&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTcxNTg1MTA0Nn19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy5odWdnaW5nZmFjZS5jby9kYXRhc2V0cy9odWdnaW5nZmFjZS9kb2N1bWVudGF0aW9uLWltYWdlcy9kMWVhMDc4NzczNzUwODNhZGUzNmU3Y2VhNzM5N2E2MmE2NGQ4MjgzOGI0MWQ1YzVhNWQ1NjI5M2RiMDAyZjRmP3Jlc3BvbnNlLWNvbnRlbnQtZGlzcG9zaXRpb249KiZyZXNwb25zZS1jb250ZW50LXR5cGU9KiJ9XX0_&Signature=HI1imhN77BnuIidBHjtgx1g7XTpX9YerD3Y-V0BuI%7Ev-bQ4zzKi6%7EVY23A8v3t9762SbNE65sy9eyYLKaOK7mVQr1Z%7ERKE8iRR5lt7qmu9n4VXvCYcjFmwugWwz1ga9zi4KFI2Cwyml%7EcyR9PMgjUceQHjH4LcmVKVwOSlH9NZiEyJiI5jl67lONW2wcIW%7EIaKDxIX3qHFpZRHgXjmvj0mVzQJCbBDfpHn2LEy98fb4biWI0bvwxMkOofifV2iJzw7WPDyTRX5fQF7%7EI%7EzxIETfnZUuOArwCgJUog9apROtzQXZ40xYAz9llwyAPaQvfs5zKfTTlFKHKgZv14wqkkw__&Key-Pair-Id=KVTP0A1DKRTAX">
+
+-horizontal-
 
 <h2 class="r-fit-text">Le point bonne pratique &rarr; Les _linters_ de code</h2>
 
@@ -145,15 +230,17 @@ On distingue deux types de _linters_ :
 - les _linters_ logiques &rarr; qui corrigent les erreurs de code
 - les _linters_ stylistiques &rarr; qui corrigent le code qui ne se conforme pas à la PEP
 
-    <table class="table table-hover">
-    <thead>
+-vertical-
+
+<table class="r-stretch r-fit-text">
+  <thead>
     <tr>
     <th>Linter</th>
     <th>Category</th>
     <th>Description</th>
     </tr>
-    </thead>
-    <tbody>
+  </thead>
+  <tbody>
     <tr>
     <td><a href="https://www.pylint.org/">Pylint</a></td>
     <td>Logical &amp; Stylistic</td>
@@ -184,8 +271,8 @@ On distingue deux types de _linters_ :
     <td>Logical</td>
     <td>Checks for optionally-enforced static types</td>
     </tr>
-    </tbody>
-    </table>
+  </tbody>
+</table>
 
 -vertical-
 
@@ -199,10 +286,10 @@ On utilise majoritairement `black` pour le formattage de code
 
 et `isort` pour le tri des paquets
 
-̀``̀̀̀ 
+```
 pip install black
 black src/*
-`̀̀̀ ̀ 
+``` 
 
 ```
 pip install isort
@@ -232,16 +319,41 @@ On peut lancer des programmes à pleins de moments différents :
 
 Mettre des [hooks](https://git-scm.com/docs/githooks) en place, c'est très simple :
 
+-vertical-
+
 On a deux méthodes
 
 1. La plus simple : passer par le paquet `pre-commit` et écrire un fichier YAML de configuration
 
-```
-pip install pre-commit 
+&rarr; Il contient déjà des [_hooks_ tout prêts à être utilisés](https://pre-commit.com/hooks.html) !
 
 2. La plus propre : Aller modifier le fichier `pre-commit` qu'il y a déjà dans votre repo `.git/hooks`
 
 -vertical-
+
+### Mettre des _hooks_ en place avec `pre-commit`
+
+```
+pip install pre-commit
+```
+```
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+-   repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+    -   id: black
+```
+
+-vertical-
+
+<div class="r-stretch">
+### Mettre des _hooks_ en place : la voie classique
 
 1. dans le dossier `hooks` de votre _repo_ git
 2. créer un programme executable que vous nommez du nom du hook (`pre-commit` par exemple) avec les commandes que vous voulez faire passer pour votre hook
@@ -300,7 +412,11 @@ fi
 exit $?
 ``̀ 
 
+</div>
+
 -vertical-
+
+### L'Intégration Continue
 
 La CI est une bonne pratique de développement opérationnel (DevOps)
 
@@ -314,12 +430,47 @@ Des ressources pour les bonnes pratiques de python :
 - https://realpython.com/python-code-quality/
 - https://realpython.com/python-pep8/
 
+-vertical-
 
+## Un exemple de process automatisés pour le TAL
+
+&rarr; Le projet Universal Dependencies
+
+On peut retrouver les differentes étapes (_stage_) de la vérification des données sur leur [page](https://universaldependencies.org/validation-rules.html)
+
+<div class="r-fit-text">
+  <ol>
+<li>Vérification du format des données (CoNLL-U)</li>
+<li>Vérification des informations morphosyntaxique (Tous les _tags_ sont des _tag_ CoNLL-U, il ne manque pas de relation)</li>
+<li>Vérification des relations (le sens des relations, ...)</li>
+<li>Vérification des particularités de langues pour les <i>tags</i></li>
+<li>Vérification des particularités de langues pour les <i>relations</i></li>
+<li>Vérification que toutes les relations comportent les options voulues </li>
+</ol>
+<img src="/OutilsTraitementCorpus/slides/img/générique-spécifique.PNG">
+</div>
 
 -vertical-
 
-1. Faire la carte de son Dataset
-2. Le publier sur huggingFace
+## Un exemple de process automatisés pour le TAL
+
+&rarr; Le projet Universal Dependencies
+
+La [sortie](http://quest.ms.mff.cuni.cz/udvalidator/cgi-bin/unidep/validation-report.pl) se présente comme un fichier de log.
+
+-horizontal-
+
+## Recap' du cours
+
+Petit test
+
+-horizontal-
+
+1. Split son corpus en train, dev, test
+2. Faire la carte de son Dataset
+3. Optionnel : si vous pensez que votre corpus est intéressant &rarr; Le publier sur huggingFace
+
+-vertical-
 
 N'oubliez pas pour l'évaluation de votre repo, je vais surtout regarder si vous vous en êtes tenus aux points bonnes pratiques
 - une bonne organisation de votre répertoire de travail
