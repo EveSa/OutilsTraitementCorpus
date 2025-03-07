@@ -2,32 +2,49 @@
 layout: presentation
 title: Cours1
 ---
+
 # Outils de Traitement de Corpus
-👩Eve Sauvage👩
+
+Eve Sauvage - doctorante à EDF R&D
 
 📫eve.sauvage at lisn dot fr📪
 
+Essayez de mettre "Outils de Traitement de Corpus" dans l'objet.
+
 🌐[EveSa.github.io/OutilsTraitementCorpus](EveSa.github.io/OutilsTraitementCorpus)🌐
 
+📜 Traitement des séquences longues avec les modèles d'apprentissage profond
+
 <aside class="notes">
-    Vous m'appelez Eve et on se tutoie si vous n'avez pas d'objection -> Je connais certains d'entre vous et je viens de terminer ce master.
+    Vous m'appelez Eve et on se tutoie si vous n'avez pas d'objection -> Je connais certains d'entre vous et je viens de
+    terminer ce master.
     Je ne suis pas une figure hierarchique.
 </aside>
 
 -vertical-
+
 ## Organisation du Cours
 
 📅6 x 3 heures📅
 
-⏱️ 3 parties: ⏱️
+⏱️ découpés en sessions de 10 à 30 min: ⏱️
 
-<sup><sub>- cours magistral</sub></sup>
+<sup><sub>- un point sur l'actualité</sub></sup>
 
-<sup><sub>- retours et questions</sub></sup>
+<sup><sub>- Correction des quizz précédents</sub></sup>
 
-<sup><sub>- TP</sub></sup>
+<sup><sub>- 1ère partie du cours</sub></sup>
 
-🏫en amphi 3🏫
+<sup><sub>- un petit test</sub></sup>
+
+<sup><sub>- 2e partie du cours</sub></sup>
+
+<sup><sub>- un point sur les bonnes pratique</sub></sup>
+
+<sup><sub>- un petit test</sub></sup>
+
+<sup><sub>- un TP</sub></sup>
+
 
 <aside class="notes">
     Profitez de la partie retour pour me dire les notions que vous souhaiterez voir aborder
@@ -37,9 +54,7 @@ title: Cours1
 
 -vertical-
 
-<p>les slides sont dispo en ligne et vous pouvez les convertir au format pdf en imprimant la présentation🖨️</p>
-
-`ctrl+P` &rarr; imprimer au format pdf
+<p>les slides sont disponibles en ligne</p>
 
 <aside class="notes">
     L'objectif c'est que vous ne soyez pas obligés de venir en cours pour Suivre
@@ -51,23 +66,95 @@ title: Cours1
 </aside>
 
 -vertical-
+
+## Evaluation
+
+3 notes :
+
+2 rendus obligatoires :
+
+- un projet de constitution et de traitement de corpus (40\%)
+- un post sur la newsletter (\20%)
+
+La meilleure des 2 notes (\40%):
+
+- les quizz en sessions
+- un devoir sur table à la dernière séance
+
+-vertical-
+
 ## Evaluation
 
 <p class="r-fit-text">📚📄Evaluation de corpus au cours d'un projet en 6 séances📄📚</p>
 
+l'objectif :
+
+- constituer un corpus à partir de données du web
+- évaluer la qualité du corpus avec les différents outils vus en cours
+- stocker les données dans un format accessible
+- choisir un modèle à évaluer sur le corpus
+- bonus : finetuner le modèle choisi
+
 A rendre sur Git
 
+-vertical-
+
+## Evaluation
+
+<p class="r-fit-text">📚📄Evaluation de corpus au cours d'un projet en 6 séances📄📚</p>
+
+Les critères :
+- respect des points "bonnes pratiques"
+- compréhensibilité du projet
+- production graphique
+
 <aside class="notes">
--> pourquoi je vous fais rendre sur Github ❓ 
+    -> pourquoi je vous fais rendre sur Github ❓
 
-- les (bons) recruteurs regardent votre github avant votre CV
-- les (bons) chercheurs regardent le github avant les papiers
-- Si vous faites des boulettes, vous êtes pas perdus
+    - les (bons) recruteurs regardent votre github avant votre CV
+    - les (bons) chercheurs regardent le github avant les papiers
+    - Si vous faites des erreurs, vous êtes pas perdus
 
--> Les critères d'évaluation:
-- surtout le respect des bonnes problématiques
-- et ensuite si vous avez effectué le travail demandé
+    -> Les critères d'évaluation:
+    - surtout le respect des bonnes pratiques
+    - et ensuite si vous avez effectué le travail demandé
 </aside>
+
+-vertical-
+
+## Evaluation
+
+📮Participer à la newsletter📮
+
+Pour apprendre à se tenir informé dans le monde de la tech:
+
+Réaliser au moins un post sur la [newsletter](./newsletter.md) au cours des 7 semaines de cours.
+
+et le présenter en cours en faisant une rapide explication et en répondant aux questions de l'assemblée.
+
+-vertical-
+
+## Evaluation - Newsletter
+
+critères d'evaluation :
+- récence et intérêt de l'information
+- exclusivité de l'information
+- compréhensibilité du contenu
+
+-vertical-
+
+## Evaluation
+
+2 petits quizz à chaque séances sur le contenu de la session
+
+- du code
+- des bonnes pratiques
+- de la théorie
+- ...
+
+-horizontal-
+
+Petite revue des [nouvelles](./newsletter.md)
 
 -horizontal-
 # Cours 1
@@ -89,9 +176,9 @@ Avant de revenir sur ces caractéristiques :
 
 <aside class="notes">
     les documents peuvent être de nature différentes :
-        - texte
-        - image
-        - son
+    - texte
+    - image
+    - son
 </aside>
 
 -vertical-
@@ -110,9 +197,10 @@ Realiser des statistiques textuelles
 
 **Pour l'apprentissage**
 
-à partir des observations (*données*), on peut déterminer des paramètres (*features*) qui vont nous permettre de prédire le futur
+à partir des observations (*données*), on peut déterminer des paramètres (*features*) qui vont nous permettre de prédire
+le futur
 
-<img src =https://www.baeldung.com/wp-content/uploads/sites/4/2022/03/1_latent-1024x307.png alt="latent space">
+<img src=https://www.baeldung.com/wp-content/uploads/sites/4/2022/03/1_latent-1024x307.png alt="latent space">
 
 -vertical-
 
@@ -185,7 +273,7 @@ C'est comme ça qu'on obtient des modèles **prédictifs**
 
 ---
 
-| | |   
+| | |
 |:---:|:---:|
 | ❄🌺 | ❄🌺 |
 | ☁ | ☁ |
@@ -224,20 +312,21 @@ Les entreprises publient :
 ### Les problématiques des données
 
 - La propreté des données ✨
-    - quand on récupère les données sur internet, on a de tout
+- quand on récupère les données sur internet, on a de tout
 
 - L'annotation des données🏷️
-    - Pour réaliser certaines annotations, on a besoin d'experts et ça coûte cher
+- Pour réaliser certaines annotations, on a besoin d'experts et ça coûte cher
 
 -vertical-
 
 ### Les problématiques des données
 
 - Le RGPD 🕵️‍♂️
-    - particulièrement visible dans le domaine médical &rarr; alors que les modèles sont très bons pour prédire les pathologies
+- particulièrement visible dans le domaine médical &rarr; alors que les modèles sont très bons pour prédire les
+pathologies
 
 - La représentativité des données
-    - Les données peuvent être biaisées &rarr; avoir des caractéristiques qu'on voudrait éviter
+- Les données peuvent être biaisées &rarr; avoir des caractéristiques qu'on voudrait éviter
 
 -horizontal-
 
@@ -304,17 +393,18 @@ En *Machine Learning*, on fait de la prédiction :
 
 <div class="r-stack">
 
-&rarr; bien déterminer la tâche que l'on veut traiter :
+    &rarr; bien déterminer la tâche que l'on veut traiter :
 
-- son besoin en ressources
+    - son besoin en ressources
     - quel modèle on utilise ? *Machine Learning*/*Deep Leaning* ?
-- les langues que l'on va traiter
+    - les langues que l'on va traiter
     - monolingue/multilingue
     - traduction ? (corpus Parallèle)
-- le genre des textes
+    - le genre des textes
     - ex : résumé d'article de journaux vs. résumé de décision de justice
 
-<img class="fragment fade-in-then-out" src ="https://blogs.nvidia.com/wp-content/uploads/2016/07/Deep_Learning_Icons_R5_PNG.jpg.png">
+    <img class="fragment fade-in-then-out"
+        src="https://blogs.nvidia.com/wp-content/uploads/2016/07/Deep_Learning_Icons_R5_PNG.jpg.png">
 </div>
 
 -vertical-
@@ -331,6 +421,10 @@ En *Machine Learning*, on fait de la prédiction :
 
 &rarr; Tout ça se trouve dans la carte des corpus
 
+-vertical-
+
+✏️Quiz Time✏️
+
 -horizontal-
 
 ## 🔎Où trouver des corpus🔍
@@ -345,13 +439,13 @@ En *Machine Learning*, on fait de la prédiction :
 ## 🔎Où trouver des corpus🔍
 
 - Agences de distribution
-    - [Linguistic Data Consortium](https://www.ldc.upenn.edu/)
-    - [ELRA](http://www.elra.info/ )
+- [Linguistic Data Consortium](https://www.ldc.upenn.edu/)
+- [ELRA](http://www.elra.info/ )
 - Inventaires et portails
-    - [LRE Map](http://lremap.elra.info/)
-    - [VLO](http://catalog.clarin.eu/vlo/)
-    - [CHILDES](https://childes.talkbank.org/)
-    - [Ortolang](http://www.ortolang.fr/)
+- [LRE Map](http://lremap.elra.info/)
+- [VLO](http://catalog.clarin.eu/vlo/)
+- [CHILDES](https://childes.talkbank.org/)
+- [Ortolang](http://www.ortolang.fr/)
 
 (cf. [Clement Plancq](https://clement-plancq.github.io/outils-corpus/outils_corpus-1.html#/o%C3%B9-trouver-les-corpus))
 
@@ -360,16 +454,16 @@ En *Machine Learning*, on fait de la prédiction :
 ### 💂Les grands corpus de l'anglais💂
 
 - Text Classification
-    - IMDB
-    - GLUE
+- IMDB
+- GLUE
 - Token Classification
-    - conll
+- conll
 - Question Answering
-    - MMLU
-    - thruful_qa
+- MMLU
+- thruful_qa
 - Summarization
-    - cnn_dailymail
-    - scientific_papers
+- cnn_dailymail
+- scientific_papers
 
 -vertical-
 
@@ -403,47 +497,49 @@ Git❤️ nécessite quelques bonne pratiques
 
 &rarr; On ne commit pas sur le main
 
-&rarr; On respecte les [commits conventionnels](https://www.conventionalcommits.org/en/v1.0.0/) (un lien en français[ici](https://buzut.net/cours/versioning-avec-git/bien-nommer-ses-commits))
+&rarr; On respecte les [commits conventionnels](https://www.conventionalcommits.org/en/v1.0.0/) (un lien en
+français[ici](https://buzut.net/cours/versioning-avec-git/bien-nommer-ses-commits))
 
 &rarr; On fait un commit par changement et on garde le tout clair
 
-&rarr; ON NE COMMIT PAS LES GROS FICHIERS (il faut les mettre dans le `.gitignore` ou les commit autrement si c'est absolument nécessaire)
+&rarr; ON NE COMMIT PAS LES GROS FICHIERS (il faut les mettre dans le `.gitignore` ou les commit autrement si c'est
+absolument nécessaire)
 
 -vertical-
 
 <p class="r-fit-text">
 <ol>
-<li>Initialiser votre repo github et envoyer le lien à mon adresse mail</li>
-<li>Initialiser votre README.md</li>
-<ul>
-    <li>Avec la tâche que vous voulez réaliser</li>
-    <li>un corpus qui répond à cette tâche</li>
-    <li>à quel type de prédiction peut servir ce corpus</li>
-    <li>à quel modèle il a servi</li>
-    <li>Apprenez moi des choses sur un corpus</li>
-</ul>
+    <li>Initialiser votre repo github et envoyer le lien à mon adresse mail</li>
+    <li>Initialiser votre README.md</li>
+    <ul>
+        <li>Avec la tâche que vous voulez réaliser</li>
+        <li>un corpus qui répond à cette tâche</li>
+        <li>à quel type de prédiction peut servir ce corpus</li>
+        <li>à quel modèle il a servi</li>
+        <li>Apprenez moi des choses sur un corpus</li>
+    </ul>
 </ol>
 Et le tout avec des beaux messages de commit 🔥
 </p>
 
 -vertical-
- ### Correction
+### Correction
 
- **tâche** : Question Answering  
+**tâche** : Question Answering
 -> Tâche de prédiction d'une réponse à partir d'une question
 
-**sous-tâche** : extractive-qa  
+**sous-tâche** : extractive-qa
 -> Q&A à partir d'un contexte : le modèle ne doit extraire la réponse que du contexte qu'on lui donne
 
 **type de tâche :** Classif ?
 
 **Corpus :** SQuAD : Stanford QUestion Answering Dataset
 
-**Langues :** Anglais, uniquement  
+**Langues :** Anglais, uniquement
 -> D'autres corpus existent dans d'autres langues, lesquels ?
 
 Le corpus comporte les informations suivantes : **id, title, context, question, answers**
 
 **id :** Un champ unique pour distinguer une suite d'information
 
-**title :** Le titre 
+**title :** Le titre
