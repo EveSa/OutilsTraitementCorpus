@@ -210,7 +210,7 @@ Comme dans une dissertation, le premier point c'est de bien définir ce que l'on
 
 ### Les différents types de tâches
 
-#### Supervisé ou Non-supervisé (ou apprentissage par renforcement)
+Supervisé ou Non-supervisé (ou apprentissage par renforcement)
 
 ![types de
 tâches](https://media.geeksforgeeks.org/wp-content/uploads/20240919170522/supervised-vs-reinforcement-vs-unsupervised.webp)
@@ -222,6 +222,8 @@ tâches](https://media.geeksforgeeks.org/wp-content/uploads/20240919170522/super
 
 L'apprentissage supervisé s'apparente à l'apprentissage avec un enseignant. Le modèle est entraîné sur un ensemble de
 données **étiquetées**, ce qui signifie que chaque entrée correspond à une sortie.
+
+-vertical-
 
 ![apprentissage supervisé](https://media.geeksforgeeks.org/wp-content/uploads/20231121154747/Supervised-learning.png)
 
@@ -244,6 +246,8 @@ l'objectif est de prédire correctement des classes.
 L'apprentissage non supervisé fonctionne avec des données sans étiquettes prédéfinies. Le modèle identifie des modèles,
 des clusters ou des associations de manière indépendante.
 
+-vertical-
+
 ![apprentissage non
 supervisé](https://media.geeksforgeeks.org/wp-content/uploads/20231121154719/Unsupervised-learning.png)
 
@@ -265,6 +269,8 @@ récompenses et de pénalités pour maximiser le succès à long terme.
 
 &rarr; plutôt lié à la robotique
 
+-vertical-
+
 ![RL](https://media.geeksforgeeks.org/wp-content/uploads/20231213180047/Reinforcement-660.png)
 
 C'est apprentissage essai-erreur.
@@ -277,7 +283,7 @@ C'est apprentissage essai-erreur.
 - Jeux vidéos
 - robotique
 
-&rarr; en TAL, on utilise le RLH (**Reinforcement Learning from Human Feedback) pour entraîner les agents
+&rarr; en TAL, on utilise le RLH (**Reinforcement Learning from Human Feedback**) pour entraîner les agents
 conversationnels
 
 -vertical-
@@ -318,14 +324,34 @@ Les modèles de langues (Mistral, GPT, ...) sont des modèles de **Next Token Pr
 
 ### Les tâches du NLP
 
+- Classification de phrases entières
+- Classification de chaque mot d’une phrase
+- Génération de contenu textuel
+- Extraction d’une réponse d’un texte
+- Génération d’une nouvelle phrase à partir d’un texte d’entrée
+
+-vertical-
+
 - Classification de phrases entières : comprendre le sentiment d’un avis, détecter si un e-mail est un spam, déterminer
 si une phrase est grammaticalement correcte ou si deux phrases sont logiquement liées.
+
+-vertical-
+
 - Classification de chaque mot d’une phrase : identifier les composantes grammaticales d’une phrase (nom, verbe,
 adjectif) ou les entités nommées (personne, lieu, organisation).
+
+-vertical-
+
 - Génération de contenu textuel : compléter une invite avec du texte généré automatiquement, compléter les blancs d’un
 texte avec des mots masqués.
+
+-vertical-
+
 - Extraction d’une réponse d’un texte : à partir d’une question et d’un contexte, extraire la réponse à la question en
 fonction des informations fournies par le contexte.
+
+-vertical-
+
 - Génération d’une nouvelle phrase à partir d’un texte d’entrée : traduire un texte dans une autre langue, résumer un
 texte.
 
@@ -333,7 +359,7 @@ texte.
 
 ### Les tâches du NLP
 
-![tasks](https://www.google.com/url?sa=i&url=https%3A%2F%2Fhuggingface.co%2Fdocs%2Fhub%2Fmodels-tasks&psig=AOvVaw33O9EJ77loy_zPkYOGTB9m&ust=1742294080384000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCODw9LL1kIwDFQAAAAAdAAAAABAE)
+![tasks](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/tasks.png)
 
 -vertical-
 
@@ -365,20 +391,22 @@ surface, localisation d'un bien &rarr; prix du bien
 #### Données structurées ou Non Structurées ?
 
 ![structured unstructed
-data](https://www.google.com/url?sa=i&url=https%3A%2F%2Fdryviq.com%2Fstructured-vs-unstructured-data%2F&psig=AOvVaw1-69JheyIjC-WtPgPZ6shN&ust=1742291144055000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCLCquLnqkIwDFQAAAAAdAAAAABAJ)
+data](https://dryviq.com/wp-content/uploads/2020/11/DryvIQ-Unstructured-VS-Structured-Data-Diagram-Light.png)
 
 -vertical-
 
 #### Données structurées
 
-- Format : strict et prédéfini
-- Stockage : Les systèmes de stockage de données structurés ont des schémas rigides, comme ceux des bases de données
-relationnelles ou des entrepôts de données.
-- Cas d'usage : Les organisations peuvent exploiter des données structurées et non structurées dans le cadre de
-l'intelligence artificielle (IA) et de l'analytique. Les données structurées sont souvent utilisées en apprentissage
-automatique (ML) et pilotent les algorithmes de ML.
-- Complexité : les données structurées sont plus faciles à manipuler et à analyser pour les utilisateurs disposant
-d’outils traditionnels.
+<ul class="r-fit-text">
+    <li>Format : strict et prédéfini</li>
+    <li>Stockage : Les systèmes de stockage de données structurés ont des schémas rigides, comme ceux des bases de
+        données relationnelles ou des entrepôts de données.</li>
+    <li>Cas d'usage : Les organisations peuvent exploiter des données structurées et non structurées dans le cadre de
+        l'intelligence artificielle (IA) et de l'analytique. Les données structurées sont souvent utilisées en
+        apprentissage automatique (ML) et pilotent les algorithmes de ML.</li>
+    <li>Complexité : les données structurées sont plus faciles à manipuler et à analyser pour les utilisateurs disposant
+        d’outils traditionnels.</li>
+</ul>
 
 Exemple : base de données relationnelles
 
@@ -386,13 +414,15 @@ Exemple : base de données relationnelles
 
 #### Données non structurées
 
-- Format : Les données non structurées n’ont pas de format prédéfini.
-- Stockage : Les données non structurées sont souvent stockées dans leur format natif dans des bases de données non
-relationnelles ou des lacs de données.
-- Cas d'Usage : Les données non structurées sont souvent utilisées dans le traitement du langage naturel (TAL) et
-constituent une source de données riche et diversifiée pour les modèles d'IA générative (gen AI).
-- Complexité : Les données non structurées peuvent être plus complexes et nécessitent des compétences et des outils
-spécialisés pour être analysées.
+<ul class="r-fit-text">
+    <li>Format : Les données non structurées n’ont pas de format prédéfini.</li>
+    <li>Stockage : Les données non structurées sont souvent stockées dans leur format natif dans des bases de données
+        non relationnelles ou des lacs de données.</li>
+    <li>Cas d'Usage : Les données non structurées sont souvent utilisées dans le traitement du langage naturel (TAL) et
+        constituent une source de données riche et diversifiée pour les modèles d'IA générative (gen AI).</li>
+    <li>Complexité : Les données non structurées peuvent être plus complexes et nécessitent des compétences et des
+        outils spécialisés pour être analysées.</li>
+</ul>
 
 Exemple : fichier Word, pdf, textes
 
@@ -416,6 +446,10 @@ Selon le type de modèle qu'on veut utiliser, on va avoir besoin de plus ou moin
 - Pour des modèles d'apprentissage profond, on va avoir besoin de beaucoup de données
 - Pour des modèles d'apprentissage classique, on va avoir besoin de moins de données
 - Pour des modèles de règles, on a besoin de très peu de données
+
+-vertical-
+
+### Quantité de données
 
 &rarr; selon la tâche que l'on veut réaliser, on va devoir récupérer plus ou moins de données. Il faut s'assurer que les
 données sont disponibles pour la tâche en question
@@ -441,6 +475,15 @@ récupèrent donc les biais présents dans les données.
 ex : biais sexiste, raciste dans les modèles génératifs
 
 &rarr; il faut donc s'assurer de pouvoir récupérer des données de qualité
+
+-vertical-
+
+### Equilibre des données
+
+Il est important d'obtenir des données équilibrées pour être sur que tous les cas vont être appris également par le
+modèle.
+
+ex : le modèle a très peu d'adverbes dans son jeu de données &rarr; il ne prédira jamais d'adverbe.
 
 -vertical-
 
@@ -480,6 +523,20 @@ exemple : dans le domaine médical, on a besoin de médecin pour annoter les com
 
 -vertical-
 
+### Pourquoi c'est si compliqué à récupérer ?
+
+En NLP, on utilise beaucoup de données non structurées.
+
+Ces données sont souvent sous un format difficile à récupérer.
+
+exemples:
+- récupérer du texte depuis des images ?
+- récupérer du texte depuis un pdf ?
+- depuis des plateformes propriétaires (microsoft word)
+- depuis des présentations (power point) &rarr; comment conserver l'agencement du texte ?
+
+-vertical-
+
 Avant de sélectionner son corpus → bien déterminer la tâche que l'on veut traiter :
 - son besoin en ressources
 - quel modèle on utilise ? *Machine Learning* / *Deep Leaning* ?
@@ -503,6 +560,57 @@ Avant de sélectionner son corpus → bien déterminer la tâche que l'on veut t
 
 -vertical-
 
+## 🔎Où trouver des corpus🔍
+
+- Agences de distribution
+- [Linguistic Data Consortium](https://www.ldc.upenn.edu/)
+- [ELRA](http://www.elra.info/ )
+- Inventaires et portails
+- [LRE Map](http://lremap.elra.info/)
+- [VLO](http://catalog.clarin.eu/vlo/)
+- [CHILDES](https://childes.talkbank.org/)
+- [Ortolang](http://www.ortolang.fr/)
+
+(cf. [Clement Plancq](https://clement-plancq.github.io/outils-corpus/outils_corpus-1.html#/o%C3%B9-trouver-les-corpus))
+
+-vertical-
+
+### 💂Les grands corpus de l'anglais💂
+
+<p class="r-fit-text">
+    Text Classification
+
+    - IMDB
+    - GLUE
+
+    Token Classification
+
+    - conll
+
+    Question Answering
+
+    - MMLU
+    - thruful_qa
+
+    Summarization
+
+    - cnn_dailymail
+    - scientific_papers
+
+</p>
+
+-vertical-
+
+<h3 class="r-fit-text">🥖Les grands corpus du français🥖</h3>
+
+- frWaC (1,6 milliards de mots, annotation POS avec TreeTagger)
+- FRCOW16 (8,7 milliards de mots)
+- OSCAR (23 milliards de mots pour le français (issu de Common Crawl))
+
+(cf. [Clement Plancq](https://clement-plancq.github.io/outils-corpus/outils_corpus-1.html#/les-gros-corpus-du-web))
+
+-vertical-
+
 ## Point bonnes pratiques
 
 ### Comment rester informer
@@ -513,8 +621,8 @@ Avant de sélectionner son corpus → bien déterminer la tâche que l'on veut t
 
 Le monde de l'IA et du NLP évolue extrêment vite et même en temps qu'expert, on a parfois du mal à rester au courant.
 
-![keep up with
-AI](https://preview.redd.it/its-not-easy-to-keep-up-with-ai-news-v0-2gh50gfoxsfe1.png?width=1080&crop=smart&auto=webp&s=25a5f315f0ce3e723d025a89445e704e1d694239)
+<img class="r-fit-text"
+    src="https://preview.redd.it/its-not-easy-to-keep-up-with-ai-news-v0-2gh50gfoxsfe1.png?width=1080&crop=smart&auto=webp&s=25a5f315f0ce3e723d025a89445e704e1d694239">
 
 Quels sont les outils pour rester au courant des nouvelles ?
 
@@ -550,6 +658,14 @@ Quizz 2
 5. Quelles sont vos ressources pour rester informer des avancées de l'IA ?
 
 -horizontal-
+
+Les ressources sur lesquelles se basent le cours :
+
+- [Une définition des différentes étapes pour la construction de modèles](https://oden.io/glossary/model-training/)
+- geeksforgeeks
+- La documentation de ibm
+- huggingface
+- le blog de nvidia
 
 ## TP
 
