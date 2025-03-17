@@ -38,7 +38,7 @@ Tous vos devoirs devront m’être parvenus avant le 17 mai
 
 # Index des cours
 
-- [Cours 1](/slides/cours1.html)
+- [Cours 1](/slides/cours1-2024.html)
 - Cours 2
   - [slides](/slides/cours2.html)
   - [notebook](/notebooks/web_scrap.ipynb)
