@@ -26,6 +26,8 @@ langues.
 &rarr; L'apprentissage supervisé utilise des données étiquettées. On y retrouve les tâches de classification ou de
 regression comme la classification de texte ou l'analyse de sentiment.
 
+-vertical-
+
 3. Donnez un framework de données structurées.
 
 &rarr; SQL est un framework de données structurées car les données y sont typées et instanciées
@@ -55,8 +57,8 @@ regression comme la classification de texte ou l'analyse de sentiment.
 ### Pourquoi collecter des données ?
 
 - Des données spécifiques
-- de tâches
-- de domaine
+    - de tâches
+    - de domaine
 - des données confidentielles (médicale, nucléaire)
 
 -vertical-
@@ -72,7 +74,7 @@ Sans données, les modèles neuronaux n'existent pas (contrairement aux modèles
 ## Comment récupérer des bonnes données ?
 
 - Eviter les biais :
-- récupérer des données variées
+    - récupérer des données variées
 - Eviter les données manquantes
 - Récupérer suffisemment de données
 
@@ -88,9 +90,9 @@ Des lois existent pour protéger les données sur le web :
 
 ## Récupérer des données
 
-<h3 class="r-fit-text">Depuis des bases préexistantes</h3>
-<h3 class="r-fit-text">Depuis une API</h3>
-<h3 class="r-fit-text">Depuis le web</h3>
+### Depuis des bases préexistantes
+### Depuis une API
+### Depuis le web
 
 ## Stocker les données
 
@@ -115,8 +117,10 @@ On va pouvoir connecter sa machine a des bases de données avec `sqlite3` ou `SQ
 ### Quelle base pour quel usage ?
 
 SQLite est idéal pour les applications légères et le prototypage.
+
 MySQL et PostgreSQL offrent des solutions de bases de données plus robustes et adaptées aux entreprises, avec des
 fonctionnalités étendues.
+
 Microsoft SQL Server est privilégié dans les environnements où d'autres technologies Microsoft sont fortement utilisées.
 
 -vertical-
@@ -133,13 +137,15 @@ traitement de données en temps réel.
 
 ## Pourquoi utiliser NoSQL ?
 
-<p type="r-fit-text">
     Contrairement aux bases de données relationnelles, qui utilisent le langage de requête structuré (SLR), les bases de
     données NoSQL ne disposent pas d'un langage de requête universel. Chaque type de base de données NoSQL possède
     généralement son propre langage de requête. Les bases de données relationnelles traditionnelles suivent les
     principes ACID (atomicité, cohérence, isolation, durabilité), garantissant une cohérence forte et des relations
     structurées entre les données.
-</p>
+
+-vertical-
+
+## Pourquoi utiliser NoSQL ?
 
 Cependant, avec l'évolution des applications vers la gestion du Big Data, de l'analyse en temps réel et des
 environnements distribués, NoSQL s'est imposé comme une solution offrant :
@@ -160,44 +166,40 @@ récupération des données.
 
 1. Bases de données documentaires
 
-<p class="r-fit-text">
-    Stockez les données au format JSON, BSON ou XML.
-
-    Les données sont stockées sous forme de documents pouvant contenir différents attributs.
+Les données sont stockées sous forme de documents pouvant contenir différents attributs (json, XML).
     Exemples : MongoDB, CouchDB, Cloudant
     Idéal pour les systèmes de gestion de contenu, les profils utilisateur et les catalogues nécessitant des schémas
     flexibles.
-</p>
+
+-vertical-
 
 2. Stockage clé-valeur
 
-<p class="r-fit-text">
     Les données sont stockées sous forme de paires clé-valeur, ce qui accélère considérablement la récupération.
     Optimisé pour la mise en cache et le stockage de sessions.
     Exemples : Redis, Memcached, Amazon DynamoDB
     Idéal pour les applications nécessitant la gestion des sessions, la mise en cache des données en temps réel et les
     classements.
-</p>
+
+-vertical-
 
 3. Stockage par famille de colonnes
 
-<p class="r-fit-text">
     Les données sont stockées en colonnes plutôt qu'en lignes, ce qui permet des analyses à grande vitesse et un calcul
     distribué.
     Efficace pour le traitement de données volumineuses avec des exigences élevées en écriture/lecture.
     Exemples : Apache Cassandra, HBase, Google Bigtable
     Idéal pour les données de séries chronologiques, les applications IoT et l'analyse du Big Data.
-</p>
+
+-vertical-
 
 4. Bases de données à base graphe
 
-<p class="r-fit-text">
     Les données sont stockées sous forme de nœuds et d'arêtes, ce qui permet une gestion complexe des relations.
     Idéal pour les réseaux sociaux, la détection des fraudes et les moteurs de recommandation.
     Exemples : Neo4j, Amazon Neptune, ArangoDB
     Utile pour les applications nécessitant des requêtes relationnelles, telles que la détection des fraudes et
     l'analyse des réseaux sociaux.
-</p>
 
 -vertical-
 
@@ -232,6 +234,10 @@ Qu'est ce qu'une API ?
 
 &rarr; API veut dire **Application Programming Interface**
 
+-vertical-
+
+## Qu'est ce qu'une API
+
 Une API est un ensemble de protocoles et de sous-routines de communication utilisés par différents programmes pour
 communiquer entre eux. Un programmeur peut utiliser divers outils API pour simplifier son programme. De plus, une API
 offre aux programmeurs un moyen efficace de développer leurs logiciels. Ainsi, une API permet à deux programmes ou
@@ -243,12 +249,15 @@ souhaité.
 
 ### Comprendre par l'exemple
 
+<p class="r-fit-text">
 Pour illustrer le schéma d'une API, prenons un exemple concret. Imaginez un serveur de restaurant qui écoute votre
-commande, se rend chez le chef, prend les plats commandés et vous les remet. Si vous souhaitez comprendre le
-fonctionnement d'une API, voici un exemple : vous recherchez une formation (par exemple, DSA-Self Paced) sur le site web
+commande, se rend chez le chef, prend les plats commandés et vous les remet.
+
+exemple : vous recherchez une formation (par exemple, DSA-Self Paced) sur le site web
 XYZ. Vous envoyez une requête (recherche de produit) via une API. La base de données recherche la formation et vérifie
 sa disponibilité. L'API envoie votre requête à la base de données (recherche de la formation) et renvoie le résultat
 (meilleurs cours DSA).
+</p>
 
 <img height=400 src="https://media.geeksforgeeks.org/wp-content/uploads/20230216170349/What-is-an-API.png" />
 
@@ -272,6 +281,10 @@ REST et GraphQL conçoivent tous deux leur échange de données en fonction des 
 toute donnée ou à tout objet auquel le client peut accéder et manipuler via l'API. Chaque ressource possède son propre
 identifiant unique (URI) et un ensemble d'opérations (méthodes HTTP) que le client peut effectuer sur elle.
 
+-vertical-
+
+### Exemple
+
 Prenons l'exemple d'une API de réseaux sociaux dans laquelle les utilisateurs créent et gèrent des publications. Dans
 une API basée sur les ressources, une publication serait une ressource. Elle possède son propre identifiant unique, par
 exemple /posts/1234. Et elle dispose d'un ensemble d'opérations, telles que GET pour récupérer la publication dans REST
@@ -280,6 +293,8 @@ ou query pour récupérer la publication dans GraphQL.
 -vertical-
 
 ### Data Exchange
+
+<p class="r-fit-text">
 REST et GraphQL prennent tous deux en charge des formats de données similaires.
 
 JSON est le format d'échange de données le plus populaire que tous les langages, plateformes et systèmes comprennent. Le
@@ -288,6 +303,7 @@ notamment XML et HTML.
 
 De même, REST et GraphQL prennent tous deux en charge la mise en cache. Ainsi, les clients et les serveurs peuvent
 mettre en cache les données fréquemment consultées pour accélérer les communications.
+</p>
 
 -vertical-
 
@@ -304,6 +320,10 @@ application.
 le développement de REST s'est davantage concentré sur la création de nouvelles API. Dans le même temps, GraphQL s'est
 concentré sur les performances et la flexibilité des API.
 
+-vertical-
+
+### Exemple
+
 Voici ce qu'une requête REST utilise pour fonctionner :
 
 - Verbes HTTP qui déterminent l'action
@@ -311,8 +331,10 @@ Voici ce qu'une requête REST utilise pour fonctionner :
 - Les paramètres et valeurs à analyser si vous souhaitez créer ou modifier un objet au sein d'une ressource côté serveur
 existante
 
+<p class="r-fit-text">
 Par exemple, vous utilisez GET pour obtenir des données en lecture seule à partir d'une ressource, POST pour ajouter une
 nouvelle entrée de ressource ou PUT pour mettre à jour une ressource.
+</p>
 
 -vertical-
 
@@ -330,6 +352,8 @@ En revanche, voici ce que les requêtes GraphQL utilisent :
 
 Dans l'architecture REST, les données sont renvoyées au client par le serveur dans la structure complète des ressources
 spécifiée par le serveur. Les exemples suivants montrent les données renvoyées dans REST et GraphQL.
+
+-vertical-
 
 Exemple de données renvoyées dans REST
 Dans REST, GET /posts renvoie ce qui suit :
@@ -354,6 +378,8 @@ Dans REST, GET /posts renvoie ce qui suit :
 ]
 ```
 
+-vertical-
+
 Exemple de données renvoyées dans GraphQL
 Lorsque vous utilisez GraphQL, seules les données spécifiées dans la structure fournie par le client sont renvoyées.
 
@@ -377,6 +403,8 @@ GET /graphql?query{post(id: 1) {id title content}} renvoie uniquement le premier
 
 Vous pouvez utiliser les API GraphQL et REST de manière interchangeable. Cependant, dans certains cas d'utilisation,
 l'un ou l'autre convient mieux.
+
+-vertical-
 
 Par exemple, GraphQL est probablement un meilleur choix si vous tenez compte des points suivants :
 
@@ -470,10 +498,12 @@ commun de protéger les données sensibles et de garantir que l'API ne soit pas 
 
 ### Les méthodes d'authentification
 
+<p class="r-fit-text">
 L'authentification HTTP de base est la méthode la plus rudimentaire pour implémenter l'authentification API. Elle
 consiste à envoyer des identifiants sous forme de paires utilisateur/mot de passe dans un champ d'en-tête Authorization,
 où les identifiants sont codés en Base64. Cependant, ces identifiants ne sont ni hachés ni chiffrés, ce qui rend ce
 mécanisme d'authentification peu sûr, sauf s'il est utilisé conjointement avec HTTPS.
+</p>
 
 <img height=400 src="https://voyager.postman.com/illustration/http-basic-auth-diagram-postman.svg" />
 
