@@ -137,11 +137,11 @@ traitement de données en temps réel.
 
 ## Pourquoi utiliser NoSQL ?
 
-    Contrairement aux bases de données relationnelles, qui utilisent le langage de requête structuré (SLR), les bases de
-    données NoSQL ne disposent pas d'un langage de requête universel. Chaque type de base de données NoSQL possède
-    généralement son propre langage de requête. Les bases de données relationnelles traditionnelles suivent les
-    principes ACID (atomicité, cohérence, isolation, durabilité), garantissant une cohérence forte et des relations
-    structurées entre les données.
+Contrairement aux bases de données relationnelles, qui utilisent le langage de requête structuré (SLR), les bases de
+données NoSQL ne disposent pas d'un langage de requête universel. Chaque type de base de données NoSQL possède
+généralement son propre langage de requête. Les bases de données relationnelles traditionnelles suivent les
+principes ACID (atomicité, cohérence, isolation, durabilité),garantissant une cohérence forte et des relations
+structurées entre les données.
 
 -vertical-
 
@@ -150,12 +150,22 @@ traitement de données en temps réel.
 Cependant, avec l'évolution des applications vers la gestion du Big Data, de l'analyse en temps réel et des
 environnements distribués, NoSQL s'est imposé comme une solution offrant :
 
-- Évolutivité : possibilité d'évolutivité horizontale par l'ajout de nœuds au lieu de mettre à niveau une seule
+<ul class="r-fit-text">
+    <li>
+Évolutivité : possibilité d'évolutivité horizontale par l'ajout de nœuds au lieu de mettre à niveau une seule
 machine ;
-- Flexibilité : prise en charge des données non structurées ou semi-structurées sans schéma rigide ;
-- Hautes performances : optimisé pour des opérations de lecture/écriture rapides sur de grands ensembles de données ;
-- Architecture distribuée : conçue pour une haute disponibilité et une tolérance aux partitions dans les systèmes
+</li>
+<li>
+Flexibilité : prise en charge des données non structurées ou semi-structurées sans schéma rigide ;
+</li>
+<li>
+Hautes performances : optimisé pour des opérations de lecture/écriture rapides sur de grands ensembles de données ;
+</li>
+<li>
+Architecture distribuée : conçue pour une haute disponibilité et une tolérance aux partitions dans les systèmes
 distribués.
+</li>
+</ul>
 
 -vertical-
 
@@ -236,14 +246,16 @@ Qu'est ce qu'une API ?
 
 -vertical-
 
-## Qu'est ce qu'une API
+### Qu'est ce qu'une API
 
+<p class="r-fit-text"></p>
 Une API est un ensemble de protocoles et de sous-routines de communication utilisés par différents programmes pour
 communiquer entre eux. Un programmeur peut utiliser divers outils API pour simplifier son programme. De plus, une API
 offre aux programmeurs un moyen efficace de développer leurs logiciels. Ainsi, une API permet à deux programmes ou
 applications de communiquer entre eux en leur fournissant les outils et fonctions nécessaires. Elle reçoit la requête de
 l'utilisateur et l'envoie au fournisseur de services, puis renvoie le résultat généré par ce dernier à l'utilisateur
 souhaité.
+</p>
 
 -vertical-
 
@@ -511,10 +523,12 @@ mécanisme d'authentification peu sûr, sauf s'il est utilisé conjointement ave
 
 ### Les méthodes d'authentification
 
+<p class="r-fit-text">
 Une clé API est un identifiant unique qu'un fournisseur d'API attribue aux utilisateurs enregistrés afin de contrôler
 leur utilisation et de surveiller leur accès. La clé API doit être envoyée avec chaque requête, soit dans la chaîne de
 requête, soit comme en-tête de requête, soit comme cookie. Comme l'authentification HTTP de base, l'authentification par
 clé API doit être utilisée avec HTTPS pour garantir la sécurité de la clé API.
+</p>
 
 <img src="https://voyager.postman.com/illustration/api-key-auth-diagram-postman.svg" height=400 />
 
@@ -522,10 +536,12 @@ clé API doit être utilisée avec HTTPS pour garantir la sécurité de la clé 
 
 ### Les méthodes d'authentification
 
+<p class="r-fit-text">
 OAuth est un mécanisme d'authentification basé sur des jetons qui permet à un utilisateur d'accorder l'accès à son
 compte à des tiers sans avoir à partager ses identifiants de connexion. OAuth 2.0, plus flexible et évolutif qu'OAuth
 1.0, est devenu la référence en matière d'authentification API et prend en charge une intégration API complète sans
 compromettre les données utilisateur.
+</p>
 
 <img src="https://voyager.postman.com/illustration/oauth-diagram-postman.svg" height=400 />
 
@@ -545,11 +561,15 @@ compromettre les données utilisateur.
 
 Le *web scraping* est une méthode automatique permettant d'extraire de grandes quantités de données de sites web. La plupart de ces données sont des données non structurées au format HTML, qui sont ensuite converties en données structurées dans un tableur ou une base de données afin d'être exploitées dans diverses applications. Il existe de nombreuses façons d'extraire des données de sites web grâce au web scraping. 
 
+-vertical-
+
+## Depuis le web
+
 Parmi celles-ci, on peut citer l'utilisation de services en ligne, d'API spécifiques ou même la création de code web scraping de A à Z. De nombreux grands sites web, comme Google, Twitter, Facebook, StackOverflow, etc., disposent d'API permettant d'accéder à leurs données dans un format structuré. C'est la meilleure option, mais d'autres sites ne permettent pas d'accéder à de grandes quantités de données sous une forme structurée ou ne sont tout simplement pas assez avancés technologiquement. Dans ce cas, il est préférable d'utiliser le web scraping pour extraire les données du site web.
 
 -vertical-
 
-# Crawler et Scrapper
+### Crawler et Scrapper
 
 Le web scraping se compose de deux éléments : le robot d'exploration (crawler) et le scraper. Le robot d'exploration est un algorithme qui parcourt le web à la recherche des données nécessaires en suivant les liens. Le scraper, quant à lui, est un outil spécifique conçu pour extraire les données du site web. La conception du scraper peut varier considérablement selon la complexité et l'ampleur du projet, afin de permettre une extraction rapide et précise des données.
 
@@ -570,6 +590,10 @@ les robots d'indexation décident également des pages à explorer en se basant 
 ### Comment fonctionnent les scrapers web ?
 
 Les scrapers web peuvent extraire toutes les données de sites spécifiques ou les données spécifiques recherchées par un utilisateur. Idéalement, il est préférable de spécifier les données souhaitées afin que le scraper web les extraie rapidement. Par exemple, vous pourriez vouloir scraper une page Amazon pour connaître les types de centrifugeuses disponibles, mais vous pourriez ne vouloir que les données concernant les différents modèles, sans les avis clients.
+
+-vertical-
+
+### Comment fonctionnent les scrapers web ?
 
 Ainsi, lorsqu'un scraper web doit scraper un site, il commence par fournir les URL. Il charge ensuite tout le code HTML de ces sites. Un scraper plus avancé peut même extraire tous les éléments CSS et JavaScript. Le scraper récupère ensuite les données requises à partir de ce code HTML et les affiche au format spécifié par l'utilisateur. Il s'agit généralement d'une feuille de calcul Excel ou d'un fichier CSV, mais les données peuvent également être enregistrées dans d'autres formats, comme un fichier JSON.
 
@@ -627,7 +651,11 @@ on y retrouve :
 
 - `lxml`
 <pre><code> from lxml import etree</code></pre>
+
+<p class="r-fit-text">
 ➡️ La bibliothèque de base pour traiter du xml/html
+</p>
+
 - `Beautiful Soup`
 <pre><code>
 from bs4 import BeautifulSoup
