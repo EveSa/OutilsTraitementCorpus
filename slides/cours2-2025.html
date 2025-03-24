@@ -177,39 +177,41 @@ récupération des données.
 1. Bases de données documentaires
 
 Les données sont stockées sous forme de documents pouvant contenir différents attributs (json, XML).
-    Exemples : MongoDB, CouchDB, Cloudant
-    Idéal pour les systèmes de gestion de contenu, les profils utilisateur et les catalogues nécessitant des schémas
-    flexibles.
+
+Exemples : MongoDB, CouchDB, Cloudant
+
+Idéal pour les systèmes de gestion de contenu, les profils utilisateur et les catalogues nécessitant des schémas flexibles.
 
 -vertical-
 
 2. Stockage clé-valeur
 
-    Les données sont stockées sous forme de paires clé-valeur, ce qui accélère considérablement la récupération.
-    Optimisé pour la mise en cache et le stockage de sessions.
-    Exemples : Redis, Memcached, Amazon DynamoDB
-    Idéal pour les applications nécessitant la gestion des sessions, la mise en cache des données en temps réel et les
-    classements.
+Les données sont stockées sous forme de paires clé-valeur, ce qui accélère considérablement la récupération. Optimisé pour la mise en cache et le stockage de sessions.
+
+Exemples : Redis, Memcached, Amazon DynamoDB
+
+Idéal pour les applications nécessitant la gestion des sessions, la mise en cache des données en temps réel et les classements.
 
 -vertical-
 
 3. Stockage par famille de colonnes
 
-    Les données sont stockées en colonnes plutôt qu'en lignes, ce qui permet des analyses à grande vitesse et un calcul
-    distribué.
-    Efficace pour le traitement de données volumineuses avec des exigences élevées en écriture/lecture.
-    Exemples : Apache Cassandra, HBase, Google Bigtable
-    Idéal pour les données de séries chronologiques, les applications IoT et l'analyse du Big Data.
+Les données sont stockées en colonnes plutôt qu'en lignes, ce qui permet des analyses à grande vitesse et un calcul distribué. Efficace pour le traitement de données volumineuses avec des exigences élevées en écriture/lecture.
+
+Exemples : Apache Cassandra, HBase, Google Bigtable
+
+Idéal pour les données de séries chronologiques, les applications IoT et l'analyse du Big Data.
 
 -vertical-
 
 4. Bases de données à base graphe
 
-    Les données sont stockées sous forme de nœuds et d'arêtes, ce qui permet une gestion complexe des relations.
-    Idéal pour les réseaux sociaux, la détection des fraudes et les moteurs de recommandation.
-    Exemples : Neo4j, Amazon Neptune, ArangoDB
-    Utile pour les applications nécessitant des requêtes relationnelles, telles que la détection des fraudes et
-    l'analyse des réseaux sociaux.
+Les données sont stockées sous forme de nœuds et d'arêtes, ce qui permet une gestion complexe des relations.
+Idéal pour les réseaux sociaux, la détection des fraudes et les moteurs de recommandation.
+
+Exemples : Neo4j, Amazon Neptune, ArangoDB
+
+Utile pour les applications nécessitant des requêtes relationnelles, telles que la détection des fraudes et l'analyse des réseaux sociaux.
 
 -vertical-
 
@@ -248,7 +250,7 @@ Qu'est ce qu'une API ?
 
 ### Qu'est ce qu'une API
 
-<p class="r-fit-text"></p>
+<p class="r-fit-text">
 Une API est un ensemble de protocoles et de sous-routines de communication utilisés par différents programmes pour
 communiquer entre eux. Un programmeur peut utiliser divers outils API pour simplifier son programme. De plus, une API
 offre aux programmeurs un moyen efficace de développer leurs logiciels. Ainsi, une API permet à deux programmes ou
@@ -264,7 +266,9 @@ souhaité.
 <p class="r-fit-text">
 Pour illustrer le schéma d'une API, prenons un exemple concret. Imaginez un serveur de restaurant qui écoute votre
 commande, se rend chez le chef, prend les plats commandés et vous les remet.
+</p>
 
+<p class="r-fit-text">
 exemple : vous recherchez une formation (par exemple, DSA-Self Paced) sur le site web
 XYZ. Vous envoyez une requête (recherche de produit) via une API. La base de données recherche la formation et vérifie
 sa disponibilité. L'API envoie votre requête à la base de données (recherche de la formation) et renvoie le résultat
@@ -308,11 +312,15 @@ ou query pour récupérer la publication dans GraphQL.
 
 <p class="r-fit-text">
 REST et GraphQL prennent tous deux en charge des formats de données similaires.
+</p>
 
+<p class="r-fit-text">
 JSON est le format d'échange de données le plus populaire que tous les langages, plateformes et systèmes comprennent. Le
 serveur renvoie des données JSON au client. D'autres formats de données sont disponibles mais moins couramment utilisés,
 notamment XML et HTML.
+</p>
 
+<p class="r-fit-text">
 De même, REST et GraphQL prennent tous deux en charge la mise en cache. Ainsi, les clients et les serveurs peuvent
 mettre en cache les données fréquemment consultées pour accélérer les communications.
 </p>
@@ -607,7 +615,9 @@ Les web scrapers peuvent se concentrer sur des pages ou sites web spécifiques u
 
 ### Web scraping en python
 
+<p class="r-fit-text">
 C'est le langage le plus populaire pour le web scraping, car il gère facilement la plupart des processus. Il propose également diverses bibliothèques spécialement conçues pour le web scraping. Scrapy est un framework d'exploration web open source très populaire, écrit en Python. Il est idéal pour le web scraping ainsi que pour l'extraction de données via des API. Beautiful soup est une autre bibliothèque Python particulièrement adaptée au web scraping. Elle crée un arbre d'analyse permettant d'extraire des données du code HTML d'un site web. Beautiful soup offre également de nombreuses fonctionnalités pour la navigation, la recherche et la modification de ces arbres d'analyse.
+</p>
 
 -vertical-
 
@@ -660,7 +670,9 @@ on y retrouve :
 <pre><code>
 from bs4 import BeautifulSoup
 </code></pre>
+<p class="r-fit-text">
 ➡️ Une bibliothèque très répendue pour faire à peu près pareil que lxml
+</p>
 - scrapy
 <pre><code>
     import scrapy
@@ -695,16 +707,23 @@ Pour naviguer dans le contenu html, on utilise les concepts étudiés en cours d
 
 ### Éviter le blocage IP : proxys et rotation des agents utilisateurs
 
+<p class="r-fit-text">
 Certains sites ne permettent pas de récupérer les informations contenue en leur sein.
-
+</p>
+<p class="r-fit-text">
 Pourtant, en temps d'utilisateur, vous êtes autorisés à les consulter.
-
+</p>
+<p class="r-fit-text">
 Comment est ce que les systèmes arrivent à déceler qui demande l'information ?
 &rarr; via l'adresse IP de l'utilisateur
+</p>
 
+<p class="r-fit-text">
 Lorsqu'un utilisateur robot fait de nombreuses requêtes successive à un serveur, le serveur bloque cette adresse IP.
-
+</p>
+<p class="r-fit-text">
 Evitez de faire des requêtes rapides à un serveur car vous serez vite bloqués.
+</p>
 
 -vertical-
 
@@ -753,17 +772,23 @@ Pandas est compatible avec de nombreux format de données:
 
 ### huggingface Datasets
 
+<p class="r-fit-text">
 huggingface propose aussi sa propre bibliothèque de traitement de données : `datasets`
-
+</p>
+<p class="r-fit-text">
 Elle est particulièrement utile pour récupérer des corpus pré-existant.
-
+</p>
+<p class="r-fit-text">
 Dans ce cas, il n'est pas nécessaire de passer par les étapes vues précedemment car la libairie s'occupe d'elle même de
 préparer les données pour python
-
+</p>
+<p class="r-fit-text">
 En revanche, il est important de comprendre commment la bibliothèque fonctionne pour créer votre propre corpus et le
 publier sur la plateforme.
-
+</p>
+<p class="r-fit-text">
 Les données y sont souvent stockées en parquet
+</p>
 
 -vertical-
 
@@ -787,7 +812,7 @@ Les données y sont souvent stockées en parquet
     </div>
 
     <img class="fragment"
-        src="https://raw.githubusercontent.com/Yuliang-Liu/MultimodalOCR/main/images/GPT4V_Gemini.png">
+        src="https://raw.githubusercontent.com/Yuliang-Liu/MultimodalOCR/main/images/GPT4V_Gemini.png"/>
 </div>
 
 -vertical-
@@ -795,7 +820,7 @@ Les données y sont souvent stockées en parquet
 ### 🖼️Convertir des images en texte🖼️
 #### Comment ça marche ❓
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/MnistExamplesModified.png">
+<img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/MnistExamplesModified.png"/>
 
 -vertical-
 
@@ -823,7 +848,13 @@ Suivre les [conseils du MIT](https://mitcommlab.mit.edu/broad/commkit/file-struc
 
 ### L'importance de l'organisation des fichiers
 
+<p class="r-fit-text">
 La cohérence est essentielle. Comme pour se déplacer dans la maison, il est utile de savoir où se trouve chaque élément et de s'assurer qu'il est rangé dans un ordre logique (espérons que vos ustensiles de cuisine ne se trouvent pas dans votre salle de bain). Il en va de même pour le codage. Savoir où se trouvent les fichiers, quand utiliser tel code pour telle opération et comment trouver les résultats, données et chiffres associés peut non seulement optimiser la productivité, mais aussi favoriser la cohérence (même entre plusieurs projets) et le partage.
+</p>
+
+-vertical-
+
+### L'importance de l'organisation des fichiers
 
 L'emplacement et l'organisation de vos fichiers peuvent être considérés comme une carte globale de vos projets de codage. Comme pour une légende de carte, vous devez définir un ensemble d'attentes concernant l'emplacement des différentes parties du projet et leur ordre d'assemblage.
 
@@ -831,7 +862,9 @@ L'emplacement et l'organisation de vos fichiers peuvent être considérés comme
 
 ### Pourquoi le faire : pour les autres
 
+<p class="r-fit-text">
 Même si vous travaillez sur un devoir, il est préférable de garder à l'esprit que votre travail sera partagé et reproduit par d'autres. Pour cela, vous devez organiser votre code de manière à ce que les nouveaux arrivants puissent accéder rapidement aux éléments clés de votre projet sans consulter la documentation ni cliquer sans but dans les fichiers. D'une certaine manière, vous souhaitez que les autres vous remercient. Ils vous remercieront, espérons-le, pour :
+</p>
 
 - le temps gagné à apprendre la structure de votre projet ;
 - la possibilité de collaborer plus facilement avec vous ;
@@ -842,7 +875,9 @@ Même si vous travaillez sur un devoir, il est préférable de garder à l'espri
 
 ### Pourquoi le faire : pour vous
 
+<p class="r-fit-text">
 Si vous avez déjà organisé votre bureau pour libérer de l'espace, tant physique que mental, vos projets de code méritent la même attention. Le temps investi pour apprendre à organiser votre code dès maintenant vous aidera à rationaliser vos projets futurs et à gagner en cohérence entre eux. Même si vous travaillez sur un devoir rapide, pensez aux centaines de devoirs similaires pour lesquels vous devez créer un dossier, puis bricoler quelques fichiers (nous vous déconseillons de tout mettre sur votre bureau). Ainsi, que vous travailliez sur des projets de petite ou de grande envergure, établir une structure standard renforcera la cohérence de votre travail et réduira le temps nécessaire à la rédaction de votre code standard.
+</p>
 
 -vertical-
 
@@ -850,9 +885,12 @@ Si vous avez déjà organisé votre bureau pour libérer de l'espace, tant physi
 
 <img src="https://mitcommlab.mit.edu/broad/wp-content/uploads/sites/5/2019/11/file-structure-confusion-700x494.png" height=400 />
 
+<p class="r-fit-text">
 Être confus n'est jamais agréable, surtout si vous en êtes la cause. Revenir au code et oublier où sont placés vos fichiers, ou pire, lesquels utiliser (la méthode tâtonnement fatale consistant à utiliser les suffixes fichier1.py, fichier-v1.py, fichier-mod1.py ou fichier-essayez-celui-ci-v1.py) est une expérience pénible. Pire encore, cela limite la capacité à reproduire votre code.
-
+</p>
+<p class="r-fit-text">
 Par conséquent, établir une cohérence dès le départ – en commençant par une structure de fichiers et une convention de nommage standardisées – sera bénéfique pour votre futur. L'objectif est de remercier votre passé.
+</p>
 
 -vertical-
 
@@ -916,24 +954,24 @@ PROJECT/
 -horizontal-
 
 
-    # TP : Récuperer votre corpus de travail à partir d'une resource web
+# TP : Récuperer votre corpus de travail à partir d'une resource web
 
-    mettez votre script de crawling et de scraping sur votre github en respectant l'arborescence de dossiers présenté aujourd'hui.
+mettez votre script de crawling et de scraping sur votre github en respectant l'arborescence de dossiers présenté aujourd'hui.
 
-    <ul>
-        <li>⚠️Ne récupérez que des données qu'il est légal de récupérer</li>
-        <li>⚠️Vous n'avez pas à commit les fichiers récupérés dans votre repo &rarr; *push* des gros fichiers peut faire
-            exploser votre git</li>
-        <li>Votre code suffira pour l'évaluation</li>
-    </ul>
+<ul>
+    <li>⚠️Ne récupérez que des données qu'il est légal de récupérer</li>
+    <li>⚠️Vous n'avez pas à commit les fichiers récupérés dans votre repo &rarr; *push* des gros fichiers peut faire
+        exploser votre git</li>
+    <li>Votre code suffira pour l'évaluation</li>
+</ul>
 
-    -vertical-
+-vertical-
 
-    ## Quelques précisions sur l'évaluation
+## Quelques précisions sur l'évaluation
 
-    Le projet à rendre comprend:
+Le projet à rendre comprend:
 
-    - l'analyse d'un corpus pré-existant
-    - la constitution d'un corpus similaire à partir de données ouverte
-    - l'applications de visualisation sur ces données
-    - l'évaluation du corpus constitué
+- l'analyse d'un corpus pré-existant
+- la constitution d'un corpus similaire à partir de données ouverte
+- l'applications de visualisation sur ces données
+- l'évaluation du corpus constitué
