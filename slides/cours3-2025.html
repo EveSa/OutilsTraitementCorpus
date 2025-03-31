@@ -645,16 +645,47 @@ Comparez la version "deduped" et la version "cleaned"
 
 ## Le point bonne pratique
 
-Lisibilité :
+Faire du code de qualité :
 
 > "Code is read much more often than it is written." Guido
 
-- linter (PEP8)
-- documenter
+-vertical-
+
+### Code de qualité
+
+- Fonctionnalité
+- Lisibilité
+- Documentation
+- Conformité aux normes
+- Réutilisabilité
+- Maintenabilité
+- Robustesse
+- Testabilité
+- Efficacité
+- Évolutivité
+- Sécurité
+
+Toutes ces caractéristiques permettent aux développeurs de comprendre, modifier et étendre une base de code Python avec un minimum d'effort.
+
+-vertical-
+
+#### Fonctionnalité
+
+Fonctionne comme prévu et remplit sa fonction prévue.
+
+-vertical-
+
+#### Lisibilité
+
+Facile à comprendre.
+C'est à dire :
+- avec des noms de variables clairs
 
 -vertical-
 
 ### Documenter
+
+Explique clairement son objectif et son utilisation.
 
 **Commenter son code &rarr; les [docstrings](https://peps.python.org/pep-0257/#what-is-a-docstring)**
 
@@ -730,7 +761,80 @@ says(sound=None)
 
 -vertical-
 
-### Respecter la syntaxe : Linter son code
+#### Conformité aux normes
+
+Respecte les conventions et directives, telles que PEP 8.
+
+Outils:
+linter comme `black`
+
+-vertical-
+
+#### Réutilisabilité
+
+Peut être utilisé dans différents contextes sans modification.
+
+&rarr; d'où l'importance de coder en objet, de faire des petits scripts qui encodent une seule fonctionnalité, etc.
+
+Comment utiliser son propre code comme une librairie ?
+
+```
+from src.mon_code import ma_fonction
+```
+
+-vertical-
+
+#### Maintenabilité
+
+Permet des modifications et des extensions sans introduire de bugs.
+
+-vertical-
+
+#### Robustesse
+
+Gère efficacement les erreurs et les entrées inattendues.
+
+Les utilisateurs sont vicieux. Il faut toujours prévoir comment ils vont pouvoir interférer avec le code.
+
+Prévoir des vérifications de conditions et des `raise` error quand il y a besoin.
+
+-vertical-
+
+#### Testabilité:
+
+L'exactitude peut être facilement vérifiée.
+
+-vertical-
+
+#### Efficacité
+
+Optimise l'utilisation du temps et des ressources.
+
+&rarr; particulièrement important lors du traitement de données importantes !
+
+tout traitement sur une ligne de votre dataframe devra être répétée sur autant de ligne que votre dataframe contient
+
+Vous pouvez utiliser la fonction `%timeit` dans les notebook pour vous rendre compte du temps que prendra votre traitement
+
+il est toujours pertinent de faire une estimation du temps de traitement avant de le lancer
+
+-vertical-
+
+#### Évolutivité
+
+Gère des charges de données accrues ou une complexité accrue sans dégradation.
+
+#### Sécurité
+
+Protège contre les vulnérabilités et les entrées malveillantes.
+
+ex. : utiliser des protocoles de communications standardisés avec des méthodes d'authentifications sécurisées
+
+-vertical-
+
+### Code de qualité
+
+En résumé, un code de haute qualité est **fonctionnel**, **lisible**, **maintenable** et **robuste**. Il respecte les meilleures pratiques, notamment une dénomination claire, un style de codage cohérent, une conception modulaire, une gestion des erreurs appropriée et le respect des normes de codage. Il est également bien documenté et facile à tester et à faire évoluer. Enfin, un code de haute qualité est efficace et sécurisé, garantissant fiabilité et sécurité d'utilisation.
 
 -vertical-
 
