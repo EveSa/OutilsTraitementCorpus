@@ -794,11 +794,12 @@ Deux techniques courantes pour obtenir le bon gradient en moyenne sans avoir à 
 
 -vertical-
 
+<div class="r-fit-text">
 Avec une descente aléatoire (stochastique) du gradient, on ne choisi (aléatoirement) qu'un seul exemple du jeu de donnée avant de mettre à jour les poids du modèle.
 
-Avec suffisamment d'itérations, l'utilisation d'un seul exemple fonctionne, mais n'est pas très efficient.
+Avec suffisamment d'itérations, l'utilisation d'un seul exemple fonctionne, mais n'est pas très efficient.</div>
 
-<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/noisy-gradient.png?hl=fr">
+<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/noisy-gradient.png?hl=fr" class="r-stretch">
 
 On peut observer que parfois la loss remonte.
 
@@ -810,6 +811,8 @@ Pour un nombre de points de données N
 , la taille de lot peut être n'importe quel nombre supérieur à 1 et inférieur à N
 .Le modèle choisit les exemples inclus dans chaque lot de manière aléatoire (stochastique), calcule la moyenne de leurs gradients, puis met à jour les poids et le biais une fois par itération.
 
+-vertical-
+
 Le nombre d'exemples pour chaque lot dépend de l'ensemble de données et des ressources de calcul disponibles. En général, les petites tailles de lot se comportent comme la descente du gradient stochastique, tandis que les tailles de lot plus importantes se comportent comme la descente du gradient sur l'ensemble du lot.
 
 -vertical-
@@ -819,6 +822,8 @@ Le nombre d'exemples pour chaque lot dépend de l'ensemble de données et des re
 Lors de l'entraînement, une époque signifie que le modèle a traité chaque exemple de l'ensemble d'entraînement une fois. Par exemple, étant donné un ensemble d'entraînement de 1 000 exemples et une taille de mini-lot de 100 exemples, le modèle nécessitera 10 itérations pour terminer une époque.
 
 L'entraînement nécessite généralement de nombreuses époques. Autrement dit, le système doit traiter chaque exemple de l'ensemble d'entraînement plusieurs fois.
+
+-vertical-
 
 Le nombre d'époques est un hyperparamètre que vous définissez avant le début de l'entraînement du modèle. Dans de nombreux cas, vous devrez tester le nombre d'époques nécessaires pour que le modèle converge. En général, un nombre d'époques plus élevé produit un meilleur modèle, mais l'entraînement prend plus de temps.
 
@@ -830,6 +835,8 @@ La regression linéaire est efficace pour prédire des valeurs. Avec certains ty
 
 Pour ça, il suffit de transformer les valeurs de la regression linéaire Pour la conditionner à donner des résultats entre 0 et 1.
 
+-vertical-
+
 La fonction qu'on utilise pour ça est la fonction suivante :
 
 <img src="https://developers.google.com/static/machine-learning/crash-course/logistic-regression/images/sigmoid_function_with_axes.png?hl=fr" class="r-fit-text">
@@ -838,7 +845,7 @@ La fonction qu'on utilise pour ça est la fonction suivante :
 
 Pour faire la transformation, on a simplement à mettre la valeur de notre régression linéaire $z$ dans la formule de la fonction : $\frac(1/(1+e^{-x}))$
 
-<img src="https://developers.google.com/static/machine-learning/crash-course/logistic-regression/images/linear_to_logistic.png?hl=fr" class="r-fit-text">
+<img src="https://developers.google.com/static/machine-learning/crash-course/logistic-regression/images/linear_to_logistic.png?hl=fr" class="r-stretch">
 
 -vertical-
 
@@ -854,7 +861,7 @@ Quizz 2
 
 Quizz 2
 
-1. Quel modèle utiliser pour trouver les caractéristiques des données suivantes : <img src="https://www.w3schools.com/datascience/img_least_square.png" class="r-fit-text">
+1. Quel modèle utiliser pour trouver les caractéristiques des données suivantes : <img src="https://www.w3schools.com/datascience/img_least_square.png" class="r-stretch">
 2. Calculez la descente de gradient du modèle $f(x)=wx=+b$ avec une Perte $L_2$ écrite $∑(valeur\ réelle - valeur\ prédite)^2$.
 3. A quoi sert une taille de lot (batch) importante ?
 
@@ -879,7 +886,7 @@ est le croisement de caractéristiques entre
 $x_1$ et $x_2$
 :
 
-<image src="https://developers.google.com/static/machine-learning/crash-course/neural-networks/images/nonlinear_simple_feature_cross.png" class="r-fit-text">
+<image src="https://developers.google.com/static/machine-learning/crash-course/neural-networks/images/nonlinear_simple_feature_cross.png" class="r-stretch">
 
 -vertical-
 
@@ -896,7 +903,7 @@ Sur un réseau à 1 couche, avec une fonction d'activation linéaire, il n'y a p
 
 On a la même formule $y=w_1*x_1+w_2*x_2$
 
-<img src="https://www.researchgate.net/publication/264627515/figure/fig13/AS:339572132204575@1457971713882/The-architecture-of-the-linear-neural-network.png" class="r-fit-text">
+<img src="https://www.researchgate.net/publication/264627515/figure/fig13/AS:339572132204575@1457971713882/The-architecture-of-the-linear-neural-network.png" class="r-stretch">
 
 -vertical-
 
@@ -904,7 +911,7 @@ Pour quitter la linéarité, on va vouloir ajouter des modifications des résult
 
 On va ajouter une couche "cachées" constituées de "neurones" entre les entrées et le résultat
 
-<img src="https://www.researchgate.net/publication/282997080/figure/fig4/AS:305939199610886@1449952997594/A-typical-two-layer-neural-network-Input-layer-does-not-count-as-the-number-of-layers-of.png" class="r-fit-text">
+<img src="https://www.researchgate.net/publication/282997080/figure/fig4/AS:305939199610886@1449952997594/A-typical-two-layer-neural-network-Input-layer-does-not-count-as-the-number-of-layers-of.png" class="r-stretch">
 
 -vertical-
 
@@ -913,6 +920,8 @@ Sans modifier plus que ça notre réseau, on ne peut pas calculer de non-linéar
 On va vouloir casser la linéarité en applicant des fonctions non linéaire à la sortie de chaque couche.
 
 On a déjà vu une fonction non linéaire pour la régression logistique : la fonction sigmoïde.
+
+-vertical-
 
 Maintenant que nous avons ajouté une fonction d'activation, l'ajout de couches a plus d'impact. L'empilement de non-linéarités nous permet de modéliser des relations très complexes entre les entrées et les sorties prévues. En résumé, chaque couche apprend une fonction plus complexe et de niveau supérieur par rapport aux entrées brutes.
 
@@ -928,9 +937,11 @@ Sauf que maintenant qu'on a plus de linéarité, comment est ce qu'on va pouvoir
 
 &rarr; on va utiliser la retropropagation
 
+<div class="r-fit-text">
 La logique de la rétropropagation repose sur le fait que les couches de neurones des réseaux neuronaux artificiels sont essentiellement une série de fonctions mathématiques imbriquées. Lors de l'apprentissage, ces équations interconnectées sont imbriquées dans une autre fonction : une « fonction de perte » qui mesure la différence (ou « perte ») entre la sortie souhaitée (ou « vérité fondamentale ») pour une entrée donnée et la sortie réelle du réseau neuronal.
 
 Nous pouvons donc utiliser la « règle de la chaîne » pour calculer la contribution de chaque neurone à la perte globale. Ce faisant, nous pouvons calculer l'impact des modifications de n'importe quelle variable – c'est-à-dire de n'importe quel poids ou biais – dans les équations représentées par ces neurones.
+</div>
 
 -vertical-
 
@@ -941,6 +952,8 @@ La règle de la chaîne est une formule permettant de calculer les dérivées de
 D'un point de vue technique et mathématique, l'objectif de la rétropropagation est de calculer le gradient de la fonction de perte par rapport à chacun des paramètres individuels du réseau neuronal. En termes plus simples, la rétropropagation utilise la règle de la chaîne pour calculer le taux de variation de la perte en réponse à toute modification d'un poids (ou biais) spécifique du réseau.
 
 On va calculer les dérivées couches par couches et on pourra ensuite donner les dérivées que l'on a calculées à la couche précédente pour qu'elle l'utilise pour calculer sa propre dérivée.
+
+-vertical-
 
 Pour 4 couches A, B, C, D, on a $y=A(B(C(D(x))))$ &rarr; on va commencer par calculer $D(x)'$ Puis on va utiliser $D(x)'$ pour calculer $C(D(x))' = C(x)'*D(x)'$ etc.
 
@@ -957,6 +970,8 @@ Avec le gradient, on peut faire, comme pour la regression linéaire, la descente
 Les gradients des couches de réseau neuronal inférieures (celles qui sont plus proches de la couche d'entrée) peuvent devenir très petits. Dans les réseaux profonds (réseaux avec plusieurs couches cachées), le calcul de ces gradients peut impliquer de prendre le produit de nombreux petits termes.
 
 Lorsque les valeurs du gradient s'approchent de 0 pour les couches inférieures, les gradients "disparaissent". Les couches avec des gradients qui disparaissent s'entraînent très lentement, voire pas du tout.
+
+-vertical-
 
 Certaines fonctions d'activation (genre ReLU) permettent de limiter la disparition du gradient.
 
@@ -975,6 +990,8 @@ Quiz 3
 -vertical-
 
 1. Vrai ou faux: la réduction du taux d'apprentissage peut aider à éviter l'explosion des gradients pendant l'entraînement des réseaux de neurones.
+
+-vertical-
 
 ### 3. Les transformers
 
