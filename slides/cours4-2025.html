@@ -537,7 +537,7 @@ Le modèle commence l'entraînement avec des pondérations et des biais aléatoi
 Concrètement, on peut parcourir les étapes de descente de gradient en utilisant un petit ensemble de données avec sept exemples de poids d'une voiture et de sa consommation d'essence :
 
 
-<table class="r-fit-text">
+<table class="r-stretch">
       <thead>
         <tr>
           <th>Poids (feature)</th>
@@ -580,8 +580,10 @@ Concrètement, on peut parcourir les étapes de descente de gradient en utilisan
 
 Le modèle commençe l'entraînement avec ses poids et ses biais à 0 :
 
-`$\small{Weight:\ 0}$`
-`$\small{Bias:\ 0}$`
+`$$\small{Weight:\ 0}$$`
+
+`$$\small{Bias:\ 0}$$`
+
 `$\small{y = 0 + 0(x_1)}$`
 
 On calcule la loss MSE avec les paramètres actuels :
@@ -616,6 +618,10 @@ Qui correspond à:
 
 $\frac{1}{M} \sum_{i=1}^{M} (f_{w,b}(x_{(i)}) - y_{(i)}) * 2x_{(i)}$
 
+-vertical-
+
+###### 1.A.iii.2. Dérivative des poids
+
 Nous additionnons d'abord chaque valeur prédite moins la valeur réelle, puis nous multiplions le résultat par deux fois la valeur de la caractéristique.
 Ensuite, nous divisons la somme par le nombre d'exemples.
 Le résultat est la pente de la droite tangente à la valeur du poids.
@@ -633,6 +639,10 @@ $\frac{\partial }{\partial b} \frac{1}{M} \sum_{i=1}^{M} (f_{w,b}(x_{(i)}) - y_{
 et correspond à :
 
 $\frac{1}{M} \sum_{i=1}^{M} (f_{w,b}(x_{(i)}) - y_{(i)}) * 2$
+
+-vertical-
+
+###### 1.A.iii.3. Dérivée du biais
 
 Nous additionnons d'abord chaque valeur prédite moins la valeur réelle, puis nous multiplions le résultat par deux. Nous divisons ensuite la somme par le nombre d'exemples. Le résultat est la pente de la droite tangente à la valeur du biais.
 
