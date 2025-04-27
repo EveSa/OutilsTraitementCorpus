@@ -1,0 +1,922 @@
+---
+layout: presentation
+title: Cours4
+---
+
+# Outils de Traitement de Corpus
+-vertical-
+
+## Correction
+
+1. Pourquoi est-ce que les modèles ont besoin de rencontrer des données variées ?
+
+Pour pouvoir généraliser
+
+2. Quelle méthode pandas permet d'enlever les valeurs non définie d'un Dataframe ?
+
+df.dropna()
+
+3. Que signifie une corrélation proche de 0 ?
+
+Il est possible qu'il n'y ait pas de lien entre les deux variables choisies
+
+-vertical-
+
+## Correction
+
+4. Ecrivez la docstring d'une fonction permettant de transformer un Dataframe pandas avec des valeurs manquantes en un Dictionnaire python plein.
+
+```
+""" Transforme un Dataframe pandas avec des valeurs manquantes en un dictionnaire python plein.
+Paramètres
+---
+df: pd.Dataframe
+    Dataframe pandas contenant des valeurs manquantes
+Retourne
+---
+dict
+    un dictionnaire sans valeurs manquantes
+"""
+```
+
+-vertical-
+
+## Newsletter
+
+-horizontal-
+
+## Cours 4: 
+### Préparation des données
+\- partie 2
+
+1. Augmentation les données
+2. Segmenter les données pour l'apprentissage
+
+-vertical-
+
+#### 1. Augmenter les données
+
+Maintenant qu'on a récupéré et nettoyé notre corpus, on se retrouve peut être face à un problème de corpus déséquilibré.
+
+Il nous manque des données dans une catégorie, on a trop de données dans une autre.
+
+<img class="r-fit" source="https://developers.google.com/static/machine-learning/data-prep/images/distribution-true-v2.svg">
+
+-vertical-
+
+On parle de corpus déséquilibré lorsque :
+
+<table>
+<thead>
+<tr>
+<th>Percentage of data belonging to minority class</th>
+<th>Degree of imbalance</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>20-40% of the dataset</td>
+<td>Mild</td>
+</tr>
+<tr>
+<td>1-20% of the dataset</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>&lt;1% of the dataset</td>
+<td>Extreme</td>
+</tr>
+</tbody>
+</table>
+
+-vertical-
+##### 1.A. Pourquoi on parle de données déséquilibrées ?
+
+On peut ramener le déséquilibre des données à la notion d'Entropie
+
+L'entropie (en théorie de l'information), est une mesure de l'incertitude.
+
+Elle est essentielle en informatique et en particulier en Machine Learning.
+
+-vertical-
+
+###### Entropie de Shannon
+
+Pour lever une incertitude (est ce qu'il va faire beau aujourd'hui), on va devoir récupérer une certaine quantité d'information.
+
+On determine la probabilité d'un évènement par rapport au nombre de fois où l'évènement s'est produit:
+
+&rarr; le soleil s'est levé 100% des jours &rarr; la probabilité que le soleil se lève aujourd'hui est de 100%
+
+-vertical-
+
+###### Entropie de Shannon
+
+Mais pour des cas où l'on est pas à 100% sûr, comment faire pour déterminer le niveau de certitude (où d'incertitude) ?
+
+Si on essaie de savoir s'il va pleuvoir aujourd'hui et qu'on est dans un monde ou il pleut 50% des jours, on a juste besoin de poser la question "est ce qu'il pleut aujourd'hui ?" pour savoir la météo du jour.
+
+On peut me répondre oui ou non et j'aurais la réponse à ma question
+
+Pour 2 solutions possible, j'ai donc besoin d'une question avec une réponse binaire &rarr; 1 bit
+
+-vertical-
+
+###### Entropie de Shannon
+
+Mais encore une fois c'est un cas un peu facile:
+
+- s'il a fait beau dans tous les jours que j'ai pu observer &rarr; j'ai besoin de 0 question (soit 0)
+- s'il a fait beau dans 50% des jours que j'ai pu observer &rarr; j'ai besoin de 1 question
+- s'il a fait beau dans 25% des jours, qu'il a plu dans 50%, qu'il y a eu des nuages dans 12% et qu'il a neigé dans 12,5% &rarr; de combien de questions j'ai besoin ?
+
+-vertical-
+
+###### Entropie de Shannon
+
+Comment faire pour limiter le nombre de questions dont j'ai besoin pour obtenir ma réponse ?
+
+&rarr; on va raisonner en arbre de probabilité
+
+<img class="r-fit-text" src="https://dridk.me/images/entropy/decision2.png">
+
+-vertical-
+
+###### Entropie de Shannon
+
+Dans 50% des cas, on a besoin de 1 question pour connaître la météo.<\br>
+Dans 25% des cas, on a besoin de 2 questions pour connaître la météo.<\br>
+Dans 12,5% des cas, on a besoin de 3 questions pour connaître la météo.<\br>
+Dans 12,5% des cas, on a besoin de 3 quesitons pour connaître la météo.<\br>
+
+Donc si on fait une moyenne : 
+$0.5*1 bit + 0.25*2 bit + 2*(12.5*3 bit)$ = 1.75 bits
+
+&rarr; c'est comme ça qu'on calcule l'entropie : c'est le nombre d'information dont on a besoin pour résoudre une incertitude
+
+-vertical-
+
+###### Entropie de Shannon
+
+Pour l'écrire de manière plus concise, on veut faire la somme des probabilités multiplié par le nombre de questions nécessaires:
+
+$sum(p_i * n_i)$
+
+avec $p_i$ la probabilité de chaque évènement et $n_i$ le nombre de questions à poser pour obtenir cet évènement.
+
+-vertical-
+
+###### Entropie de Shannon
+
+Comment est ce qu'on peut determiner le nombre de questions à poser pour une distribution d'évènement ?
+
+Chaque question représente 2 solutions. 
+
+1 question = 2 solutions
+
+2 questions = 4 solutions
+
+3 questions = 8 solutions
+
+x questions = $2^{x questions}$ solutions = nb de solutions
+
+y solutions = $2^{x questions}$ solutions
+
+-vertical-
+
+###### Entropie de Shannon
+
+Mais ce qu'on cherche ce n'est pas le nombre de solutions mais le nombre de questions qu'il faut poser !
+
+$nb solutions = 2^{nb question}$ soit $nb question = $log_2(nb solutions)$
+
+Et le nombre de solution pour un nombre x de question dont on a besoin pour obtenir l'évènement e, c'est en fait l'inverse de la probabilité d'obtenir l'évènement e.
+
+donc $nb solutions = log_2(1/p_i) = -log_2(p_i)$
+
+-vertical-
+
+###### Entropie de Shannon
+
+Si on reprend notre calcul précédent
+
+$0.5*1 bit + 0.25*2 bit + 2*(0.125*3 bit)$ = 1.75 bits
+
+$=sum(p_i*n_i)$
+
+Grâce à notre simplification précédente, on a besoin que 
+
+$= -sum(p_i*log_2(p_i))$
+
+$-(0.5*log_2(0.5)+0.25*log_2(0.25)+2*(0.125*log_2(0.125)))=1.75$
+
+-vertical-
+
+##### 1.A. Pourquoi on parle de données déséquilibrées ?
+
+Pourquoi ça nous intéresse pour la construction de nos jeux de données ?
+
+Un jeu de donnée déséquilibré à une entropie faible. L'entropie est une bonne mesure pour l'équilibre de notre dataset.
+
+L'entropie permet de déterminer combien d'information est contenu dans chaque exemple.
+
+Mais revenons au problème : comme faire pour obtenir des données plus équilibrées ?
+
+-vertical-
+
+##### 1.A. Pourquoi on ne diminue pas les classes majoritaire ?
+
+L'idée la plus simple serait évidemment de diminuer la classe majoritaire pour la ramener à une quantité acceptable par rapport à la classe minoritaire. C'est ce qu'on appelle le downsampling.
+
+```
+impotr sklearn
+
+n_samples = min_class_size
+
+sklearn.utils.resample(*arrays, replace=True, n_samples=None, random_state=None, stratify=None)
+```
+
+-vertical-
+
+Mais on sait que pour les modèles transformers, on a besoin de beaucoup de données. Diminuer notre classe majoritaire, ça veut dire risquer de se priver de données utiles pour notre entraînement.
+
+On va donc plutôt vouloir augmenter les classes minoritaires quand on a pas beaucoup de données au départ ou si une diminution réduirait trop notre jeu d'entraînement.
+
+-vertical-
+
+##### 1.b. Comment augmenter les classes minoritaires ?
+
+Plusieurs Technique existent pour l'augmentation de données :
+- des méthodes par règles
+- des méthode par réseaux de neurones
+
+-vertical-
+
+##### 1.b. Comment augmenter les classes minoritaires ?
+###### Méthodes par règles
+
+Le méthodes par règles peuvent utiliser de simple chercher-remplacer ou des techniques un peu plus complexes comme le remplacement par des synonymes (grâce à des bases comme WordNet) 
+
+<image class="r-fit-text" src="https://www.ibm.com/content/dam/connectedassets-adobe-cms/worldwide-content/creative-assets/s-migr/ul/g/a1/a0/data-augmentation-text-augment.png">
+
+-vertical-
+
+##### 1.b. Comment augmenter les classes minoritaires ?
+###### Méthodes par réseaux de neurones
+
+Une des méthodes les plus utilisées est la retro-traduction (back-translation)
+
+<image class="r-fit-text" src="https://www.ibm.com/content/dam/connectedassets-adobe-cms/worldwide-content/creative-assets/s-migr/ul/g/1e/87/data-augmentation-translate-augment.png">
+
+-vertical-
+
+##### 1.b. Comment augmenter les classes minoritaires ?
+###### Méthodes par réseaux de neurones
+
+On peut également utiliser des techniques de remplacement de synonymes à l'aide de modèle de similarité.
+
+Ces méthodes sont plus couteuses que des méthodes par exact matching mais permettent une plus grande variabilité.
+
+-vertical-
+
+##### 1.c. Transformer sont corpus
+
+Ces méthodes permettent aussi de transformer son corpus. On peut décider de remplacer certains mots par des homophones, des antonymes, etc... pour obtenir des paires ou des ensembles de phrases que l'on va pouvoir comparer. Ca peut être utile pour observer l'efficacité des modèles sur la tâche de similarité par exemple.
+
+-vertical-
+
+#### 2. Segmenter les données pour l'apprentissage
+
+Vous le savez déjà : Tout bon projet d'ingénierie logicielle consacre une énergie considérable aux tests de ses applications.
+
+-vertical-
+
+##### 2.a. Ensembles d'entraînement, de validation et de test
+
+Vous devez tester un modèle sur un ensemble d'exemples différent de celui utilisé pour l'entraîner. Tester sur des exemples différents constitue une preuve plus solide de la pertinence du modèle que de tester sur le même ensemble d'exemples.
+
+Où obtenir ces différents exemples ? 
+
+&rarr; Traditionnellement, en apprentissage automatique, on les obtient en scindant l'ensemble de données d'origine. On peut donc supposer qu'il faut diviser l'ensemble de données d'origine en deux sous-ensembles
+
+-vertical-
+
+- Un ensemble d'entraînement sur lequel le modèle s'entraîne ;
+- Un ensemble de test pour l'évaluation du modèle entraîné.
+
+<image src="https://developers.google.com/static/machine-learning/crash-course/images/PartitionTwoSets.png" class="r-fit-text">
+
+-vertical-
+
+Diviser l'ensemble de données en deux est une bonne idée, mais une meilleure approche consiste à le diviser en trois sous-ensembles. Outre l'ensemble d'entraînement et l'ensemble de test, le troisième sous-ensemble est :
+
+Un ensemble de validation qui permet d'effectuer les tests initiaux sur le modèle pendant son apprentissage.
+
+<image src="https://developers.google.com/static/machine-learning/crash-course/images/PartitionThreeSets.png" class="r-fit-text">
+
+-vertical-
+
+Cette segmentation permet de mettre en place une suite de processus (workflow ou pipeline) efficace pour améliorer le modèle :
+
+<image src="https://developers.google.com/static/machine-learning/crash-course/images/workflow_with_validation_set.svg" class="r-fit-text">
+
+Mais même ici les ensembles de test et de validation s'usent avec les utilisations répétées. Autrement dit, plus vous utilisez les mêmes données pour prendre des décisions concernant les paramètres d'hyperparamètres ou d'autres améliorations du modèle, moins vous avez confiance dans la fiabilité des prédictions du modèle sur les nouvelles données. C'est pourquoi il est judicieux de collecter davantage de données pour actualiser les ensembles de test et de validation. Repartir de zéro est une excellente réinitialisation.
+
+-vertical-
+
+##### 2.b. Problèmes supplémentaires avec les ensembles de test
+
+Les exemples en double peuvent affecter l'évaluation du modèle. Après avoir divisé un ensemble de données en ensembles d'entraînement, de validation et de test, supprimez tous les exemples de l'ensemble de validation ou de test qui sont des doublons d'exemples de l'ensemble d'entraînement. Le seul test fiable d'un modèle est celui des nouveaux exemples, et non des doublons.
+
+Une précision trop importante de votre modèle sur les première itération peut être un signe d'une mauvaise gestion des données d'apprentissage et notamment de la contamination du modèle que vous venez d'entraîner
+
+-vertical-
+
+En résumé, un bon ensemble de test ou de validation répond à tous les critères suivants :
+
+- Suffisamment grand pour produire des résultats de test statistiquement significatifs ;
+- Représentatif de l'ensemble de données dans son ensemble. Autrement dit, ne choisissez pas un ensemble de test présentant des caractéristiques différentes de l'ensemble d'entraînement ;
+- Représentatif des données réelles que le modèle rencontrera dans le cadre de ses activités ;
+- Aucun exemple dupliqué dans l'ensemble d'entraînement.
+
+-vertical-
+
+Quizz 1
+
+-vertical- 
+
+Quizz 1
+
+1. Calculez l'entropie de la distribution suivante : probabilité de l'évènement A (0,6) ; probabilité de l'évènement B (0,2) ; probabilité de l'évènement C (0,2)
+2. Vous avez mélangé tous les exemples de l'ensemble de données et les avez divisés en ensembles d'entraînement, de validation et de test. Cependant, la valeur de _loss_ sur votre ensemble de test est si faible que vous suspectez une erreur. Qu'est-ce qui a pu se passer ?
+
+-horizontal-
+
+## Cours 4:
+### Modèles d'apprentissage
+
+-vertical-
+
+### Rappel sur le ML
+
+On sait qu'en Machine Learning, on a plusieurs manière d'obtenir unmodèle prédictif en fonction du type de notre tâche et de nos données:
+
+- la regression
+- la classification (ou regression logistique)
+
+-vertical-
+
+##### 1.A La regression linéaire
+
+La régression linéaire est une technique statistique utilisée pour déterminer la relation entre des variables. Dans un contexte d'apprentissage automatique, elle permet de déterminer la relation entre des caractéristiques et une étiquette.
+
+Cette relation nous permet de prédire des caratéristiques .
+
+-vertical-
+
+##### 1.A.i. La fonction de perte
+
+La fonction de perte (ou _loss_) est une mesure numérique qui décrit le degré d'erreur des prédictions d'un modèle. Elle mesure l'écart entre les prédictions du modèle et les valeurs réelles. L'objectif de l'entraînement d'un modèle est de minimiser la perte, en la réduisant à sa valeur la plus faible possible.
+
+-vertical-
+
+Dans l'image suivante, vous pouvez visualiser la perte sous forme de flèches reliant les points de données au modèle. Ces flèches indiquent l'écart entre les prédictions du modèle et les valeurs réelles.
+
+<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/loss-lines.png" class="r-fit-text">
+
+-vertical-
+
+Il y a plusieurs loss utilisées pour les problèmes de regression linéaire :
+
+<table>
+  <thead>
+    <tr>
+      <th>Loss type</th>
+      <th>Definition</th>
+      <th>Equation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <b>
+          <a href="/machine-learning/glossary#l1-loss">L<sub>1</sub> loss</a>
+        </b>
+      </td>
+      <td>
+        The sum of the absolute values of the difference
+        between the predicted values and the actual values.
+      </td>
+      <td><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-220-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mo>&amp;#x2211;</mo><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo stretchy=&quot;false&quot;>|</mo></mrow><mi>a</mi><mi>c</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi><mtext>&amp;#xA0;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo>&amp;#x2212;</mo><mi>p</mi><mi>r</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi><mtext>&amp;#xA0;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo stretchy=&quot;false&quot;>|</mo></mrow></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="34.859ex" height="2.712ex" viewBox="0 -816.6 15008.6 1167.7" role="img" focusable="false" style="vertical-align: -0.815ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJSZ1-2211" x="0" y="0"></use><use xlink:href="#MJMAIN-7C" x="1223" y="0"></use><use xlink:href="#MJMATHI-61" x="1501" y="0"></use><use xlink:href="#MJMATHI-63" x="2031" y="0"></use><use xlink:href="#MJMATHI-74" x="2464" y="0"></use><use xlink:href="#MJMATHI-75" x="2826" y="0"></use><use xlink:href="#MJMATHI-61" x="3398" y="0"></use><use xlink:href="#MJMATHI-6C" x="3928" y="0"></use><use xlink:href="#MJMATHI-76" x="4476" y="0"></use><use xlink:href="#MJMATHI-61" x="4962" y="0"></use><use xlink:href="#MJMATHI-6C" x="5491" y="0"></use><use xlink:href="#MJMATHI-75" x="5790" y="0"></use><use xlink:href="#MJMATHI-65" x="6362" y="0"></use><use xlink:href="#MJMAIN-2212" x="7051" y="0"></use><use xlink:href="#MJMATHI-70" x="8052" y="0"></use><use xlink:href="#MJMATHI-72" x="8555" y="0"></use><use xlink:href="#MJMATHI-65" x="9007" y="0"></use><use xlink:href="#MJMATHI-64" x="9473" y="0"></use><use xlink:href="#MJMATHI-69" x="9997" y="0"></use><use xlink:href="#MJMATHI-63" x="10342" y="0"></use><use xlink:href="#MJMATHI-74" x="10776" y="0"></use><use xlink:href="#MJMATHI-65" x="11137" y="0"></use><use xlink:href="#MJMATHI-64" x="11604" y="0"></use><use xlink:href="#MJMATHI-76" x="12377" y="0"></use><use xlink:href="#MJMATHI-61" x="12863" y="0"></use><use xlink:href="#MJMATHI-6C" x="13392" y="0"></use><use xlink:href="#MJMATHI-75" x="13691" y="0"></use><use xlink:href="#MJMATHI-65" x="14263" y="0"></use><use xlink:href="#MJMAIN-7C" x="14730" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>∑</mo><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><mi>a</mi><mi>c</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi><mtext>&nbsp;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo>−</mo><mi>p</mi><mi>r</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi><mtext>&nbsp;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow></math></span></span><script type="math/tex" id="MathJax-Element-220"> ∑ | actual\ value - predicted\ value | </script></td>
+    </tr>
+    <tr>
+      <td>
+        <b>
+          <a href="/machine-learning/glossary#mean-absolute-error-mae">Mean absolute error (MAE)</a>
+        </b>
+      </td>
+      <td>
+        The average of L<sub>1</sub> losses across a set of examples.
+      </td>
+      <td><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-221-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mfrac><mn>1</mn><mi>N</mi></mfrac><mo>&amp;#x2211;</mo><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo stretchy=&quot;false&quot;>|</mo></mrow><mi>a</mi><mi>c</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi><mtext>&amp;#xA0;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo>&amp;#x2212;</mo><mi>p</mi><mi>r</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi><mtext>&amp;#xA0;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo stretchy=&quot;false&quot;>|</mo></mrow></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="37.541ex" height="3.388ex" viewBox="0 -991.1 16163.5 1458.6" role="img" focusable="false" style="vertical-align: -1.086ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g transform="translate(120,0)"><rect stroke="none" width="748" height="60" x="0" y="220"></rect><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="278" y="593"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-4E" x="84" y="-570"></use></g><use xlink:href="#MJSZ1-2211" x="1154" y="0"></use><use xlink:href="#MJMAIN-7C" x="2378" y="0"></use><use xlink:href="#MJMATHI-61" x="2656" y="0"></use><use xlink:href="#MJMATHI-63" x="3186" y="0"></use><use xlink:href="#MJMATHI-74" x="3619" y="0"></use><use xlink:href="#MJMATHI-75" x="3981" y="0"></use><use xlink:href="#MJMATHI-61" x="4553" y="0"></use><use xlink:href="#MJMATHI-6C" x="5083" y="0"></use><use xlink:href="#MJMATHI-76" x="5631" y="0"></use><use xlink:href="#MJMATHI-61" x="6117" y="0"></use><use xlink:href="#MJMATHI-6C" x="6646" y="0"></use><use xlink:href="#MJMATHI-75" x="6945" y="0"></use><use xlink:href="#MJMATHI-65" x="7517" y="0"></use><use xlink:href="#MJMAIN-2212" x="8206" y="0"></use><use xlink:href="#MJMATHI-70" x="9207" y="0"></use><use xlink:href="#MJMATHI-72" x="9710" y="0"></use><use xlink:href="#MJMATHI-65" x="10162" y="0"></use><use xlink:href="#MJMATHI-64" x="10628" y="0"></use><use xlink:href="#MJMATHI-69" x="11152" y="0"></use><use xlink:href="#MJMATHI-63" x="11497" y="0"></use><use xlink:href="#MJMATHI-74" x="11931" y="0"></use><use xlink:href="#MJMATHI-65" x="12292" y="0"></use><use xlink:href="#MJMATHI-64" x="12759" y="0"></use><use xlink:href="#MJMATHI-76" x="13532" y="0"></use><use xlink:href="#MJMATHI-61" x="14018" y="0"></use><use xlink:href="#MJMATHI-6C" x="14547" y="0"></use><use xlink:href="#MJMATHI-75" x="14846" y="0"></use><use xlink:href="#MJMATHI-65" x="15418" y="0"></use><use xlink:href="#MJMAIN-7C" x="15885" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mn>1</mn><mi>N</mi></mfrac><mo>∑</mo><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><mi>a</mi><mi>c</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi><mtext>&nbsp;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo>−</mo><mi>p</mi><mi>r</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi><mtext>&nbsp;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow></math></span></span><script type="math/tex" id="MathJax-Element-221"> \frac{1}{N} ∑ | actual\ value - predicted\ value | </script></td>
+    </tr>
+    <tr>
+      <td><b><a href="/machine-learning/glossary#l2-loss">L<sub>2</sub> loss</a></b></td>
+      <td>
+        The sum of the squared difference
+        between the predicted values and the actual values.
+      </td>
+      <td> <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-222-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mo>&amp;#x2211;</mo><mo stretchy=&quot;false&quot;>(</mo><mi>a</mi><mi>c</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi><mtext>&amp;#xA0;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo>&amp;#x2212;</mo><mi>p</mi><mi>r</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi><mtext>&amp;#xA0;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><msup><mo stretchy=&quot;false&quot;>)</mo><mn>2</mn></msup></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="36.042ex" height="2.982ex" viewBox="0 -932.9 15517.9 1284" role="img" focusable="false" style="vertical-align: -0.815ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#MJSZ1-2211" x="0" y="0"></use><use xlink:href="#MJMAIN-28" x="1056" y="0"></use><use xlink:href="#MJMATHI-61" x="1446" y="0"></use><use xlink:href="#MJMATHI-63" x="1975" y="0"></use><use xlink:href="#MJMATHI-74" x="2409" y="0"></use><use xlink:href="#MJMATHI-75" x="2770" y="0"></use><use xlink:href="#MJMATHI-61" x="3343" y="0"></use><use xlink:href="#MJMATHI-6C" x="3872" y="0"></use><use xlink:href="#MJMATHI-76" x="4421" y="0"></use><use xlink:href="#MJMATHI-61" x="4906" y="0"></use><use xlink:href="#MJMATHI-6C" x="5436" y="0"></use><use xlink:href="#MJMATHI-75" x="5734" y="0"></use><use xlink:href="#MJMATHI-65" x="6307" y="0"></use><use xlink:href="#MJMAIN-2212" x="6995" y="0"></use><use xlink:href="#MJMATHI-70" x="7996" y="0"></use><use xlink:href="#MJMATHI-72" x="8499" y="0"></use><use xlink:href="#MJMATHI-65" x="8951" y="0"></use><use xlink:href="#MJMATHI-64" x="9417" y="0"></use><use xlink:href="#MJMATHI-69" x="9941" y="0"></use><use xlink:href="#MJMATHI-63" x="10286" y="0"></use><use xlink:href="#MJMATHI-74" x="10720" y="0"></use><use xlink:href="#MJMATHI-65" x="11081" y="0"></use><use xlink:href="#MJMATHI-64" x="11548" y="0"></use><use xlink:href="#MJMATHI-76" x="12321" y="0"></use><use xlink:href="#MJMATHI-61" x="12807" y="0"></use><use xlink:href="#MJMATHI-6C" x="13336" y="0"></use><use xlink:href="#MJMATHI-75" x="13635" y="0"></use><use xlink:href="#MJMATHI-65" x="14207" y="0"></use><g transform="translate(14674,0)"><use xlink:href="#MJMAIN-29" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="550" y="513"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>∑</mo><mo stretchy="false">(</mo><mi>a</mi><mi>c</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi><mtext>&nbsp;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo>−</mo><mi>p</mi><mi>r</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi><mtext>&nbsp;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></math></span></span><script type="math/tex" id="MathJax-Element-222"> ∑(actual\ value - predicted\ value)^2 </script></td>
+    </tr>
+    <tr>
+      <td><b><a href="/machine-learning/glossary#mean-squared-error-mse">Mean squared error (MSE)</a></b></td>
+      <td>
+        The average of L<sub>2</sub> losses across a set of examples.
+      </td>
+      <td><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-223-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mfrac><mn>1</mn><mi>N</mi></mfrac><mo>&amp;#x2211;</mo><mo stretchy=&quot;false&quot;>(</mo><mi>a</mi><mi>c</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi><mtext>&amp;#xA0;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo>&amp;#x2212;</mo><mi>p</mi><mi>r</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi><mtext>&amp;#xA0;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><msup><mo stretchy=&quot;false&quot;>)</mo><mn>2</mn></msup></math>" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="38.724ex" height="3.388ex" viewBox="0 -991.1 16672.8 1458.6" role="img" focusable="false" style="vertical-align: -1.086ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g transform="translate(120,0)"><rect stroke="none" width="748" height="60" x="0" y="220"></rect><use transform="scale(0.707)" xlink:href="#MJMAIN-31" x="278" y="593"></use><use transform="scale(0.707)" xlink:href="#MJMATHI-4E" x="84" y="-570"></use></g><use xlink:href="#MJSZ1-2211" x="1154" y="0"></use><use xlink:href="#MJMAIN-28" x="2211" y="0"></use><use xlink:href="#MJMATHI-61" x="2600" y="0"></use><use xlink:href="#MJMATHI-63" x="3130" y="0"></use><use xlink:href="#MJMATHI-74" x="3563" y="0"></use><use xlink:href="#MJMATHI-75" x="3925" y="0"></use><use xlink:href="#MJMATHI-61" x="4497" y="0"></use><use xlink:href="#MJMATHI-6C" x="5027" y="0"></use><use xlink:href="#MJMATHI-76" x="5575" y="0"></use><use xlink:href="#MJMATHI-61" x="6061" y="0"></use><use xlink:href="#MJMATHI-6C" x="6590" y="0"></use><use xlink:href="#MJMATHI-75" x="6889" y="0"></use><use xlink:href="#MJMATHI-65" x="7461" y="0"></use><use xlink:href="#MJMAIN-2212" x="8150" y="0"></use><use xlink:href="#MJMATHI-70" x="9151" y="0"></use><use xlink:href="#MJMATHI-72" x="9654" y="0"></use><use xlink:href="#MJMATHI-65" x="10106" y="0"></use><use xlink:href="#MJMATHI-64" x="10572" y="0"></use><use xlink:href="#MJMATHI-69" x="11096" y="0"></use><use xlink:href="#MJMATHI-63" x="11441" y="0"></use><use xlink:href="#MJMATHI-74" x="11875" y="0"></use><use xlink:href="#MJMATHI-65" x="12236" y="0"></use><use xlink:href="#MJMATHI-64" x="12703" y="0"></use><use xlink:href="#MJMATHI-76" x="13476" y="0"></use><use xlink:href="#MJMATHI-61" x="13962" y="0"></use><use xlink:href="#MJMATHI-6C" x="14491" y="0"></use><use xlink:href="#MJMATHI-75" x="14790" y="0"></use><use xlink:href="#MJMATHI-65" x="15362" y="0"></use><g transform="translate(15829,0)"><use xlink:href="#MJMAIN-29" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#MJMAIN-32" x="550" y="513"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mn>1</mn><mi>N</mi></mfrac><mo>∑</mo><mo stretchy="false">(</mo><mi>a</mi><mi>c</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi><mtext>&nbsp;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo>−</mo><mi>p</mi><mi>r</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi><mtext>&nbsp;</mtext><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></math></span></span><script type="math/tex" id="MathJax-Element-223"> \frac{1}{N} ∑ (actual\ value - predicted\ value)^2 </script> </td>
+    </tr>
+  </tbody>
+</table>
+
+-vertical-
+
+##### 1.A.ii. Choisir une perte
+
+Le choix d'utiliser l'équation MAE ou MSE dépend du jeu de données et de la façon dont vous souhaitez traiter certaines prédictions. La plupart des valeurs des caractéristiques d'un jeu de données se situent généralement dans une plage distincte. Par exemple, les voitures pèsent généralement entre 900 et 2200 kg et consomment entre 13 et 80 km/l. Une voiture de 3600 kg, ou une voiture consommant 160 km/l, se situe en dehors de la plage habituelle et serait considérée comme une valeur aberrante.
+
+-vertical-
+
+Une valeur aberrante peut également indiquer l'écart entre les prédictions d'un modèle et les valeurs réelles. Par exemple, 1360 kg se situe dans la plage de poids typique d'une voiture, et 64 km/l se situe dans la plage de consommation de carburant typique. Cependant, une voiture de 1360 kg consommant 65 km/l serait une valeur aberrante selon les prévisions du modèle, car celui-ci prédirait qu'une voiture de 1360 kg consommerait entre 7 et 80 km/l.
+
+Lors du choix de la meilleure fonction de perte, réfléchissez à la manière dont vous souhaitez que le modèle traite les valeurs aberrantes. Par exemple, la fonction MSE déplace le modèle vers les valeurs aberrantes, contrairement à la fonction MAE. La perte L2 entraîne une pénalité beaucoup plus élevée pour une valeur aberrante que pour une perte L1. 
+
+-vertical-
+
+Par exemple, les images suivantes montrent un modèle entraîné avec la fonction MAE et un modèle entraîné avec la fonction MSE. La ligne rouge représente un modèle entièrement entraîné qui sera utilisé pour les prévisions. Les valeurs aberrantes sont plus proches du modèle entraîné avec la fonction MSE que de celui entraîné avec la fonction MAE.
+
+<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/model-mse.png" class="r-fit-text">
+
+<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/model-mae.png" class="r-fit-text">
+
+-vertical-
+
+##### 1.A.iii. La descente de gradient
+
+La descente de gradient est une technique mathématique qui permet de déterminer de manière itérative les pondérations et les biais permettant d'obtenir le modèle présentant la perte la plus faible. La descente de gradient permet de déterminer les pondérations et les biais les plus adaptés en répétant le processus suivant pour un nombre d'itérations défini par l'utilisateur.
+
+-vertical-
+
+Le modèle commence l'entraînement avec des pondérations et des biais aléatoires proches de zéro, puis répète les étapes suivantes :
+
+Calculer la perte avec les pondérations et les biais actuels.
+
+Déterminer la direction dans laquelle déplacer les pondérations et les biais pour réduire la perte.
+
+Déplacer légèrement les valeurs de pondération et de biais dans la direction qui réduit la perte.
+
+Revenir à l'étape 1 et répéter le processus jusqu'à ce que le modèle ne puisse plus réduire la perte.
+
+<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/gradient-descent.png" class="r-fit-text">
+
+-vertical-
+
+###### 1.A.iv. La descente de gradient : un exemple
+
+Concrètement, on peut parcourir les étapes de descente de gradient en utilisant un petit ensemble de données avec sept exemples de poids d'une voiture et de sa consommation d'essence :
+
+
+<table>
+      <thead>
+        <tr>
+          <th>Poids (feature)</th>
+          <th>L/km (label)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>3.5</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <td>3.69</td>
+          <td>15</td>
+        </tr>
+        <tr>
+          <td>3.44</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <td>3.43</td>
+          <td>16</td>
+        </tr>
+        <tr>
+          <td>4.34</td>
+          <td>15</td>
+        </tr>
+        <tr>
+          <td>4.42</td>
+          <td>14</td>
+        </tr>
+        <tr>
+          <td>2.37</td>
+          <td>24</td>
+        </tr>
+      </tbody>
+      </table>
+
+-vertical-
+
+Le modèle commençe l'entraînement avec ses poids et ses biais à 0 :
+
+$\small{Weight:\ 0}$
+$\small{Bias:\ 0}$
+$\small{y = 0 + 0(x_1)}$
+
+On calcule la loss MSE avec les paramètres actuels :
+
+$\small{Loss = \frac{(18-0)^2 + (15-0)^2 + (18-0)^2 + (16-0)^2 + (15-0)^2 + (14-0)^2 + (24-0)^2}{7}}$
+$\small{Loss= 303.71}$
+
+-vertical-
+
+###### 1.A.iii.1. Les dérivées partielles
+
+Pour obtenir la pente des lignes tangentes au poids et au biais, nous prenons la dérivée de la fonction de perte par rapport au poids et au biais, puis nous résolvons les équations.
+
+L'équation d'une prédiction correpond à:
+$f_{w,b}(x) = (w*x)+b$
+
+On écrit la valeur réelle $y$
+
+On calcule la MSE selon la formule suivante:
+
+$\frac{1}{M} \sum_{i=1}^{M} (f_{w,b}(x_{(i)}) - y_{(i)})^2$ où $M$ représente le nombre d'exemples.
+
+-vertical-
+                    
+###### 1.A.iii.2. Dérivative des poids
+                  
+La dérivée de la fonction de perte par rapport au poids s'écrit :<br>
+
+$\frac{\partial }{\partial w} \frac{1}{M} \sum_{i=1}^{M} (f_{w,b}(x_{(i)}) - y_{(i)})^2$
+
+Qui correspond à:
+
+$\frac{1}{M} \sum_{i=1}^{M} (f_{w,b}(x_{(i)}) - y_{(i)}) * 2x_{(i)}$
+
+Nous additionnons d'abord chaque valeur prédite moins la valeur réelle, puis nous multiplions le résultat par deux fois la valeur de la caractéristique.
+Ensuite, nous divisons la somme par le nombre d'exemples.
+Le résultat est la pente de la droite tangente à la valeur du poids.
+
+Si nous résolvons cette équation avec un poids et un biais égaux à zéro, nous obtenons **-119,7** pour la pente de la droite.
+
+-vertical-
+
+###### 1.A.iii.3. Dérivée du biais
+
+La dérivée de la fonction de perte par rapport au biais s'écrit :<br>
+
+$\frac{\partial }{\partial b} \frac{1}{M} \sum_{i=1}^{M} (f_{w,b}(x_{(i)}) - y_{(i)})^2$
+
+et correspond à :
+
+$\frac{1}{M} \sum_{i=1}^{M} (f_{w,b}(x_{(i)}) - y_{(i)}) * 2$
+
+Nous additionnons d'abord chaque valeur prédite moins la valeur réelle, puis nous multiplions le résultat par deux. Nous divisons ensuite la somme par le nombre d'exemples. Le résultat est la pente de la droite tangente à la valeur du biais.
+
+Si nous résolvons cette équation avec un poids et un biais égaux à zéro, nous obtenons **-34,3** pour la pente de la droite.
+
+-vertical-
+
+##### 1.A.iv. Learning rate et poids suivants
+
+On déplace légèrement la valeur dans le sens de la pente négative pour obtenir la pondération et le biais suivants. Pour l'instant, nous définirons arbitrairement la « petite valeur » (le taux d'apprentissage ou _learning rate_) à 0,01 :
+
+$New\ weight = old\ weight - (small\ amount * weight\ slope)$
+
+$New\ bias = old\ bias - (small\ amount * bias\ slope)$
+
+$New\ weight = 0 - (0.01)*(-119.7)$
+
+$New\ bias = 0 - (0.01)*(-34.3)$
+
+$New\ weight = 1.2$
+
+$New\ bias = 0.34$
+
+-vertical-
+
+On utilise le nouveau poids et le nouveau biais pour calculer la perte, puis répétez l'opération. En effectuant le processus pendant six itérations, on obtient les poids, biais et pertes suivants:
+
+<table>
+      <thead>
+        <tr>
+          <th>Itération</th>
+          <th>Poids</th>
+          <th>Biais</th>
+          <th>Perte (MSE)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>0</td>
+          <td>0</td>
+          <td>303,71</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>1.2</td>
+          <td>0,34</td>
+          <td>170.67</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>2,75</td>
+          <td>0.59</td>
+          <td>67,3</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>3.17</td>
+          <td>0.72</td>
+          <td>50,63</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>3,47</td>
+          <td>0.82</td>
+          <td>42.1</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>3,68</td>
+          <td>0,9</td>
+          <td>37,74</td>
+        </tr>
+      </tbody>
+    </table>
+
+-vertical-
+
+On remarque que la fonction de perte diminue à chaque mise à jour des poids et des biais. Ici, on s'arrête après six itérations. En pratique, un modèle est entraîné jusqu'à ce qu'il converge. Lorsqu'un modèle converge, les itérations supplémentaires ne réduisent pas davantage la perte, car la descente de gradient a trouvé les poids et les biais qui minimisent presque la perte.
+
+-vertical-
+
+##### 1.A.v. Convergence du modèle et courbes de perte
+
+Lorsque vous entraînez un modèle, vous examinez souvent une courbe de perte pour déterminer si le modèle a convergé. La courbe de perte montre comment la perte change à mesure que le modèle s'entraîne. Voici à quoi ressemble une courbe de perte typique. La perte est représentée sur l'axe Y et les itérations sur l'axe X:
+
+<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/convergence.png?hl=fr" class="r-fit-text">
+
+Vous pouvez constater que la perte diminue considérablement au cours des premières itérations, puis diminue progressivement avant de s'aplatir vers la 1 000e itération. Après 1 000 itérations, nous pouvons être presque certains que le modèle a convergé.
+
+-vertical-
+
+##### 1.A.vi. Paramètres et Hyperparamètres
+
+Les paramètres d'un modèles (1B, 7B, ...), c'est en fait le nombres de poids et de biais du modèles. Ce sont toutes les parties "apprisent" par le modèle.
+
+Ses Hyperparamètres, ce sont les parties choisies par le developpeur. On note quelques hyperparamètres importants:
+- la taille de batch
+- le taux d'apprentissage (learning rate)
+- le nombre d'époques
+
+-vertical-
+
+**Taux d'apprentissage**
+
+Le taux d'apprentissage influence la rapidité de convergence du modèle.
+
+La différence entre les anciens paramètres du modèle et les nouveaux paramètres du modèle est proportionnelle à la pente de la fonction de perte. Par exemple, si la pente est importante, le modèle effectue un grand pas. Si elle est petite, il faut faire un petit pas. Par exemple, si l'ampleur de la pente est de 2,5 et que le taux d'apprentissage est de 0,01, le modèle modifie le paramètre de 0,025.
+
+Le taux d'apprentissage idéal aide le modèle à converger en un nombre raisonnable d'itérations. 
+
+Si le taux d'apprentissage est trop faible, la convergence du modèle peut prendre beaucoup de temps. Toutefois, si le taux d'apprentissage est trop élevé, le modèle ne converge jamais, mais oscille autour des pondérations et des biais qui minimisent la perte. L'objectif est de choisir un taux d'apprentissage qui n'est ni trop élevé ni trop faible pour que le modèle converge rapidement.
+
+-vertical-
+
+Taux d'apprentissage trop faible : 
+
+<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/small-lr.png?hl=fr">
+
+-vertical-
+
+Taux d'apprentissage trop élevé :
+
+<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/high-lr.png?hl=fr">
+
+-vertical-
+
+**Taille de batch (ou lot)**
+
+La taille de lot est le nombre d'exemples que le modèle traite avant de mettre à jour ses poids et ses biais. Avec des jeux de données très grand, il n'est pas pratique d'utiliser tout le jeu de données avant de mettre à jour les poids : c'est trop couteux.
+
+Deux techniques courantes pour obtenir le bon gradient en moyenne sans avoir à examiner chaque exemple de l'ensemble de données avant de mettre à jour les poids et le biais sont la descente aléatoire (stochastique) du gradient et la descente stochastique du gradient en mini-lot.
+
+-vertical-
+
+Avec une descente aléatoire (stochastique) du gradient, on ne choisi (aléatoirement) qu'un seul exemple du jeu de donnée avant de mettre à jour les poids du modèle.
+
+Avec suffisamment d'itérations, l'utilisation d'un seul exemple fonctionne, mais n'est pas très efficient.
+
+<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/noisy-gradient.png?hl=fr">
+
+On peut observer que parfois la loss remonte.
+
+-vertical-
+
+Avec une descente de gradient stochastique par mini-lot, on choisi une taille de lot.
+
+Pour un nombre de points de données N
+, la taille de lot peut être n'importe quel nombre supérieur à 1 et inférieur à N
+.Le modèle choisit les exemples inclus dans chaque lot de manière aléatoire (stochastique), calcule la moyenne de leurs gradients, puis met à jour les poids et le biais une fois par itération.
+
+Le nombre d'exemples pour chaque lot dépend de l'ensemble de données et des ressources de calcul disponibles. En général, les petites tailles de lot se comportent comme la descente du gradient stochastique, tandis que les tailles de lot plus importantes se comportent comme la descente du gradient sur l'ensemble du lot.
+
+-vertical-
+
+**Époques (Epoch)**
+
+Lors de l'entraînement, une époque signifie que le modèle a traité chaque exemple de l'ensemble d'entraînement une fois. Par exemple, étant donné un ensemble d'entraînement de 1 000 exemples et une taille de mini-lot de 100 exemples, le modèle nécessitera 10 itérations pour terminer une époque.
+
+L'entraînement nécessite généralement de nombreuses époques. Autrement dit, le système doit traiter chaque exemple de l'ensemble d'entraînement plusieurs fois.
+
+Le nombre d'époques est un hyperparamètre que vous définissez avant le début de l'entraînement du modèle. Dans de nombreux cas, vous devrez tester le nombre d'époques nécessaires pour que le modèle converge. En général, un nombre d'époques plus élevé produit un meilleur modèle, mais l'entraînement prend plus de temps.
+
+-vertical-
+
+#### 1.B. Regression Logistique
+
+La regression linéaire est efficace pour prédire des valeurs. Avec certains types de données, on va plutôt vouloir calculer des probabilités qu'un element soit ou non d'un type, d'une classe.
+
+Pour ça, il suffit de transformer les valeurs de la regression linéaire Pour la conditionner à donner des résultats entre 0 et 1.
+
+La fonction qu'on utilise pour ça est la fonction suivante :
+
+<img src="https://developers.google.com/static/machine-learning/crash-course/logistic-regression/images/sigmoid_function_with_axes.png?hl=fr" class="r-fit-text">
+
+-vertical-
+
+Pour faire la transformation, on a simplement à mettre la valeur de notre régression linéaire $z$ dans la formule de la fonction : $\frac(1/(1+e^{-x}))$
+
+<img src="https://developers.google.com/static/machine-learning/crash-course/logistic-regression/images/linear_to_logistic.png?hl=fr" class="r-fit-text">
+
+-vertical-
+
+La regression logistique a ses propres fonctions de perte que l'on appelle log loss.
+
+Pour faire de la classification, c'est la regression logistique que l'on transforme en prédictions binaires en choisissant un seuil de classification.
+
+-vertical-
+
+Quizz 2
+
+-vertical-
+
+Quizz 2
+
+1. Quel modèle utiliser pour trouver les caractéristiques des données suivantes : <img src="https://www.w3schools.com/datascience/img_least_square.png" class="r-fit-text">
+2. Calculez la descente de gradient du modèle $f(x)=wx=+b$ avec une Perte $L_2$ écrite $∑(valeur\ réelle - valeur\ prédite)^2$.
+3. A quoi sert une taille de lot (batch) importante ?
+
+-horizontal-
+
+### Rappels sur le Deep Learning
+
+Vous avez déjà vu que le problème de classification suivant est non linéaire :
+
+<image src="https://developers.google.com/static/machine-learning/crash-course/neural-networks/images/nonlinear_simple.png" class="r-fit-text">
+
+-vertical-
+
+« Non linéaire » signifie qu'il est impossible de prédire avec précision une étiquette avec un modèle de la forme $b+w_1*x_1 +w_2*x_2$
+. Autrement dit, la surface de décision n'est pas une ligne.
+
+Cependant, si nous effectuons un croisement de caractéristiques sur nos caractéristiques $x_1$
+et $x_2$
+, nous pouvons alors représenter la relation non linéaire entre les deux caractéristiques à l'aide d'un modèle linéaire : $b+w_1*x_1+w_2*x_2+w_3*x_3$
+où $x_3$
+est le croisement de caractéristiques entre
+$x_1$ et $x_2$
+:
+
+<image src="https://developers.google.com/static/machine-learning/crash-course/neural-networks/images/nonlinear_simple_feature_cross.png" class="r-fit-text">
+
+-vertical-
+
+Les réseaux de neurones sont efficaces pour calculer ces croisements de caractéristiques .
+
+Les réseaux de neurones constituent une famille d'architectures de modèles conçues pour trouver les non-linéarité des modèles dans les données.
+
+-vertical-
+
+#### 1. Noeuds et Couches cachées
+
+Les noeuds sont les différents $x_n$ de notre regression linéaire.
+Sur un réseau à 1 couche, avec une fonction d'activation linéaire, il n'y a pas de différence avec une régression linéaire classique.
+
+On a la même formule $y=w_1*x_1+w_2*x_2$
+
+<img src="https://www.researchgate.net/publication/264627515/figure/fig13/AS:339572132204575@1457971713882/The-architecture-of-the-linear-neural-network.png" class="r-fit-text">
+
+-vertical-
+
+Pour quitter la linéarité, on va vouloir ajouter des modifications des résultats au milieu de notre calcul.
+
+On va ajouter une couche "cachées" constituées de "neurones" entre les entrées et le résultat
+
+<img src="https://www.researchgate.net/publication/282997080/figure/fig4/AS:305939199610886@1449952997594/A-typical-two-layer-neural-network-Input-layer-does-not-count-as-the-number-of-layers-of.png" class="r-fit-text">
+
+-vertical-
+
+Sans modifier plus que ça notre réseau, on ne peut pas calculer de non-linéarité parceque le résultat final correpond toujours à la somme de $(x_1w_1+b_1)w_2+b_2=(w_2*w_1)*x_1+w_2b_1+b_2$ 
+
+On va vouloir casser la linéarité en applicant des fonctions non linéaire à la sortie de chaque couche.
+
+On a déjà vu une fonction non linéaire pour la régression logistique : la fonction sigmoïde.
+
+Maintenant que nous avons ajouté une fonction d'activation, l'ajout de couches a plus d'impact. L'empilement de non-linéarités nous permet de modéliser des relations très complexes entre les entrées et les sorties prévues. En résumé, chaque couche apprend une fonction plus complexe et de niveau supérieur par rapport aux entrées brutes.
+
+-vertical-
+
+**Fonction d'activation**
+
+On appelle la fonction qu'on met en sortie du neurone la fonction d'activation. On peut utiliser plusieurs types de fonctions différentes : les sigmoïde, les ReLU, ...
+
+-vertical-
+
+Sauf que maintenant qu'on a plus de linéarité, comment est ce qu'on va pouvoir calculer le gradient de notre fonction ?
+
+&rarr; on va utiliser la retropropagation
+
+La logique de la rétropropagation repose sur le fait que les couches de neurones des réseaux neuronaux artificiels sont essentiellement une série de fonctions mathématiques imbriquées. Lors de l'apprentissage, ces équations interconnectées sont imbriquées dans une autre fonction : une « fonction de perte » qui mesure la différence (ou « perte ») entre la sortie souhaitée (ou « vérité fondamentale ») pour une entrée donnée et la sortie réelle du réseau neuronal.
+
+Nous pouvons donc utiliser la « règle de la chaîne » pour calculer la contribution de chaque neurone à la perte globale. Ce faisant, nous pouvons calculer l'impact des modifications de n'importe quelle variable – c'est-à-dire de n'importe quel poids ou biais – dans les équations représentées par ces neurones.
+
+-vertical-
+
+La règle de la chaîne est une formule permettant de calculer les dérivées de fonctions impliquant non seulement plusieurs variables, mais plusieurs fonctions. Prenons par exemple une fonction composée $f(x) = A(B(x))$. La dérivée de la fonction composée, f, est égale à la dérivée de la fonction externe (A) multipliée par la dérivée de la fonction interne (B).
+
+-vertical-
+
+D'un point de vue technique et mathématique, l'objectif de la rétropropagation est de calculer le gradient de la fonction de perte par rapport à chacun des paramètres individuels du réseau neuronal. En termes plus simples, la rétropropagation utilise la règle de la chaîne pour calculer le taux de variation de la perte en réponse à toute modification d'un poids (ou biais) spécifique du réseau.
+
+On va calculer les dérivées couches par couches et on pourra ensuite donner les dérivées que l'on a calculées à la couche précédente pour qu'elle l'utilise pour calculer sa propre dérivée.
+
+Pour 4 couches A, B, C, D, on a $y=A(B(C(D(x))))$ &rarr; on va commencer par calculer $D(x)'$ Puis on va utiliser $D(x)'$ pour calculer $C(D(x))' = C(x)'*D(x)'$ etc.
+
+A la fin de la retro-propagation, on obtient le gradient de la fonction de perte globale.
+
+-vertical-
+
+Avec le gradient, on peut faire, comme pour la regression linéaire, la descente de gradient qui nous permet de modifier la valeurs des poids des différents neurones.
+
+-vertical-
+
+**Le problème du *Vanishing gradiant***
+
+Les gradients des couches de réseau neuronal inférieures (celles qui sont plus proches de la couche d'entrée) peuvent devenir très petits. Dans les réseaux profonds (réseaux avec plusieurs couches cachées), le calcul de ces gradients peut impliquer de prendre le produit de nombreux petits termes.
+
+Lorsque les valeurs du gradient s'approchent de 0 pour les couches inférieures, les gradients "disparaissent". Les couches avec des gradients qui disparaissent s'entraînent très lentement, voire pas du tout.
+
+Certaines fonctions d'activation (genre ReLU) permettent de limiter la disparition du gradient.
+
+-vertical-
+
+**Gradients explosifs**
+
+Si les pondérations d'un réseau sont très importantes, les gradients des couches inférieures impliquent le produit de nombreux termes de grande taille. Dans ce cas, vous pouvez avoir des gradients explosifs: des gradients qui deviennent trop importants pour converger.
+
+La normalisation des lots peut aider à éviter l'explosion des gradients, tout comme la réduction du taux d'apprentissage.
+
+-vertical-
+
+Quiz 3
+ 
+-vertical-
+
+1. Vrai ou faux: la réduction du taux d'apprentissage peut aider à éviter l'explosion des gradients pendant l'entraînement des réseaux de neurones.
+
+### 2. Les modèles de Machine Learning
+
+### 3. Les transformers
+
+#### 3.A. Architecture
+
+#### 3.B. Entraînement
+
+#### 3.C. Finetuning
+
+
+#### 
+
+-vertical-
+
+### Petit Glossaire des personnalités à connaître de l'informatique
+
+- Tim Berners Lee
+- Claude Shannon
+- Guido Van Rossum
+- 
