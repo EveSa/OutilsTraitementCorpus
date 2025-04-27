@@ -280,6 +280,48 @@ Ces méthodes sont plus couteuses que des méthodes par exact matching mais perm
 
 -vertical-
 
+-vertical-
+
+##### 1.b. Comment augmenter les classes minoritaires ?
+###### Les jeux de données synthétiques
+
+Les données synthétiques sont des données artificielles conçues pour imiter les données du monde réel. Elles sont générées par des méthodes statistiques ou par des techniques d'intelligence artificielle (IA) telles que l'apprentissage profond et l'IA générative.
+
+-vertical-
+
+###### Jeux de données synthétiques
+
+Bien que générées artificiellement, les données synthétiques conservent les propriétés statistiques sous-jacentes des données originales sur lesquelles elles reposent. Ainsi, les ensembles de données synthétiques peuvent compléter, voire remplacer, les ensembles de données réels.
+
+-vertical-
+
+**Quels intérêts aux jeux de données synthétiques ?**
+
+Efficacité
+
+Personnalisation
+
+Données plus riches
+
+-vertical-
+
+**Quels intérêts aux jeux de données synthétiques ?**
+
+*Confidentialité des données accrue*
+Les données synthétiques ressemblent aux données réelles, mais peuvent être générées de manière à ce qu'aucune donnée personnelle ne puisse être reliée à une personne en particulier. Cela constitue une forme d'anonymisation des données, contribuant ainsi à la sécurité des informations sensibles. Les données synthétiques permettent également aux entreprises d'éviter les problèmes de propriété intellectuelle et de droits d'auteur, en éliminant les robots d'indexation qui collectent des informations sur les sites web à l'insu et sans le consentement des utilisateurs.
+
+-vertical-
+
+**Quels sont les côtés négatifs de la génération de jeux de données ?**
+
+**Biais**
+Les données synthétiques peuvent néanmoins présenter des biais, présents dans les données réelles sur lesquelles elles reposent. L'utilisation de sources de données diversifiées et l'ajout de multiples sources, notamment de régions et de groupes démographiques variés, peuvent contribuer à atténuer les biais.
+
+**Effondrement du modèle**
+L'effondrement du modèle se produit lorsqu'un modèle d'IA est entraîné de manière répétée sur des données générées par l'IA, ce qui entraîne une baisse de ses performances. Un mélange équilibré de données d'entraînement réelles et artificielles peut contribuer à prévenir ce problème.
+
+-vertical-
+
 ##### 1.c. Transformer sont corpus
 
 Ces méthodes permettent aussi de transformer son corpus. On peut décider de remplacer certains mots par des homophones, des antonymes, etc... pour obtenir des paires ou des ensembles de phrases que l'on va pouvoir comparer. Ca peut être utile pour observer l'efficacité des modèles sur la tâche de similarité par exemple.
@@ -321,6 +363,8 @@ Cette segmentation permet de mettre en place une suite de processus (workflow ou
 
 <image src="https://developers.google.com/static/machine-learning/crash-course/images/workflow_with_validation_set.svg" class="r-fit-text">
 
+-vertical-
+
 Mais même ici les ensembles de test et de validation s'usent avec les utilisations répétées. Autrement dit, plus vous utilisez les mêmes données pour prendre des décisions concernant les paramètres d'hyperparamètres ou d'autres améliorations du modèle, moins vous avez confiance dans la fiabilité des prédictions du modèle sur les nouvelles données. C'est pourquoi il est judicieux de collecter davantage de données pour actualiser les ensembles de test et de validation. Repartir de zéro est une excellente réinitialisation.
 
 -vertical-
@@ -328,6 +372,8 @@ Mais même ici les ensembles de test et de validation s'usent avec les utilisati
 ##### 2.b. Problèmes supplémentaires avec les ensembles de test
 
 Les exemples en double peuvent affecter l'évaluation du modèle. Après avoir divisé un ensemble de données en ensembles d'entraînement, de validation et de test, supprimez tous les exemples de l'ensemble de validation ou de test qui sont des doublons d'exemples de l'ensemble d'entraînement. Le seul test fiable d'un modèle est celui des nouveaux exemples, et non des doublons.
+
+-vertical-
 
 Une précision trop importante de votre modèle sur les première itération peut être un signe d'une mauvaise gestion des données d'apprentissage et notamment de la contamination du modèle que vous venez d'entraîner
 
@@ -343,6 +389,7 @@ En résumé, un bon ensemble de test ou de validation répond à tous les critè
 -vertical-
 
 Quizz 1
+
 
 -vertical- 
 
@@ -447,17 +494,19 @@ Le choix d'utiliser l'équation MAE ou MSE dépend du jeu de données et de la f
 
 -vertical-
 
+<div class="r-fit-text">
 Une valeur aberrante peut également indiquer l'écart entre les prédictions d'un modèle et les valeurs réelles. Par exemple, 1360 kg se situe dans la plage de poids typique d'une voiture, et 64 km/l se situe dans la plage de consommation de carburant typique. Cependant, une voiture de 1360 kg consommant 65 km/l serait une valeur aberrante selon les prévisions du modèle, car celui-ci prédirait qu'une voiture de 1360 kg consommerait entre 7 et 80 km/l.
 
 Lors du choix de la meilleure fonction de perte, réfléchissez à la manière dont vous souhaitez que le modèle traite les valeurs aberrantes. Par exemple, la fonction MSE déplace le modèle vers les valeurs aberrantes, contrairement à la fonction MAE. La perte L2 entraîne une pénalité beaucoup plus élevée pour une valeur aberrante que pour une perte L1. 
+</div>
 
 -vertical-
 
-Par exemple, les images suivantes montrent un modèle entraîné avec la fonction MAE et un modèle entraîné avec la fonction MSE. La ligne rouge représente un modèle entièrement entraîné qui sera utilisé pour les prévisions. Les valeurs aberrantes sont plus proches du modèle entraîné avec la fonction MSE que de celui entraîné avec la fonction MAE.
+Par exemple, les images suivantes montrent un modèle entraîné avec la fonction MAE et un modèle entraîné avec la fonction MSE.
 
-<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/model-mse.png" class="r-fit-text">
+<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/model-mse.png" class="r-stretch">
 
-<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/model-mae.png" class="r-fit-text">
+<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/model-mae.png" class="r-stretch">
 
 -vertical-
 
@@ -469,13 +518,15 @@ La descente de gradient est une technique mathématique qui permet de détermine
 
 Le modèle commence l'entraînement avec des pondérations et des biais aléatoires proches de zéro, puis répète les étapes suivantes :
 
-Calculer la perte avec les pondérations et les biais actuels.
+1. Calculer la perte avec les pondérations et les biais actuels.
 
-Déterminer la direction dans laquelle déplacer les pondérations et les biais pour réduire la perte.
+2. Déterminer la direction dans laquelle déplacer les pondérations et les biais pour réduire la perte.
 
-Déplacer légèrement les valeurs de pondération et de biais dans la direction qui réduit la perte.
+3. Déplacer légèrement les valeurs de pondération et de biais dans la direction qui réduit la perte.
 
-Revenir à l'étape 1 et répéter le processus jusqu'à ce que le modèle ne puisse plus réduire la perte.
+4. Revenir à l'étape 1 et répéter le processus jusqu'à ce que le modèle ne puisse plus réduire la perte.
+
+-vertical-
 
 <img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/gradient-descent.png" class="r-fit-text">
 
@@ -486,7 +537,7 @@ Revenir à l'étape 1 et répéter le processus jusqu'à ce que le modèle ne pu
 Concrètement, on peut parcourir les étapes de descente de gradient en utilisant un petit ensemble de données avec sept exemples de poids d'une voiture et de sa consommation d'essence :
 
 
-<table>
+<table class="r-fit-text">
       <thead>
         <tr>
           <th>Poids (feature)</th>
@@ -529,9 +580,9 @@ Concrètement, on peut parcourir les étapes de descente de gradient en utilisan
 
 Le modèle commençe l'entraînement avec ses poids et ses biais à 0 :
 
-$\small{Weight:\ 0}$
-$\small{Bias:\ 0}$
-$\small{y = 0 + 0(x_1)}$
+`$\small{Weight:\ 0}$`
+`$\small{Bias:\ 0}$`
+`$\small{y = 0 + 0(x_1)}$`
 
 On calcule la loss MSE avec les paramètres actuels :
 
@@ -898,8 +949,6 @@ Quiz 3
 -vertical-
 
 1. Vrai ou faux: la réduction du taux d'apprentissage peut aider à éviter l'explosion des gradients pendant l'entraînement des réseaux de neurones.
-
-### 2. Les modèles de Machine Learning
 
 ### 3. Les transformers
 
