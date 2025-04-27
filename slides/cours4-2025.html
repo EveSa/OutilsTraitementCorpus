@@ -3,6 +3,11 @@ layout: presentation
 title: Cours4
 ---
 
+<script src="plugin/math/math.js"></script>
+<script>
+  Reveal.initialize({ plugins: [RevealMath.KaTeX] });
+</script>
+
 # Outils de Traitement de Corpus
 -vertical-
 
@@ -582,7 +587,8 @@ Le modèle commençe l'entraînement avec ses poids et ses biais à 0 :
 
 `$$\small{Weight:\ 0}$$`
 
-<section data-markdown>`$$ J(\theta_0,\theta_1) = \sum_{i=0} $$`</section>
+\[\begin{aligned} \dot{x} &amp; = \sigma(y-x) \\ \dot{y} &amp; = \rho x - y -
+  xz \\ \dot{z} &amp; = -\beta z + xy \end{aligned} \]
 
 `$$\small{Bias:\ 0}$$`
 
@@ -674,7 +680,7 @@ $New\ bias = 0.34$
 
 On utilise le nouveau poids et le nouveau biais pour calculer la perte, puis répétez l'opération. En effectuant le processus pendant six itérations, on obtient les poids, biais et pertes suivants:
 
-<table>
+<table class="r-stretch">
       <thead>
         <tr>
           <th>Itération</th>
@@ -731,9 +737,13 @@ On remarque que la fonction de perte diminue à chaque mise à jour des poids et
 
 ##### 1.A.v. Convergence du modèle et courbes de perte
 
+<div class="r-fit-text">
 Lorsque vous entraînez un modèle, vous examinez souvent une courbe de perte pour déterminer si le modèle a convergé. La courbe de perte montre comment la perte change à mesure que le modèle s'entraîne. Voici à quoi ressemble une courbe de perte typique. La perte est représentée sur l'axe Y et les itérations sur l'axe X:
+</div>
 
-<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/convergence.png?hl=fr" class="r-fit-text">
+<img src="https://developers.google.com/static/machine-learning/crash-course/linear-regression/images/convergence.png?hl=fr" class="r-stretch">
+
+-vertical-
 
 Vous pouvez constater que la perte diminue considérablement au cours des premières itérations, puis diminue progressivement avant de s'aplatir vers la 1 000e itération. Après 1 000 itérations, nous pouvons être presque certains que le modèle a convergé.
 
@@ -755,6 +765,8 @@ Ses Hyperparamètres, ce sont les parties choisies par le developpeur. On note q
 Le taux d'apprentissage influence la rapidité de convergence du modèle.
 
 La différence entre les anciens paramètres du modèle et les nouveaux paramètres du modèle est proportionnelle à la pente de la fonction de perte. Par exemple, si la pente est importante, le modèle effectue un grand pas. Si elle est petite, il faut faire un petit pas. Par exemple, si l'ampleur de la pente est de 2,5 et que le taux d'apprentissage est de 0,01, le modèle modifie le paramètre de 0,025.
+
+-vertical-
 
 Le taux d'apprentissage idéal aide le modèle à converger en un nombre raisonnable d'itérations. 
 
