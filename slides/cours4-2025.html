@@ -1138,7 +1138,7 @@ TP 4:
 -vertical-
 
 1. Vrai ou faux: la réduction du taux d'apprentissage peut aider à éviter l'explosion des gradients pendant l'entraînement des réseaux de neurones.
-2. Pourquoi est-ce que le réseau de neurone suivant est il linéaire sans activation ? couche d'entrée: $w_1*x+w_2*x+b_1$ et couche cachée :$w_3*x+b$. Dessinez le réseau et écrivez sont équation.
+2. Pourquoi est-ce que le réseau de neurone suivant est il linéaire sans activation ? couche d'entrée: `$w_1*x+w_2*x+b_1$` et couche cachée : `$w_3*x+b$`. Dessinez le réseau et écrivez sont équation.
 3. Qu'est ce que la retropropagation (back propagation) ?
 
 -vertical-
@@ -1290,6 +1290,7 @@ model = AutoModel.from_pretrained(checkpoint)
 
 **Un vecteur de grande dimension ?**
 
+<div class="r-fit-text">
 La sortie vectorielle du module Transformer est généralement volumineuse. Elle comporte généralement trois dimensions :
 
 Taille du lot : nombre de séquences traitées simultanément (2 dans notre exemple).
@@ -1298,6 +1299,7 @@ Longueur de la séquence : longueur de la représentation numérique de la séq
 Taille cachée : dimension vectorielle de chaque entrée du modèle.
 
 On dit qu'il est « hautement dimensionnel » en raison de sa dernière valeur. La taille cachée peut être très importante (768 est courant pour les petits modèles, et peut atteindre 3072 ou plus pour les modèles plus grands).
+</div>
 
 -vertical-
 
