@@ -860,6 +860,7 @@ Quizz 2
 <img src="https://www.w3schools.com/datascience/img_least_square.png" class="r-stretch">
 <div class="r-fit-text">
 2. Calculez la descente de gradient du modèle $f(x)=wx=+b$ avec une Perte $L_2$ écrite $∑(valeur\ réelle - valeur\ prédite)^2$.
+
 3. A quoi sert une taille de lot (batch) importante ?
 </div>
 
@@ -988,6 +989,8 @@ Quiz 3
 -vertical-
 
 1. Vrai ou faux: la réduction du taux d'apprentissage peut aider à éviter l'explosion des gradients pendant l'entraînement des réseaux de neurones.
+2. Pourquoi est-ce que le réseau de neurone suivant est il linéaire sans activation ? couche d'entrée: $w_1*x+w_2*x+b_1$ et couche cachée :$w_3*x+b$. Dessinez le réseau et écrivez sont équation.
+3. Qu'est ce que la retropropagation (back propagation) ?
 
 -vertical-
 
@@ -1072,6 +1075,64 @@ Par exemple, BERT est une architecture, tandis que bert-base-cased, un ensemble 
 
 -vertical-
 
+##### Modèles encodeurs
+
+Les modèles d'encodeur utilisent uniquement l'encodeur d'un modèle Transformer. À chaque étape, les couches d'attention peuvent accéder à tous les mots de la phrase initiale. Ces modèles sont souvent caractérisés comme ayant une attention « bidirectionnelle » et sont souvent appelés modèles d'auto-encodage.
+
+-vertical-
+
+Le pré-entraînement de ces modèles consiste généralement à corrompre une phrase donnée (par exemple, en masquant des mots aléatoires) et à charger le modèle de retrouver ou de reconstruire la phrase initiale.
+
+Les modèles d'encodeur sont particulièrement adaptés aux tâches nécessitant la compréhension de la phrase complète, telles que la classification de phrases, la reconnaissance d'entités nommées (et plus généralement la classification de mots) et la réponse à des questions par extraction.
+
+-vertical-
+
+##### Modèles décodeurs
+
+Les modèles de décodeur utilisent uniquement le décodeur d'un modèle Transformer. À chaque étape, pour un mot donné, les couches d'attention ne peuvent accéder qu'aux mots qui le précèdent dans la phrase. Ces modèles sont souvent appelés modèles autorégressifs.
+
+Le pré-apprentissage des modèles de décodeur repose généralement sur la prédiction du mot suivant dans la phrase.
+
+Ces modèles sont particulièrement adaptés aux tâches impliquant la génération de texte.
+
+-vertical-
+
+**Grands modèles de langues (LLM) modernes**
+
+La plupart des LLM modernes utilisent une architecture à décodeur seul. Ces modèles ont connu une croissance spectaculaire en taille et en capacités ces dernières années, certains des plus grands modèles contenant des centaines de milliards de paramètres.
+
+L'entraînement des LLM modernes se déroule généralement en deux phases :
+
+- Pré-entraînement : le modèle apprend à prédire le prochain jeton sur de grandes quantités de données textuelles
+- Optimisation des instructions : le modèle est affiné pour suivre les instructions et générer des réponses utiles
+
+-vertical-
+
+##### Les modèles séquence à séquence
+
+Les modèles encodeur-décodeur (également appelés modèles séquence à séquence) utilisent les deux parties de l'architecture Transformer. À chaque étape, les couches d'attention de l'encodeur peuvent accéder à tous les mots de la phrase initiale, tandis que celles du décodeur ne peuvent accéder qu'aux mots situés avant un mot donné dans l'entrée.
+
+-vertical-
+
+Le pré-entraînement de ces modèles peut prendre différentes formes, mais il implique souvent le token masking.
+
+Les modèles séquence à séquence sont particulièrement adaptés aux tâches de génération de nouvelles phrases à partir d'une entrée donnée, telles que le résumé, la traduction ou la réponse à des questions génératives.
+
+-vertical-
+
+Un guide rapide pour selectionner la bonne architecture selon vos tâches :
+
+<table data-svelte-h="svelte-1vjrc7n"><thead><tr><th>Task</th> <th>Suggested Architecture</th> <th>Examples</th></tr></thead> <tbody><tr><td>Text classification (sentiment, topic)</td> <td>Encoder</td> <td>BERT, RoBERTa</td></tr> <tr><td>Text generation (creative writing)</td> <td>Decoder</td> <td>GPT, LLaMA</td></tr> <tr><td>Translation</td> <td>Encoder-Decoder</td> <td>T5, BART</td></tr> <tr><td>Summarization</td> <td>Encoder-Decoder</td> <td>BART, T5</td></tr> <tr><td>Named entity recognition</td> <td>Encoder</td> <td>BERT, RoBERTa</td></tr> <tr><td>Question answering (extractive)</td> <td>Encoder</td> <td>BERT, RoBERTa</td></tr> <tr><td>Question answering (generative)</td> <td>Encoder-Decoder or Decoder</td> <td>T5, GPT</td></tr> <tr><td>Conversational AI</td> <td>Decoder</td> <td>GPT, LLaMA</td></tr></tbody></table>
+
+-vertical-
+
+TP 4:
+
+- A partir des données que vous avez récupérées, créez un dataset synthétique.
+- Choississez l'architecture adaptée à votre tâche et trouvez un modèle qui correspond à votre tâche et à cette architecture.
+
+-vertical-
+
 **Comprendre le mécanisme d'attention**
 
 <div class="r-fit-text">
@@ -1125,57 +1186,6 @@ L'attention multi-têtes offre plusieurs avantages :
 - Capture de différentes relations : différentes têtes s'intéressent à différents aspects de l'entrée.
 - Améliore l'efficacité de l'apprentissage : en fonctionnant en parallèle, plusieurs têtes permettent un meilleur apprentissage des dépendances.
 - Améliore la robustesse : le modèle ne repose pas sur un seul modèle d'attention, ce qui réduit le surapprentissage.
-
--vertical-
-
-##### Modèles encodeurs
-
-Les modèles d'encodeur utilisent uniquement l'encodeur d'un modèle Transformer. À chaque étape, les couches d'attention peuvent accéder à tous les mots de la phrase initiale. Ces modèles sont souvent caractérisés comme ayant une attention « bidirectionnelle » et sont souvent appelés modèles d'auto-encodage.
-
--vertical-
-
-Le pré-entraînement de ces modèles consiste généralement à corrompre une phrase donnée (par exemple, en masquant des mots aléatoires) et à charger le modèle de retrouver ou de reconstruire la phrase initiale.
-
-Les modèles d'encodeur sont particulièrement adaptés aux tâches nécessitant la compréhension de la phrase complète, telles que la classification de phrases, la reconnaissance d'entités nommées (et plus généralement la classification de mots) et la réponse à des questions par extraction.
-
--vertical-
-
-##### Modèles décodeurs
-
-Les modèles de décodeur utilisent uniquement le décodeur d'un modèle Transformer. À chaque étape, pour un mot donné, les couches d'attention ne peuvent accéder qu'aux mots qui le précèdent dans la phrase. Ces modèles sont souvent appelés modèles autorégressifs.
-
-Le pré-apprentissage des modèles de décodeur repose généralement sur la prédiction du mot suivant dans la phrase.
-
-Ces modèles sont particulièrement adaptés aux tâches impliquant la génération de texte.
-
--vertical-
-
-**Grands modèles de langues (LLM) modernes**
-
-La plupart des LLM modernes utilisent une architecture à décodeur seul. Ces modèles ont connu une croissance spectaculaire en taille et en capacités ces dernières années, certains des plus grands modèles contenant des centaines de milliards de paramètres.
-
-L'entraînement des LLM modernes se déroule généralement en deux phases :
-
-- Pré-entraînement : le modèle apprend à prédire le prochain jeton sur de grandes quantités de données textuelles
-- Optimisation des instructions : le modèle est affiné pour suivre les instructions et générer des réponses utiles
-
--vertical-
-
-##### Les modèles séquence à séquence
-
-Les modèles encodeur-décodeur (également appelés modèles séquence à séquence) utilisent les deux parties de l'architecture Transformer. À chaque étape, les couches d'attention de l'encodeur peuvent accéder à tous les mots de la phrase initiale, tandis que celles du décodeur ne peuvent accéder qu'aux mots situés avant un mot donné dans l'entrée.
-
--vertical-
-
-Le pré-entraînement de ces modèles peut prendre différentes formes, mais il implique souvent le token masking.
-
-Les modèles séquence à séquence sont particulièrement adaptés aux tâches de génération de nouvelles phrases à partir d'une entrée donnée, telles que le résumé, la traduction ou la réponse à des questions génératives.
-
--vertical-
-
-Un guide rapide pour selectionner la bonne architecture selon vos tâches :
-
-<table data-svelte-h="svelte-1vjrc7n"><thead><tr><th>Task</th> <th>Suggested Architecture</th> <th>Examples</th></tr></thead> <tbody><tr><td>Text classification (sentiment, topic)</td> <td>Encoder</td> <td>BERT, RoBERTa</td></tr> <tr><td>Text generation (creative writing)</td> <td>Decoder</td> <td>GPT, LLaMA</td></tr> <tr><td>Translation</td> <td>Encoder-Decoder</td> <td>T5, BART</td></tr> <tr><td>Summarization</td> <td>Encoder-Decoder</td> <td>BART, T5</td></tr> <tr><td>Named entity recognition</td> <td>Encoder</td> <td>BERT, RoBERTa</td></tr> <tr><td>Question answering (extractive)</td> <td>Encoder</td> <td>BERT, RoBERTa</td></tr> <tr><td>Question answering (generative)</td> <td>Encoder-Decoder or Decoder</td> <td>T5, GPT</td></tr> <tr><td>Conversational AI</td> <td>Decoder</td> <td>GPT, LLaMA</td></tr></tbody></table>
 
 -vertical-
 
