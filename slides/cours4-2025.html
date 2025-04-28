@@ -1131,6 +1131,12 @@ TP 4:
 - A partir des données que vous avez récupérées, créez un dataset synthétique.
 - Choississez l'architecture adaptée à votre tâche et trouvez un modèle qui correspond à votre tâche et à cette architecture.
 
+-horizontal-
+
+1. Vrai ou faux: la réduction du taux d'apprentissage peut aider à éviter l'explosion des gradients pendant l'entraînement des réseaux de neurones.
+2. Pourquoi est-ce que le réseau de neurone suivant est il linéaire sans activation ? couche d'entrée: $w_1*x+w_2*x+b_1$ et couche cachée :$w_3*x+b$. Dessinez le réseau et écrivez sont équation.
+3. Qu'est ce que la retropropagation (back propagation) ?
+
 -vertical-
 
 **Comprendre le mécanisme d'attention**
@@ -1302,29 +1308,191 @@ torch.Size([2, 16, 768])
 
 -vertical-
 
-Quizz 4
+Post-traitement de la sortie
+Les valeurs obtenues en sortie de notre modèle ne sont pas forcément logiques en elles-mêmes. Examinons-les :
+
+```
+print(outputs.logits)
+```
+
+```
+tensor([[-1.5607,  1.6123],
+        [ 4.1692, -3.3464]], grad_fn=<AddmmBackward>)
+```
 
 -vertical-
 
-1. A quoi correspond l'auto attention ? Comment est-elle calculée ?
-2. 
-
-
-#### 3.B. Entraînement
-
-
-
-#### 3.C. Finetuning
-
-
-#### 
+Notre modèle a prédit [-1,5607, 1,6123] pour la première phrase et [4,1692, -3,3464] pour la seconde. Il ne s'agit pas de probabilités, mais de logits, les scores bruts et non normalisés générés par la dernière couche du modèle. Pour être convertis en probabilités, ils doivent passer par une couche SoftMax (tous les modèles Transformers 🤗 génèrent des logits, car la fonction de perte pour l'apprentissage fusionne généralement la dernière fonction d'activation, comme SoftMax, avec la fonction de perte réelle, comme l'entropie croisée) :
 
 -vertical-
 
-## Point Bonnes Pratiques
-### Les commits conventionnels
+##### Adapter un modèle à une tâche.
+
+Le finetuning pourrait être considéré comme un sous-ensemble de la technique plus large de l’apprentissage par transfert : la pratique consistant à exploiter les connaissances qu’un modèle existant a déjà apprises comme point de départ pour l’apprentissage de nouvelles tâches.
+
+L'intuition derrière le finetuning est qu'il est plus simple et moins coûteux d'affiner les capacités d'un modèle de base pré-entraîné, ayant déjà acquis des connaissances approfondies, que d'entraîner un nouveau modèle de toutes pièces pour cet objectif précis. 
+
+-vertical-
+
+C'est particulièrement vrai pour les modèles d'apprentissage profond comportant des millions, voire des milliards de paramètres, comme les grands modèles de langage (LLM) qui ont pris de l'importance dans le domaine du traitement automatique du langage naturel (TALN) ou les réseaux de neurones convolutifs (RNC) et les transformateurs de vision (ViT) complexes utilisés pour des tâches de vision par ordinateur comme la classification, la détection d'objets ou la segmentation d'images.
+
+-vertical-
+
+Le finetuning utilise les pondérations d'un modèle pré-entraîné comme point de départ pour un entraînement ultérieur sur un ensemble de données plus restreint d'exemples reflétant plus directement les tâches et cas d'utilisation spécifiques du modèle.
+
+Il implique généralement un apprentissage supervisé, mais peut également impliquer un apprentissage par renforcement, un apprentissage auto-supervisé ou un apprentissage semi-supervisé.
+
+-vertical-
+
+**Ajustement fin complet**
+
+Le moyen le plus simple d'affiner le modèle consiste à mettre à jour l'ensemble du réseau neuronal. Cette méthodologie simple ressemble fondamentalement au processus d'entrainement : les seules différences fondamentales entre les processus d'ajustement fin complet et d'entraînement (ou pré-entraînement) résident dans le jeu de données utilisé et dans l'état initial des paramètres du modèle.
+
+-vertical-
+
+**Réglage fin optimisé des paramètres (PEFT)**
+
+Le réglage fin complet, tout comme le processus de pré-apprentissage auquel il ressemble, est très exigeant en termes de calcul. Pour les modèles d'apprentissage profond modernes comportant des centaines de millions, voire des milliards de paramètres, son coût est souvent prohibitif et peu pratique.
+
+Le réglage fin optimisé des paramètres (PEFT) englobe diverses méthodes visant à réduire le nombre de paramètres entraînables à mettre à jour afin d'adapter efficacement un modèle pré-entraîné volumineux à des applications spécifiques en aval. Ce faisant, le PEFT réduit considérablement les ressources de calcul et l'espace mémoire nécessaires pour produire un modèle optimisé efficacement. Les méthodes PEFT se sont souvent avérées plus stables que les méthodes de réglage fin complet, notamment pour les cas d'utilisation du TALN.
+
+-vertical-
+
+Dans les PEFTs majeurs on note:
+
+- le partial finetuning qui consistent au gel de certains paramètres (habituellement les couches internes)
+- le finetuning additif où l'on ajoute des couches supplémentaires qui seront apprises sur le nouveau jeu de données. On peut également utiliser le fine tuning additif pour l'entraînement d'_Adapters_.
+- La reparametrisation (notamment les LoRa)
+
+-vertical-
+
+Transformers fournit une classe Trainer pour vous aider à affiner les modèles pré-entraînés fournis sur votre jeu de données. Une fois le prétraitement des données effectué dans la section précédente, il ne vous reste plus que quelques étapes pour définir le Trainer. Le plus difficile sera probablement de préparer l'environnement pour l'exécution de Trainer.train(), car il sera très lent sur un processeur. Si vous n'avez pas de GPU configuré, vous pouvez accéder à des GPU ou TPU gratuits sur Google Colab.
+
+-vertical-
+
+<div class="r-fit-text">
+Il va falloir d'abord transformer les données pour les rendre utilisables par la pipeline:
+
+Pour prétraiter l'ensemble de données, nous devons convertir le texte en nombres compréhensibles par le modèle. Comme on l'a vu, cette opération s'effectue à l'aide d'un tokeniseur. Nous pouvons lui fournir une phrase ou une liste de phrases, ce qui nous permet de tokeniser directement toutes les premières et secondes phrases de chaque paire, comme suit :
+</div>
+
+```
+from transformers import AutoTokenizer
+
+checkpoint = "bert-base-uncased"
+tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+tokenized_sentences_1 = tokenizer(raw_datasets["train"]["sentence1"])
+tokenized_sentences_2 = tokenizer(raw_datasets["train"]["sentence2"])
+```
+
+-vertical-
+
+```
+from datasets import load_dataset
+from transformers import AutoTokenizer, DataCollatorWithPadding
+
+raw_datasets = load_dataset("glue", "mrpc")
+checkpoint = "bert-base-uncased"
+tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 
 
+def tokenize_function(example):
+    return tokenizer(example["sentence1"], example["sentence2"], truncation=True)
+
+
+tokenized_datasets = raw_datasets.map(tokenize_function, batched=True)
+data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
+```
+
+-vertical-
+
+La première étape avant de définir notre Trainer consiste à définir une classe TrainingArguments qui contiendra tous les hyperparamètres utilisés par le Trainer pour l'entraînement et l'évaluation. Le seul argument à fournir est un répertoire où le modèle entraîné sera enregistré, ainsi que les points de contrôle. Pour le reste, vous pouvez conserver les valeurs par défaut, ce qui devrait suffire pour un réglage fin de base.
+
+```
+from transformers import TrainingArguments
+
+training_args = TrainingArguments("test-trainer")
+```
+
+-vertical-
+
+On veut ensuite charger notre modèle
+
+```
+from transformers import AutoModelForSequenceClassification
+
+model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=2)
+```
+
+pour pourvoir le donner au Trainer
+
+```
+from transformers import Trainer
+
+trainer = Trainer(
+    model,
+    training_args,
+    train_dataset=tokenized_datasets["train"],
+    eval_dataset=tokenized_datasets["validation"],
+    data_collator=data_collator,
+    tokenizer=tokenizer,
+)
+```
+
+-vertical-
+
+Et pour lancer le finetuning, il suffit de lancer 
+
+`trainer.train()`
+
+
+-vertical-
+
+Cela lancera le finetuning (qui devrait prendre quelques minutes sur un GPU) et signalera la perte d'entraînement toutes les 500 étapes. Cependant, cela ne vous indiquera pas les performances de votre modèle. En effet, :
+
+1. Nous n'avons pas indiqué au formateur d'effectuer une évaluation pendant l'entraînement en définissant eval_strategy dans TrainingArguments sur « steps » (évaluation à chaque eval_steps) ou « epoch » (évaluation à la fin de chaque époque).
+2. Nous n'avons pas fourni au formateur de fonction compute_metrics() pour calculer une métrique pendant cette évaluation (sinon, l'évaluation aurait simplement affiché la perte, ce qui n'est pas un chiffre très intuitif).
+
+-vertical-
+
+### Point Bonne pratique
+#### Commits conventionnels
+
+Les commits sur Git respectent certaines conventions qui sont listés sur le site des [commit conventionnels](https://www.conventionalcommits.org/en/v1.0.0/)
+
+Ils utilisent des prefix qui permettent de comprendre de quoi le commit est question
+
+-vertical-
+
+Le commit contient les éléments structurels suivants, afin de communiquer l'intention aux utilisateurs de votre bibliothèque :
+
+- fix: un commit de type fix corrige un bug dans votre base de code (corrélation avec PATCH dans le contrôle de version sémantique).
+- feat: un commit de type feat introduit une nouvelle fonctionnalité dans la base de code (équivalent de MINOR dans le contrôle de version sémantique).
+- BREAKING CHANGE : un commit comportant un pied de page BREAKING CHANGE : ou ajoutant un « !» après le type/la portée, introduit un changement d'API de rupture (corrélation avec MAJEUR dans le contrôle de version sémantique). Un BREAKING CHANGE peut faire partie de tout type de commit.
+- Les types autres que fix: et feat: sont autorisés. Par exemple, @commitlint/config-conventional (selon la convention Angular) recommande build:, chore:, ci:, docs:, style:, refactor:, perf:, test:, etc.
+
+-vertical-
+
+**Examples**
+
+&rarr; Commit message with description and breaking change footer
+```
+feat: allow provided config object to extend other configs
+
+BREAKING CHANGE: `extends` key in config file is now used for extending other config files
+```
+
+&rarr; Commit message with ! to draw attention to breaking change
+```
+feat!: send an email to the customer when a product is shipped
+```
+
+&rarr; Commit message with scope and ! to draw attention to breaking change
+```
+feat(api)!: send an email to the customer when a product is shipped
+```
+
+-vertical-
 
 ### Petit Glossaire des personnalités à connaître de l'informatique
 
@@ -1332,3 +1500,27 @@ Quizz 4
 - Claude Shannon
 - Guido Van Rossum
 - Vaswani
+
+-vertical-
+
+Quizz 4
+
+-vertical-
+
+1. A quoi correspond l'auto attention ? Comment est-elle calculée ?
+2. Pourquoi finetune t-on des modèles ?
+3. Ecrivez un commit qui répare une fonctionnalité d'envoi de mail mal fonctionnelle.
+
+-vertical-
+
+TP 4:
+
+- A partir des données que vous avez récupérées, créez un dataset synthétique.
+- Choississez l'architecture adaptée à votre tâche et trouvez un modèle qui correspond à votre tâche et à cette architecture.
+
+-vertical-
+
+### TP 5
+
+- Finetuner le modèle pretrained qui correspond le plus à vos données grâce au trainer d'hugging face
+
