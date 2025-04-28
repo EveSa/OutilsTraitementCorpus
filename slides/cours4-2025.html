@@ -990,10 +990,256 @@ Quiz 3
 -vertical-
 
 ### 3. Les transformers
-
 #### 3.A. Architecture
 
+<div class="r-fit-text">
+Le modèle est principalement composé de deux blocs :
+
+Encodeur : L’encodeur reçoit une entrée et en construit une représentation (ses caractéristiques). Cela signifie que le modèle est optimisé pour comprendre l’entrée.
+Décodeur : Le décodeur utilise la représentation de l’encodeur (caractéristiques) ainsi que d’autres entrées pour générer une séquence cible. Cela signifie que le modèle est optimisé pour générer des sorties.
+</div>
+
+<img src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter1/transformers_blocks.svg" class="r-stretch">
+
+-vertical-
+
+Chacune de ces parties peut être utilisée indépendamment, selon la tâche :
+
+Modèles encodeur seul : Convient aux tâches nécessitant une compréhension de l'entrée, comme la classification de phrases et la reconnaissance d'entités nommées.
+Modèles décodeur seul : Convient aux tâches génératives comme la génération de texte.
+Modèles encodeur-décodeur ou modèles séquence à séquence : Convient aux tâches génératives nécessitant une entrée, comme la traduction ou le résumé.
+
+-vertical-
+
+**Couches d'attention**
+
+Une caractéristique clé des modèles Transformer est qu'ils sont construits avec des couches spéciales appelées couches d'attention. D'ailleurs, le titre de l'article présentant l'architecture Transformer était « Attention Is All You Need » ! Cette couche indique au modèle d'accorder une attention particulière à certains mots de la phrase que vous lui avez transmise (et d'ignorer plus ou moins les autres) lors du traitement de la représentation de chaque mot.
+
+-vertical-
+<div class="r-fit-text">
+Pour mettre cela en contexte, prenons l'exemple de la traduction d'un texte de l'anglais vers le français. Avec l'entrée « Vous aimez ce cours », un modèle de traduction devra également tenir compte du mot adjacent « Vous » pour obtenir la traduction correcte du mot « aimer », car en français, le verbe « aimer » se conjugue différemment selon le sujet. Le reste de la phrase, en revanche, n'est pas utile pour la traduction de ce mot. De même, pour traduire « ceci », le modèle devra également prêter attention au mot « cours », car « ceci » se traduit différemment selon que le nom associé est masculin ou féminin. Là encore, les autres mots de la phrase n'auront aucune importance pour la traduction de « cours ». Dans des phrases plus complexes (et des règles grammaticales plus complexes), le modèle devra prêter une attention particulière aux mots qui pourraient apparaître plus loin dans la phrase afin de traduire correctement chaque mot.
+</div>
+
+-vertical-
+
+**L'architecture originale**
+
+L'architecture Transformer a été conçue à l'origine pour la traduction.
+
+Lors de l'apprentissage, l'encodeur reçoit des entrées (phrases) dans une langue donnée, tandis que le décodeur reçoit les mêmes phrases dans la langue cible souhaitée.
+
+-vertical-
+
+Dans l'encodeur, les couches d'attention peuvent utiliser tous les mots d'une phrase (car, comme nous venons de le voir, la traduction d'un mot donné peut dépendre de ce qui le précède ou le suit dans la phrase).
+
+Le décodeur, quant à lui, fonctionne séquentiellement et ne peut prêter attention qu'aux mots de la phrase qu'il a déjà traduits (donc uniquement aux mots précédant le mot en cours de génération).
+
+-vertical-
+
+Par exemple, lorsque nous avons prédit les trois premiers mots de la cible traduite, nous les transmettons au décodeur, qui utilise ensuite toutes les entrées de l'encodeur pour tenter de prédire le quatrième mot.
+
+-vertical-
+
+Pour accélérer l'apprentissage (lorsque le modèle a accès aux phrases cibles), le décodeur reçoit la cible complète, mais n'est pas autorisé à utiliser les mots futurs (s'il avait accès au mot en position 2 lors de la prédiction du mot en position 2, le problème ne serait pas très compliqué). Par exemple, lors de la prédiction du quatrième mot, la couche attentionnelle n'aura accès qu'aux mots des positions 1 à 3.
+
+-vertical-
+
+The original Transformer architecture looked like this, with the encoder on the left and the decoder on the right:
+
+<img src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter1/transformers.svg" class="r-stretch">
+
+-vertical-
+
+Notez que la première couche d'attention d'un bloc décodeur prend en compte toutes les entrées (passées) du décodeur, tandis que la seconde couche utilise la sortie de l'encodeur. Elle peut ainsi accéder à l'intégralité de la phrase d'entrée pour prédire au mieux le mot courant. Ceci est très utile car différentes langues peuvent avoir des règles grammaticales qui placent les mots dans des ordres différents, ou un contexte fourni plus loin dans la phrase peut aider à déterminer la meilleure traduction d'un mot donné.
+
+-vertical-
+
+Le masque d'attention peut également être utilisé dans l'encodeur/décodeur pour empêcher le modèle de prêter attention à certains mots spéciaux, par exemple le mot de remplissage spécial utilisé pour rendre toutes les entrées de la même longueur lors du regroupement de phrases.
+
+-vertical-
+
+**Architectures vs. points de contrôle (checkpoints)**
+
+Architecture : Il s'agit du squelette du modèle, c'est-à-dire la définition de chaque couche et de chaque opération qui s'y déroule.
+
+Points de contrôle : Il s'agit des pondérations qui seront chargées dans une architecture donnée.
+
+Modèle : Il s'agit d'un terme générique, moins précis que « architecture » ​​ou « point de contrôle », car il peut désigner les deux.
+
+Par exemple, BERT est une architecture, tandis que bert-base-cased, un ensemble de pondérations entraînées par l'équipe Google pour la première version de BERT, est un point de contrôle. Cependant, on peut parler de « modèle BERT » et de « modèle bert-base-cased ».
+
+-vertical-
+
+**Comprendre le mécanisme d'attention**
+
+<div class="r-fit-text">
+Avant de nous plonger dans l'attention multi-têtes, commençons par comprendre le mécanisme standard d'auto-attention, également appelé attention par produit scalaire échelonné.
+
+À partir d'un ensemble de vecteurs d'entrée, l'auto-attention calcule les scores d'attention afin de déterminer le degré d'attention que chaque élément de la séquence doit accorder aux autres. Cette opération s'effectue à l'aide de trois matrices clés :
+
+Requête (Q) – Représente la relation du mot actuel avec les autres.
+
+Clé (K) – Représente les mots comparés.
+
+Valeur (V) – Contient les représentations réelles des mots.
+</div>
+
+-vertical-
+l'auto-attention est calculée comme suit :
+
+$\text{Attention}(Q, K, V) = \text{softmax} \left( \frac{QK^T}{\sqrt{d_k}} \right) V$
+
+-vertical-
+
+**Qu'est-ce que l'attention multi-têtes ?**
+
+L'attention multi-têtes étend l'auto-attention en divisant l'entrée en plusieurs têtes, permettant ainsi au modèle de capturer diverses relations et schémas.
+
+Au lieu d'utiliser un seul ensemble de matrices Q, K, V, les plongements d'entrée sont projetés dans plusieurs ensembles (têtes), chacun ayant ses propres (Q, K, V).
+
+-vertical-
+
+<div class="r-fit-text">
+**Transformation linéaire** : L’entrée
+$X$ est projetée dans plusieurs sous-espaces de plus petite dimension à l’aide de différentes matrices de pondération.
+​
+$Q_i=XW^Q_i, K_i=XW^K_i, V_i=XW^V_i$
+
+où $i$ désigne l’indice de la tête.
+
+**Calcul indépendant de l’attention** : Chaque tête calcule indépendamment sa propre auto-attention à l’aide de la formule du produit scalaire mis à l’échelle.
+
+**Concaténation** : Les sorties de toutes les têtes sont concaténées.
+
+**Transformation linéaire finale** : Une matrice de pondération finale est appliquée pour transformer la sortie concaténée dans la dimension souhaitée.
+</div>
+
+-vertical-
+
+**Pourquoi utiliser plusieurs têtes d'attention ?**
+
+L'attention multi-têtes offre plusieurs avantages :
+
+- Capture de différentes relations : différentes têtes s'intéressent à différents aspects de l'entrée.
+- Améliore l'efficacité de l'apprentissage : en fonctionnant en parallèle, plusieurs têtes permettent un meilleur apprentissage des dépendances.
+- Améliore la robustesse : le modèle ne repose pas sur un seul modèle d'attention, ce qui réduit le surapprentissage.
+
+-vertical-
+
+##### Modèles encodeurs
+
+Les modèles d'encodeur utilisent uniquement l'encodeur d'un modèle Transformer. À chaque étape, les couches d'attention peuvent accéder à tous les mots de la phrase initiale. Ces modèles sont souvent caractérisés comme ayant une attention « bidirectionnelle » et sont souvent appelés modèles d'auto-encodage.
+
+-vertical-
+
+Le pré-entraînement de ces modèles consiste généralement à corrompre une phrase donnée (par exemple, en masquant des mots aléatoires) et à charger le modèle de retrouver ou de reconstruire la phrase initiale.
+
+Les modèles d'encodeur sont particulièrement adaptés aux tâches nécessitant la compréhension de la phrase complète, telles que la classification de phrases, la reconnaissance d'entités nommées (et plus généralement la classification de mots) et la réponse à des questions par extraction.
+
+-vertical-
+
+##### Modèles décodeurs
+
+Les modèles de décodeur utilisent uniquement le décodeur d'un modèle Transformer. À chaque étape, pour un mot donné, les couches d'attention ne peuvent accéder qu'aux mots qui le précèdent dans la phrase. Ces modèles sont souvent appelés modèles autorégressifs.
+
+Le pré-apprentissage des modèles de décodeur repose généralement sur la prédiction du mot suivant dans la phrase.
+
+Ces modèles sont particulièrement adaptés aux tâches impliquant la génération de texte.
+
+-vertical-
+
+**Grands modèles de langues (LLM) modernes**
+
+La plupart des LLM modernes utilisent une architecture à décodeur seul. Ces modèles ont connu une croissance spectaculaire en taille et en capacités ces dernières années, certains des plus grands modèles contenant des centaines de milliards de paramètres.
+
+L'entraînement des LLM modernes se déroule généralement en deux phases :
+
+- Pré-entraînement : le modèle apprend à prédire le prochain jeton sur de grandes quantités de données textuelles
+- Optimisation des instructions : le modèle est affiné pour suivre les instructions et générer des réponses utiles
+
+-vertical-
+
+##### Les modèles séquence à séquence
+
+Les modèles encodeur-décodeur (également appelés modèles séquence à séquence) utilisent les deux parties de l'architecture Transformer. À chaque étape, les couches d'attention de l'encodeur peuvent accéder à tous les mots de la phrase initiale, tandis que celles du décodeur ne peuvent accéder qu'aux mots situés avant un mot donné dans l'entrée.
+
+-vertical-
+
+Le pré-entraînement de ces modèles peut prendre différentes formes, mais il implique souvent le token masking.
+
+Les modèles séquence à séquence sont particulièrement adaptés aux tâches de génération de nouvelles phrases à partir d'une entrée donnée, telles que le résumé, la traduction ou la réponse à des questions génératives.
+
+-vertical-
+
+Un guide rapide pour selectionner la bonne architecture selon vos tâches :
+
+<table data-svelte-h="svelte-1vjrc7n"><thead><tr><th>Task</th> <th>Suggested Architecture</th> <th>Examples</th></tr></thead> <tbody><tr><td>Text classification (sentiment, topic)</td> <td>Encoder</td> <td>BERT, RoBERTa</td></tr> <tr><td>Text generation (creative writing)</td> <td>Decoder</td> <td>GPT, LLaMA</td></tr> <tr><td>Translation</td> <td>Encoder-Decoder</td> <td>T5, BART</td></tr> <tr><td>Summarization</td> <td>Encoder-Decoder</td> <td>BART, T5</td></tr> <tr><td>Named entity recognition</td> <td>Encoder</td> <td>BERT, RoBERTa</td></tr> <tr><td>Question answering (extractive)</td> <td>Encoder</td> <td>BERT, RoBERTa</td></tr> <tr><td>Question answering (generative)</td> <td>Encoder-Decoder or Decoder</td> <td>T5, GPT</td></tr> <tr><td>Conversational AI</td> <td>Decoder</td> <td>GPT, LLaMA</td></tr></tbody></table>
+
+-vertical-
+
+Il est très facile d'utiliser les transformers grâce à la bibliothèque de hugging face `transformers`
+
+```
+pipe = pipeline("text-classification")
+pipe("This restaurant is awesome")
+```
+
+```
+pipe = pipeline(model="FacebookAI/roberta-large-mnli")
+pipe("This restaurant is awesome")
+[{'label': 'NEUTRAL', 'score': 0.7313136458396912}]
+```
+
+-vertical-
+
+La pipline réalise tout le travail du modèle :
+
+<img class="r-stretch" src="https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter2/full_nlp_pipeline.svg">
+
+-vertical-
+
+**Prétraitement avec un tokenizer**
+
+Comme d'autres réseaux neuronaux, les modèles Transformer ne peuvent pas traiter directement le texte brut. La première étape de notre pipeline consiste donc à convertir les entrées textuelles en nombres compréhensibles par le modèle. Pour ce faire, nous utilisons un tokenizer, qui se chargera de :
+
+- Décomposer l'entrée en mots, sous-mots ou symboles (comme la ponctuation), appelés tokens ;
+- Mapper chaque token à un entier ;
+- Ajouter des entrées supplémentaires pouvant être utiles au modèle.
+
+-vertical-
+
+<div class="r-fit-text">
+Tout ce prétraitement doit être effectué exactement de la même manière que lors du pré-entraînement du modèle. Nous devons donc d'abord télécharger ces informations depuis le Hub du modèle. Pour ce faire, nous utilisons la classe `AutoTokenizer` et sa méthode `from_pretrained()`. En utilisant le nom du point de contrôle de notre modèle, elle récupère automatiquement les données associées au tokenizer du modèle et les met en cache (elles ne sont donc téléchargées qu'à la première exécution du code ci-dessous).
+</div>
+
+```
+from transformers import AutoTokenizer
+
+checkpoint = "distilbert-base-uncased-finetuned-sst-2-english"
+tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+```
+
+<div class="r-fit-text">
+Une fois le tokeniseur en place, nous pouvons lui transmettre directement nos phrases et obtenir un dictionnaire prêt à alimenter notre modèle ! Il ne reste plus qu'à convertir la liste des identifiants d'entrée en tenseurs.
+</div>
+
+-vertical-
+
+Vous pouvez utiliser 🤗 Transformers sans vous soucier du framework ML utilisé comme backend ; il peut s'agir de PyTorch, de TensorFlow ou de Flax pour certains modèles. Cependant, les modèles Transformer n'acceptent que les tenseurs en entrée. Si vous entendez parler de tenseurs pour la première fois, vous pouvez les considérer comme des tableaux NumPy. Un tableau NumPy peut être un scalaire (0D), un vecteur (1D), une matrice (2D) ou avoir plusieurs dimensions. Il s'agit en fait d'un tenseur ; les tenseurs d'autres frameworks ML se comportent de manière similaire et sont généralement aussi simples à instancier que les tableaux NumPy.
+
+-vertical-
+
+Quizz 4
+
+-vertical-
+
+1. A quoi correspond l'auto attention ? Comment est-elle calculée ?
+2. 
+
+
 #### 3.B. Entraînement
+
+
 
 #### 3.C. Finetuning
 
@@ -1002,9 +1248,14 @@ Quiz 3
 
 -vertical-
 
+## Point Bonnes Pratiques
+### Les commits conventionnels
+
+
+
 ### Petit Glossaire des personnalités à connaître de l'informatique
 
 - Tim Berners Lee
 - Claude Shannon
 - Guido Van Rossum
-- 
+- Vaswani
