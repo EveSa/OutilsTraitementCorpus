@@ -2,12 +2,6 @@
 layout: presentation
 title: Cours4
 ---
-
-<script src="plugin/math/math.js"></script>
-<script>
-  Reveal.initialize({ plugins: [RevealMath.KaTeX] });
-</script>
-
 # Outils de Traitement de Corpus
 -vertical-
 
@@ -587,9 +581,6 @@ Le modèle commençe l'entraînement avec ses poids et ses biais à 0 :
 
 `$$\small{Weight:\ 0}$$`
 
-\[\begin{aligned} \dot{x} &amp; = \sigma(y-x) \\ \dot{y} &amp; = \rho x - y -
-  xz \\ \dot{z} &amp; = -\beta z + xy \end{aligned} \]
-
 `$$\small{Bias:\ 0}$$`
 
 `$\small{y = 0 + 0(x_1)}$`
@@ -843,7 +834,7 @@ La fonction qu'on utilise pour ça est la fonction suivante :
 
 -vertical-
 
-Pour faire la transformation, on a simplement à mettre la valeur de notre régression linéaire $z$ dans la formule de la fonction : $\frac(1/(1+e^{-x}))$
+Pour faire la transformation, on a simplement à mettre la valeur de notre régression linéaire $z$ dans la formule de la fonction : $\frac{1}{1+e^{-x}}$
 
 <img src="https://developers.google.com/static/machine-learning/crash-course/logistic-regression/images/linear_to_logistic.png?hl=fr" class="r-stretch">
 
@@ -861,9 +852,12 @@ Quizz 2
 
 Quizz 2
 
-1. Quel modèle utiliser pour trouver les caractéristiques des données suivantes : <img src="https://www.w3schools.com/datascience/img_least_square.png" class="r-stretch">
+<div class="r-fit-text">
+1. Quel modèle utiliser pour trouver les caractéristiques des données suivantes :
+<img src="https://www.w3schools.com/datascience/img_least_square.png" class="r-stretch">
 2. Calculez la descente de gradient du modèle $f(x)=wx=+b$ avec une Perte $L_2$ écrite $∑(valeur\ réelle - valeur\ prédite)^2$.
 3. A quoi sert une taille de lot (batch) importante ?
+</div>
 
 -horizontal-
 
