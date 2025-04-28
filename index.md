@@ -36,6 +36,17 @@ Un TP après chaque séance, sauf la première et la dernière, sur Github.
 
 Tous vos devoirs devront m’être parvenus avant le 26 mai
 
+3 notes :
+
+2 rendus obligatoires :
+
+un projet de constitution et de traitement de corpus (40%)
+un post sur la newsletter (\20%)
+La meilleure des 2 notes (\40%):
+
+les quizz en sessions
+un devoir sur table à la dernière séance
+
 # Index des cours
 
 - [Cours 1](/slides/cours1-2024.html)
@@ -96,7 +107,7 @@ Visualiser votre corpus et réaliser des statistiques de texte
 
 #### TP 4 : 
 
-- A partir des données que vous avez récupérées, caugmentez vos données en créant un dataset synthétique.
+- A partir des données que vous avez récupérées, augmentez vos données en créant un dataset synthétique.
 - Choississez l'architecture adaptée à votre tâche et trouvez un modèle qui correspond à votre tâche et à cette architecture.
 
 #### TP 5
