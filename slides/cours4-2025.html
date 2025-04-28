@@ -1334,9 +1334,11 @@ Notre modèle a prédit [-1,5607, 1,6123] pour la première phrase et [4,1692, -
 
 ##### Adapter un modèle à une tâche.
 
+<div class="r-fit-text">
 Le finetuning pourrait être considéré comme un sous-ensemble de la technique plus large de l’apprentissage par transfert : la pratique consistant à exploiter les connaissances qu’un modèle existant a déjà apprises comme point de départ pour l’apprentissage de nouvelles tâches.
 
 L'intuition derrière le finetuning est qu'il est plus simple et moins coûteux d'affiner les capacités d'un modèle de base pré-entraîné, ayant déjà acquis des connaissances approfondies, que d'entraîner un nouveau modèle de toutes pièces pour cet objectif précis. 
+</div>
 
 -vertical-
 
@@ -1359,6 +1361,8 @@ Le moyen le plus simple d'affiner le modèle consiste à mettre à jour l'ensemb
 **Réglage fin optimisé des paramètres (PEFT)**
 
 Le réglage fin complet, tout comme le processus de pré-apprentissage auquel il ressemble, est très exigeant en termes de calcul. Pour les modèles d'apprentissage profond modernes comportant des centaines de millions, voire des milliards de paramètres, son coût est souvent prohibitif et peu pratique.
+
+-vertical-
 
 Le réglage fin optimisé des paramètres (PEFT) englobe diverses méthodes visant à réduire le nombre de paramètres entraînables à mettre à jour afin d'adapter efficacement un modèle pré-entraîné volumineux à des applications spécifiques en aval. Ce faisant, le PEFT réduit considérablement les ressources de calcul et l'espace mémoire nécessaires pour produire un modèle optimisé efficacement. Les méthodes PEFT se sont souvent avérées plus stables que les méthodes de réglage fin complet, notamment pour les cas d'utilisation du TALN.
 
@@ -1456,8 +1460,10 @@ Et pour lancer le finetuning, il suffit de lancer
 
 Cela lancera le finetuning (qui devrait prendre quelques minutes sur un GPU) et signalera la perte d'entraînement toutes les 500 étapes. Cependant, cela ne vous indiquera pas les performances de votre modèle. En effet, :
 
+<div class="r-fit-text">
 1. Nous n'avons pas indiqué au formateur d'effectuer une évaluation pendant l'entraînement en définissant eval_strategy dans TrainingArguments sur « steps » (évaluation à chaque eval_steps) ou « epoch » (évaluation à la fin de chaque époque).
 2. Nous n'avons pas fourni au formateur de fonction compute_metrics() pour calculer une métrique pendant cette évaluation (sinon, l'évaluation aurait simplement affiché la perte, ce qui n'est pas un chiffre très intuitif).
+</div>
 
 -vertical-
 
@@ -1470,12 +1476,14 @@ Ils utilisent des prefix qui permettent de comprendre de quoi le commit est ques
 
 -vertical-
 
+<div class="r-fit-text">
 Le commit contient les éléments structurels suivants, afin de communiquer l'intention aux utilisateurs de votre bibliothèque :
 
 - fix: un commit de type fix corrige un bug dans votre base de code (corrélation avec PATCH dans le contrôle de version sémantique).
 - feat: un commit de type feat introduit une nouvelle fonctionnalité dans la base de code (équivalent de MINOR dans le contrôle de version sémantique).
 - BREAKING CHANGE : un commit comportant un pied de page BREAKING CHANGE : ou ajoutant un « !» après le type/la portée, introduit un changement d'API de rupture (corrélation avec MAJEUR dans le contrôle de version sémantique). Un BREAKING CHANGE peut faire partie de tout type de commit.
 - Les types autres que fix: et feat: sont autorisés. Par exemple, @commitlint/config-conventional (selon la convention Angular) recommande build:, chore:, ci:, docs:, style:, refactor:, perf:, test:, etc.
+</div>
 
 -vertical-
 
