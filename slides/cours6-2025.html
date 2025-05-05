@@ -38,7 +38,7 @@ C'est à dire qu'il faut en moyenne 1,37 questions pour résoudre l'incertitude 
 
 &rarr; Pour faire une descente de gradient, il faut d'abord calculer la loss de la fonction. On calcule ensuite la dérivée de la fonction.
 
-Ici, notre fonction est : $\sum{y-(w*x+b)}^2$ . On va calculer sa dérivée selon $w$. On est sous la forme $\diff{f}{x}=f \circ g(x) = f(g(x))'*g(x)'$ avec $g=\(y-(w*x+b))$ et $f(g)=g^2$ car on peut ignorer la somme (car la dérivée de la somme est la somme des dérivées), donc $\diff{}{x}(y-(w*x+b))^2 = 2(y-w*x+b)*x$. On calcule cette dérivée sur nos exmples ce qui nous donne une direction vers laquelle déplacer les poids pour x.
+Ici, notre fonction est : `$\sum{y-(w*x+b)}^2$` . On va calculer sa dérivée selon $w$. On est sous la forme $\diff{f}{x}=f \circ g(x) = f(g(x))'*g(x)'$ avec $g=\(y-(w*x+b))$ et $f(g)=g^2$ car on peut ignorer la somme (car la dérivée de la somme est la somme des dérivées), donc $\diff{}{x}(y-(w*x+b))^2 = 2(y-w*x+b)*x$. On calcule cette dérivée sur nos exmples ce qui nous donne une direction vers laquelle déplacer les poids pour x.
 
 </div>
 
