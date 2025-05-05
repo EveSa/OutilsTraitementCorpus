@@ -1,0 +1,592 @@
+---
+title: cours6
+layout: presentation
+---
+
+# Outils de traitement de corpus
+
+-vertical-
+
+## Cours 6
+
+-vertical-
+
+**Correction des quizz**
+
+Séance 4
+
+<div class=""r-fit-taxt">
+1. Calculez l'entropie de la distribution suivante : probabilité de l'évènement A (0,6) ; probabilité de l'évènement B (0,2) ; probabilité de l'évènement C (0,2)
+
+&rarr; $-(0,6*log_2(0,6)*2*(0,2*log_2(0,2))) = 1,37
+<\br> C'est à dire qu'il faut en moyenne 1,37 questions pour résoudre l'incertitude de cette distribution
+
+2. Vous avez mélangé tous les exemples de l'ensemble de données et les avez divisés en ensembles d'entraînement, de validation et de test. Cependant, la valeur de loss sur votre ensemble de test est si faible que vous suspectez une erreur. Qu'est-ce qui a pu se passer ?
+
+&rarr; Si les performances de mon modèle sont trop bonnes, je peux avoir contaminer mon ensemble de test avec des données entraînement notamment à cause de données dupliquées dans le jeu de données original par exemple.
+</div>
+
+-vertical-
+
+1. Quel modèle utiliser pour trouver les caractéristiques des données suivantes : 
+
+&rarr; on utilise un modèle de regression linéaire avec une loss MSE ou MAE par exemple.
+
+-vertical-
+2. Calculez la descente de gradient du modèle $f(x)=w*x+b avec une Perte L2 écrite $sum(valeur\ réelle-valeur\ prédite)^2$
+
+&rarr; Pour faire une descente de gradient, il faut d'abord calculer la loss de la fonction. On calcule ensuite la dérivée de la fonction.<\br>Ici, notre fonction est : $\sum{y-(w*x+b)}^2$. On va calculer sa dérivée selon $w$. On est sous la forme $\diff{f}{x}=f \circ g(x) = f(g(x))'*g(x)'$ avec $g=\(y-(w*x+b))$ et $f(g)=g^2$ car on peut ignorer la somme (car la dérivée de la somme est la somme des dérivées), donc $\diff{}{x}(y-(w*x+b))^2 = 2(y-w*x+b)*x$. On calcule cette dérivée sur nos exmples ce qui nous donne une direction vers laquelle déplacer les poids pour x.
+
+-vertical-
+3. A quoi sert une taille de lot (batch) importante ?
+
+&rarr; On calcule le gradiant de la loss sur un ensemble de données qu'on appelle *batch*. Plus le *batch* est grand, plus la direction dans laquelle on va deplacer les poids va être pertinente (car elle prendra en compte toutes les informations du jeu de données). Avoir une taille de batch importante permet donc un meilleur apprentissage. Toutefois, le nombre de calculs nécessaire pour traiter tout le jeu de données étant très important, on limite souvent la taille de **batch** a des petites valeurs pour ne pas sur-utiliser la mémoire des machines.
+
+-vertical-
+
+### Newsletter
+
+-horinzontal-
+
+## Cours 6
+
+## Evaluations
+
+- de modèle
+
+- de corpus
+
+-vertical-
+
+### Courbe de loss
+
+On a vu la dernière fois que pour entraîner notre modèle, il était impératif de minimiser la valeur de la fonction de perte.
+
+Mais il faut également evaluer son modèle sur notre jeu de données de test pour vérifier sa performance hors de nos données d'entraînement.
+
+-vertical-
+
+On a parlé des fonctions de perte pour les regressions linéraire : MSE, MAE, etc...
+
+Mais qu'en est-il de la classification ?
+
+-vertical-
+
+### Métriques de classification
+
+Les vrais et faux positifs et négatifs sont utilisés pour calculer plusieurs métriques utiles pour l'évaluation des modèles. Les métriques d'évaluation les plus pertinentes dépendent du modèle et de la tâche spécifiques, du coût des différentes erreurs de classification, et si l'ensemble de données est équilibré ou déséquilibré.
+
+Toutes les métriques sont calculées selon un seul seuil fixe et changent lorsque ce seuil change. Très souvent, l'utilisateur ajuste le seuil pour optimiser l'une de ces métriques.
+
+-vertical-
+
+**Accuracy**
+
+L'accuracy est la proportion de toutes les classifications qui étaient correctes, qu'elles soient positives ou négatives. Il est défini mathématiquement comme suit :
+
+$\text{Accuracy} =
+\frac{\text{correct classifications}}{\text{total classifications}}
+= \frac{TP+TN}{TP+TN+FP+FN}$
+
+Dans l'exemple de classification du spam, la justesse mesure la fraction de tous les e-mails correctement classés.
+
+Un modèle parfait ne comporterait aucun faux positif ni aucun faux négatif, et aurait donc une précision de 1,0, soit 100 %.
+
+-vertical-
+
+Étant donné qu'elle intègre les quatre résultats de la matrice de confusion (VP, FP, VN, FN), pour un ensemble de données équilibré, avec un nombre d'exemples similaire dans les deux classes, l'accuracy peut servir de mesure grossière de la qualité du modèle. C'est pourquoi il s'agit souvent de la métrique d'évaluation par défaut utilisée pour les modèles génériques ou non spécifiés effectuant des tâches génériques ou non spécifiées.
+
+Toutefois, lorsque l'ensemble de données est déséquilibré ou qu'un type d'erreur (FN ou FP) est plus coûteux que l'autre, ce qui est le cas dans la plupart des applications réelles, il est préférable d'optimiser pour l'une des autres métriques.
+
+Pour les ensembles de données très déséquilibrés, où une classe apparaît très rarement, disons 1 % du temps, un modèle qui prédit une valeur négative 100 % du temps obtiendrait un score de justesse de 99 %, bien qu'il soit inutile.
+
+-vertical-
+
+**Rappel ou taux de vrais positifs**
+
+Le taux de vrais positifs (TVP), ou la proportion de tous les résultats positifs réels qui ont été correctement classés comme tels, est également appelé rappel.
+
+Mathématiquement, le rappel est défini comme suit :
+
+$\text{Recall (or TPR)} =
+\frac{\text{correctly classified actual positives}}{\text{all actual positives}}
+= \frac{TP}{TP+FN}$
+
+-vertical-
+
+Les faux négatifs sont des éléments positifs réels qui ont été classés à tort comme négatifs. C'est pourquoi ils apparaissent dans le dénominateur. Dans l'exemple de classification du spam, le rappel mesure la fraction d'e-mails de spam correctement classés comme spam. C'est pourquoi le rappel est également appelé probabilité de détection : il répond à la question "Quelle fraction des e-mails de spam sont détectés par ce modèle ?".
+
+Un modèle parfait hypothétique ne comporterait aucun faux négatif et aurait donc un rappel (TPR) de 1,0, c'est-à-dire un taux de détection de 100 %.
+
+Dans un ensemble de données déséquilibré où le nombre de résultats positifs réels est très, très faible (par exemple, un à deux exemples au total), le rappel est moins pertinent et moins utile en tant que métrique.
+
+-vertical-
+
+**Taux de faux positifs**
+
+Le taux de faux positifs (FPR) est la proportion de tous les négatifs réels qui ont été incorrectement classés comme positifs. Il est également appelé probabilité de fausse alarme. Il est défini mathématiquement comme suit :
+
+\text{FPR} =
+\frac{\text{incorrectly classified actual negatives}}
+{\text{all actual negatives}}
+= \frac{FP}{FP+TN}
+
+-vertical-
+
+Les faux positifs sont des négatifs réels qui ont été mal classés. C'est pourquoi ils apparaissent au dénominateur. Dans l'exemple de classification du spam, le FPR mesure la fraction d'e-mails légitimes classés à tort comme spam, ou le taux de fausses alarmes du modèle.
+
+Un modèle parfait ne comporterait aucun faux positif et donc un taux de faux positifs de 0,0, c'est-à-dire un taux de fausses alarmes de 0 %.
+
+Dans un ensemble de données déséquilibré où le nombre de négatifs réels est très, très faible (par exemple, un à deux exemples au total), la FPR est moins pertinente et moins utile en tant que métrique.
+
+-vertical-
+
+Précision
+La précision correspond à la proportion de toutes les classifications positives du modèle qui sont réellement positives. Elle est définie mathématiquement comme suit:
+
+$\text{Precision} =
+\frac{\text{correctly classified actual positives}}
+{\text{everything classified as positive}}
+= \frac{TP}{TP+FP}$
+
+-vertical-
+
+Dans l'exemple de classification du spam, la précision mesure la fraction des e-mails classés comme spam qui étaient effectivement du spam.
+
+Un modèle parfait hypothétique ne comporterait aucun faux positif et aurait donc une précision de 1,0.
+
+Dans un ensemble de données déséquilibré où le nombre de résultats positifs réels est très, très faible (par exemple, un à deux exemples au total), la précision est moins pertinente et moins utile en tant que métrique.
+
+La précision s'améliore à mesure que les faux positifs diminuent, tandis que le rappel s'améliore lorsque les faux négatifs diminuent. Toutefois, comme nous l'avons vu dans la section précédente, l'augmentation du seuil de classification a tendance à réduire le nombre de faux positifs et à augmenter le nombre de faux négatifs, tandis que la diminution du seuil a les effets inverses. Par conséquent, la précision et le rappel présentent souvent une relation inverse, où l'amélioration de l'un dégrade l'autre.
+
+-vertical-
+
+**Choix de la métrique et compromis**
+
+La ou les métriques que vous choisissez de prioriser lors de l'évaluation du modèle et du choix d'un seuil dépendent des coûts, des avantages et des risques du problème spécifique. Dans l'exemple de classification du spam, il est souvent judicieux de donner la priorité au rappel, en détectant tous les e-mails de spam, ou à la précision, en s'assurant que les e-mails marqués comme spam sont en fait du spam, ou à un équilibre entre les deux, au-dessus d'un certain niveau de précision minimal.
+
+<table style="border:1px solid #dadce0" class="r-stretch">
+    <tbody><tr style="border:1px solid #dadce0">
+      <th style="text-align:center;border:1px solid #dadce0">Métrique</th>
+      <th style="text-align:center;border:1px solid #dadce0">Conseils</th>
+    </tr>
+    <tr style="border:1px solid #dadce0">
+      <td style="border:1px solid #dadce0">Accuracy</td>
+      <td style="border:1px solid #dadce0"><p>À utiliser comme indicateur approximatif de la progression/convergence de l'entraînement du modèle pour les ensembles de données équilibrés.</p>
+      <p>Pour optimiser les performances du modèle, n'utilisez cette option qu'avec d'autres métriques.</p>
+      <p>À éviter pour les ensembles de données déséquilibrés. Envisagez d'utiliser une autre métrique.</p></td>
+    </tr>
+    <tr style="border:1px solid #dadce0">
+      <td style="border:1px solid #dadce0">Rappel<br \=""> (taux de vrais positifs)</td>
+      <td style="border:1px solid #dadce0">À utiliser lorsque les faux négatifs sont plus coûteux que les faux positifs.</td>
+    </tr>
+    <tr style="border:1px solid #dadce0">
+      <td style="border:1px solid #dadce0">Taux de faux positifs</td>
+      <td style="border:1px solid #dadce0">À utiliser lorsque les faux positifs sont plus coûteux que les faux négatifs.</td>
+    </tr>
+    <tr style="border:1px solid #dadce0">
+      <td style="border:1px solid #dadce0">Précision</td>
+      <td style="border:1px solid #dadce0">À utiliser lorsque la précision des prédictions positives est très importante.</td>
+    </tr>
+  </tbody></table>
+
+-vertical-
+
+**(Facultatif, avancé) Score F1**
+
+Le score F1 correspond à la moyenne harmonique (une sorte de moyenne) de la précision et du rappel.
+
+Mathématiquement, elle est calculée comme suit:
+
+$\text{F1}=2*\frac{\text{precision * recall}}{\text{precision + recall}}
+  = \frac{2\text{TP}}{2\text{TP + FP + FN}}$
+
+Cette métrique équilibre l'importance de la précision et du rappel, et est préférable à la précision pour les ensembles de données déséquilibrés. Lorsque la précision et le rappel atteignent tous deux un score parfait de 1,0, le score F1 est également parfait, soit 1,0. Plus généralement, lorsque la valeur de précision et de rappel est proche, F1 est proche de leur valeur. Lorsque la précision et le rappel sont très éloignés, le score F1 est semblable à la métrique la moins bonne.
+
+-vertical-
+
+**Courbe ROC (Receiver Operating Characteristic)**
+
+La courbe ROC est une représentation visuelle des performances du modèle pour tous les seuils. La version longue du nom, "Receiver Operating Characteristic" (caractéristique opérationnelle du récepteur) est une retenue des systèmes de détection de radars de la Seconde Guerre mondiale.
+
+La courbe ROC est dessinée en calculant le taux de vrais positifs (TPR). et de faux positifs pour chaque seuil possible (en pratique, des intervalles sélectionnés), puis le TPR et le TFP. Un modèle parfait, qui, à un certain seuil, a un TVP de 1,0 et 0,0, être représenté par un point en (0, 1) si tous les autres seuils sont ignorés, ou par:
+
+<img class="r-stretch" src="https://developers.google.com/static/machine-learning/crash-course/images/auc_1-0.png?hl=fr">
+
+-vertical-
+
+**Aire sous la courbe (AUC)**
+
+L'aire sous la courbe ROC (AUC) représente la probabilité que le modèle, si un exemple positif et négatif est choisi aléatoirement, classera positive supérieure à la négative.
+
+Le modèle parfait ci-dessus, qui contient un carré dont les côtés font 1, a une sous la courbe (AUC) de 1,0. Cela signifie qu'il y a une probabilité de 100% que le modèle classe correctement un exemple positif choisi aléatoirement au-dessus d'un exemple négatif choisi aléatoirement. En d'autres termes, examiner la propagation points de données ci-dessous, l'AUC donne la probabilité que le modèle place carré choisi aléatoirement à droite d'un cercle choisi aléatoirement, indépendamment de où le seuil est défini.
+
+-vertical-
+
+Plus concrètement, un classificateur de spam avec AUC de 1.0 attribue toujours une probabilité plus élevée à un spam de spam qu'un e-mail légitime aléatoire. La classification réelle de chaque dépend du seuil que vous choisissez.
+
+Pour un classificateur binaire, un modèle qui réalise aussi bien des suppositions aléatoires dont la valeur ROC correspond à une ligne diagonale comprise entre (0,0) et (1,1). L'AUC est 0,5, ce qui représente une probabilité de 50% de classer correctement un positif aléatoire et exemple négatif.
+
+-vertical-
+
+Dans l'exemple du classificateur de spam, un classificateur de spam avec une AUC de 0,5 attribue un spam aléatoire a plus de chances d'être indésirable qu'un les e-mails légitimes seulement une fois la moitié du temps.
+
+<img class="r-stretch" src="https://developers.google.com/static/machine-learning/crash-course/images/auc_0-5.png?hl=fr"/>
+
+-vertical-
+
+Les valeurs AUC et ROC sont efficaces pour comparer des modèles lorsque l'ensemble de données entre les classes. Lorsque l'ensemble de données est déséquilibré, la précision/rappel (PRC) et l'aire sous ces courbes peut offrir un meilleur résultat des performances du modèle. Les courbes de précision/rappel sont créées la précision du tracé sur l'axe des y et le rappel sur l'axe des x sur toutes de sécurité.
+
+<img class="r-stretch" src="https://developers.google.com/static/machine-learning/crash-course/images/prauc.png?hl=fr"/>
+
+-vertical-
+
+**AUC et ROC pour choisir le modèle et le seuil**
+
+L'AUC est une mesure utile pour comparer les performances de deux modèles différents, à condition que l'ensemble de données soit à peu près équilibré. (voir Courbe de précision/rappel, (voir ci-dessus, pour les ensembles de données déséquilibrés). Le modèle dont l'aire sous la plus grande la courbe est généralement la meilleure.
+
+<img class="r-stretch" src="https://developers.google.com/static/machine-learning/crash-course/images/auc_0-65.png?hl=fr"/>
+
+-vertical-
+
+Les points d'une courbe ROC les plus proches de (0,1) représentent une plage de les seuils les plus performants pour le modèle donné. Comme indiqué dans le Seuils Matrice de confusion et Choix de la métrique et compromis le seuil que vous choisissez dépend de la métrique la plus importante pour un cas d'utilisation spécifique. Examinez les points A, B et C dans les chacun représentant un seuil:
+
+<img src="https://developers.google.com/static/machine-learning/crash-course/images/auc_abc.png?hl=fr" class="r-stretch"/>
+
+Si les faux positifs (fausses alarmes) sont très coûteux, il peut être judicieux de Choisissez un seuil offrant un TFP inférieur, comme celui du point A, même si est réduite. Inversement, si les faux positifs sont bon marché et les faux négatifs (vrais positifs manqués) très coûteux, le seuil du point C, qui maximise le TVI, ce qui peut être préférable. Si les coûts sont à peu près équivalents, point B peut offrir le meilleur équilibre entre le TVP et le TFP.
+
+-vertical-
+
+
+-vertical-
+
+Quizz 1
+
+-vertical-
+
+1. Un modèle génère 5 VP, 6 VN, 3 FP et 2 FN. Calculez le rappel.
+
+2. Imaginez une situation où il est préférable de laisser du spam arriver dans la boîte de réception plutôt que d'envoyer un e-mail critique vers le dossier spam. Vous avez entraîné un classificateur de spam pour cette situation, où la classe positive est le spam et la classe négative le non-spam. Lequel des points suivants de la courbe ROC de votre classificateur est préférable ?
+
+<img class="r-stretch" src="https://developers.google.com/static/machine-learning/crash-course/images/auc_abc.png"/>
+
+-horinzontal-
+
+**Classification : Biais de prédiction**
+
+Le calcul du biais de prédiction est une vérification rapide qui permet de détecter rapidement des problèmes avec le modèle ou les données d'entraînement.
+
+Le biais de prédiction est la différence entre la moyenne des prédictions d'un modèle et la moyenne des étiquettes de référence dans les données. Un modèle entraîné sur un ensemble de données contenant 5 % de ses e-mails comme spam devrait prédire, en moyenne, que 5 % des e-mails qu'il classe comme spam. Autrement dit, la moyenne des étiquettes de l'ensemble de données de référence est de 0,05, et la moyenne des prédictions du modèle devrait également être de 0,05. Si tel est le cas, le modèle présente un biais de prédiction nul. Bien entendu, d'autres problèmes peuvent subsister.
+
+Si, au contraire, le modèle prédit qu'un e-mail est spam dans 50 % des cas, il y a un problème avec l'ensemble de données d'entraînement, le nouvel ensemble de données auquel le modèle est appliqué ou le modèle lui-même. Toute différence significative entre les deux moyennes suggère que le modèle présente un biais de prédiction.
+
+-vertical-
+
+Un biais de prédiction peut être causé par :
+
+- Des biais ou du bruit dans les données, notamment un échantillonnage biaisé pour l'ensemble d'apprentissage ;
+- Une régularisation trop forte, ce qui signifie que le modèle a été trop simplifié et a perdu une partie de sa complexité nécessaire ;
+- Des bugs dans le pipeline d'apprentissage du modèle ;
+- L'ensemble de fonctionnalités fournies au modèle est insuffisant pour la tâche.
+
+-vertical-
+
+**Métriques d'evaluation pour le TAL**
+
+Toutes les métriques présentées précedemment sont très globale au machine learning. Mais le TAL a certaines spécificitées qui demandent des métriques d'évaluation spécifiques.
+
+Les indicateurs d'évaluation du TALN évaluent les performances des modèles dans différentes tâches. Ces indicateurs permettent de déterminer la capacité d'un modèle à comprendre, générer ou traiter le langage humain.
+
+Le choix de l'indicateur d'évaluation dépend de la tâche TAL spécifique, comme la classification de texte, la traduction automatique ou la synthèse de texte.
+
+-vertical-
+
+On distingue souvent les méthodes d'évaluations en plusieurs types :
+
+- intrinsèques vs. extrinsèques
+- formatives vs. sommatives
+
+-vertical-
+
+**Formatives/Sommatives**
+
+Les évaluations formatives interviennent généralement lors du développement des systèmes de TALN. Leur objectif principal est d'informer le concepteur des progrès réalisés vers les objectifs visés. De ce fait, les évaluations formatives ont tendance à être légères (afin de permettre une évaluation rapide) et itératives (afin que les retours d'expérience puissent être intégrés ultérieurement pour améliorer le système). 
+
+En revanche, les évaluations sommatives sont généralement réalisées une fois le système terminé (ou ayant franchi une étape importante de son développement) : elles visent à évaluer si les objectifs visés ont été atteints.
+
+Les évaluations formatives ont tendance à être automatiques,
+afin de fournir un retour d'expérience rapide tout au long du processus de développement. En revanche, les évaluations sommatives font souvent appel à des juges humains, afin d’évaluer l’utilité du système dans son ensemble pour les utilisateurs.
+
+-vertical-
+
+**Intrinsèque/Extrinsèque**
+
+Évaluation intrinsèque : se concentre sur les performances internes du modèle, souvent à l'aide de mesures telles que l'accuracy, la précision, le rappel et le score F1. Ces mesures comparent les résultats du modèle à une référence ou à un étalon-or.
+
+Évaluation extrinsèque : évalue les performances du modèle dans des applications concrètes, en prenant en compte des facteurs tels que la convivialité, l'impact et la satisfaction des utilisateurs. Ce type d'évaluation est plus spécifique à la tâche et peut être subjectif.
+
+-vertical-
+
+**Nécessité d'indicateurs d'évaluation**
+
+Nous avons besoin de mesures d'évaluation pour fournir des mesures quantifiables permettant d'évaluer la performance des différents modèles.
+Sans ces indicateurs, il serait difficile de déterminer quel modèle est le plus performant. Ces indicateurs d'évaluation permettent aux chercheurs et aux praticiens en PNL d'identifier les forces et les faiblesses de leurs modèles.
+Ces indicateurs servent de référence pour de futurs progrès et permettent d'affiner continuellement le modèle.
+
+-vertical-
+
+**Taux d'erreurs de mots (WER)**
+
+Le taux d'erreurs de mots (WER) évalue les systèmes de reconnaissance vocale afin de déterminer dans quelle mesure le résultat d'un modèle de conversion parole-texte correspond à la transcription réelle du contenu parlé. Il est calculé à l'aide des éléments suivants :
+
+$WER = \frac{S+D+I}{N}$
+
+Où :
+
+S = Substitutions (mots incorrects)
+D = Suppressions (mots manquants)
+I = Insertions (mots supplémentaires)
+N = Nombre total de mots dans la transcription de référence.
+
+En termes plus simples, le WER donne le ratio du nombre d'erreurs (substitutions, suppressions, insertions) par rapport au nombre total de mots dans la transcription de référence.
+
+-vertical-
+
+**Taux de reconnaissance des caractères (TRC)**
+
+Le TRC évalue les systèmes de reconnaissance optique de caractères (OCR). Ces systèmes convertissent les images de textes dactylographiés ou manuscrits en texte compréhensible par ordinateur. Le TRC évalue le pourcentage de caractères correctement reconnus par le système OCR.
+
+Le TRC est calculé comme suit :
+
+$CRT = \frac{Number\ of\ correct\ characters}{Total\ number\ of\ characters}*100$
+
+-vertical-
+
+**Similarité sémantique textuelle (STS)**
+
+La similarité sémantique textuelle (STS) est une mesure différente de celle décrite ci-dessus, qui calcule la similarité entre deux textes. Cette mesure est particulièrement utile dans des applications telles que la traduction automatique, la synthèse de texte et la recherche d'informations. La STS est calculée à l'aide de la similarité cosinus et de modèles pré-entraînés comme BERT.
+
+-vertical-
+
+**Entropie croisée**
+
+On a vu la dernière fois qu'on pouvait calculer l'entropie à partir d'une distribution. On ne peut donc pas calculer l'entropie d'une langue si on considère qu'elle a un nombre infini d'énoncé possible. A partir du moment où l'on considère que l'on peut produire des énoncés en dehors de ceux déjà observés, on a plus de distribution et on ne peut de ce fait plus calculer l'entropie.
+
+Un modèle de langage vise à apprendre, à partir d'un texte échantillon, une distribution proche de la distribution empirique de la langue. Afin de mesurer la proximité de deux distributions, l'entropie croisée est souvent utilisée. Mathématiquement, l'entropie croisée de Q par rapport à P est définie comme suit :
+
+$H(P,Q)=-\sum{P(x)log(Q(x))}=-\sum{P(x)log(P(x))-\sum{P(x)log\frac{Q(x)}{P(x)}}}$
+
+-vertical-
+
+Par conséquent, l'entropie croisée de Q par rapport à P est la somme des deux valeurs suivantes :
+
+- le nombre moyen de bits nécessaires pour coder tout résultat possible de P à l'aide du code optimisé pour P [soit
+- entropie de P].
+- le nombre de bits supplémentaires nécessaires pour coder tout résultat possible de P à l'aide du code optimisé pour Q.
+
+Il convient de noter que, puisque l'entropie empirique n'est pas optimisable, lorsque nous formons un modèle de langage dans le but de minimiser la perte d'entropie croisée, le véritable objectif est de minimiser la divergence KL de la distribution, qui a été apprise par notre modèle de langage à partir de la distribution empirique du langage.
+
+-vertical-
+
+L'entropie croisée évalue la variance entre deux ensembles de probabilités, en juxtaposant souvent des modèles de données réelles aux résultats prévus par un modèle. Plus l'entropie croisée est faible, plus les prédictions du modèle s'alignent sur les valeurs réelles.
+
+-vertical-
+
+**Perplexité**
+
+Intuitivement, la perplexité peut être comprise comme une mesure de l'incertitude. La perplexité d'un modèle de langage peut être considérée comme le niveau de perplexité lors de la prédiction du symbole suivant. Considérons un modèle de langage avec une entropie de trois bits, où chaque bit code deux résultats possibles de probabilité égale. Cela signifie que pour prédire le symbole suivant, ce modèle de langage doit choisir parmi $2^3=8$ options possibles. On peut donc affirmer que ce modèle de langage a une perplexité de 8.
+
+Cela équivaut également à l’exponentiation de l’entropie croisée entre les données et les prédictions du modèle.
+
+$PPL(P,Q)=2^{H(P,Q)}$
+
+-vertical-
+
+**Bits par caractère et bits par mot**
+
+Le nombre de bits par caractère (BPC) est une autre mesure souvent utilisée pour les modèles linguistiques récents. Il mesure précisément la quantité qui lui a donné son nom : le nombre moyen de bits nécessaires pour encoder un caractère. Cela nous amène à revisiter l'explication de Shannon sur l'entropie d'une langue :
+
+« Si la langue est traduite en chiffres binaires (0 ou 1) de la manière la plus efficace, l'entropie est le nombre moyen de chiffres binaires nécessaires par lettre de la langue d'origine.»
+
+Selon cette définition, l'entropie est le nombre moyen de BPC. 
+
+-vertical-
+
+La raison pour laquelle certains modèles linguistiques rapportent à la fois la perte d'entropie croisée et le BPC est purement technique.
+
+Alors que l'entropie et l'entropie croisée sont définies en base logarithmique 2 (avec le bit comme unité), les frameworks d'apprentissage automatique populaires, comme TensorFlow et PyTorch, implémentent la perte d'entropie croisée en utilisant le logarithme naturel (l'unité est alors nat). Cela s'explique par le fait qu'il est plus rapide de calculer le logarithme naturel qu'en base logarithmique 2. En théorie, la base logarithmique n'a pas d'importance, car la différence est une échelle fixe :
+
+$\frac{log_en}{log_2n}=\frac{log_e2}{log_ee}=ln2$
+
+-vertical-
+
+<video src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/ppl_full.gif" data-autoplay></video>
+
+
+-vertical-
+
+**Compression**
+Hors du contexte de la modélisation du langage, le BPC établit la limite inférieure de la compression. Si un texte a un BPC de 1,2, il ne peut pas être compressé à moins de 1,2 bits par caractère. Par exemple, si le texte comporte 1 000 caractères (environ 1 000 octets si chaque caractère est représenté sur 1 octet), sa version compressée nécessiterait au moins 1 200 bits, soit 150 octets.
+
+Inversement, avec un algorithme de compression optimal, nous pourrions calculer l'entropie de la langue anglaise écrite en compressant l'ensemble du texte anglais disponible et mesurer le nombre de bits des données compressées.
+
+-vertical-
+
+**Perplexité des modèles à longueur fixe**
+
+La perplexité (PPL) est l'une des mesures les plus courantes pour évaluer les modèles de langage. Avant d'entrer dans le vif du sujet, il convient de noter que cette mesure s'applique spécifiquement aux modèles de langage classiques (parfois appelés modèles de langage autorégressifs ou causaux) et n'est pas bien définie pour les modèles de langage masqués comme BERT.
+
+La perplexité est définie comme la moyenne exponentielle du logarithme négatif de vraisemblance d'une séquence. Si nous avons une séquence tokenisée $X=(x_0, x_1, x_2, ...)$, alors la perplexité de X est égale à :
+
+$PPL(X)=\exp(-\frac{1}{T}\sum{i}{t}{\log{p_\theta(x_i|x_{\<i})}})$
+
+-vertical-
+
+**Perte logarithmique/log loss/ negative log-likelihood**
+
+La perte logarithmique et l'entropie croisée sont identiques.
+Pour les problèmes de classification, « perte logarithmique », « entropie croisée » et « log-vraisemblance négative » sont utilisés de manière interchangeable.
+
+Plus généralement, les termes « entropie croisée » et « log-vraisemblance négative » sont utilisés de manière interchangeable dans le contexte des fonctions de perte des modèles de classification.
+
+La log-vraisemblance négative pour la régression logistique est donnée par […]. On l'appelle aussi fonction d'erreur d'entropie croisée.
+
+Par conséquent, le calcul de la perte logarithmique donne la même quantité que le calcul de l'entropie croisée pour la distribution de probabilité de Bernoulli. Le calcul de la perte logarithmique moyenne sur le même ensemble de probabilités réelles et prédites que dans la section précédente devrait donner le même résultat que le calcul de l'entropie croisée moyenne.
+
+-vertical-
+
+**Métriques spécifiques aux tâches**
+
+Les tâches de ML populaires, comme la traduction automatique et la reconnaissance d'entités nommées, utilisent des métriques spécifiques permettant de comparer les modèles. Par exemple, différentes métriques ont été proposées pour la génération de texte, allant de BLEU et ses dérivés tels que GoogleBLEU et GLEU, mais aussi ROUGE, MAUVE, etc.
+
+-vertical-
+
+**Métriques spécifiques aux jeux de données**
+
+Certains jeux de données sont associés à des métriques spécifiques, notamment dans le cas de benchmarks populaires comme GLUE et SQuAD.
+
+> 💡 GLUE est en réalité un ensemble de sous-ensembles différents pour différentes tâches. Vous devez donc d'abord choisir celui qui correspond à la tâche NLI, comme mnli, décrit comme une « collection collaborative de paires de phrases avec annotations d'implication textuelle ».
+
+Si vous évaluez votre modèle sur un jeu de données de benchmark comme ceux mentionnés ci-dessus, vous pouvez utiliser sa métrique d'évaluation dédiée. Veillez à respecter le format requis.
+
+-vertical-
+
+## Bonne Pratique
+
+### Gérer ses environnements de code
+
+-vertical-
+
+Certaines applications ont besoins de version de paquet voire de python différentes
+
+C'est pourquoi il est crucial de segmenter ses espaces de programmation.
+
+Plusieurs solutions existent:
+- les machines virtuelles
+- les environnements virtuels
+- les containers
+
+-vertical-
+
+**Environnements virtuels**
+
+Permettent de créer des espaces dédiés à un projet avec des versions différentes des différents paquets ou des version de python par exemple.
+Les environnements virtuels sont très léger et très facile à mettre en place. Ils utilisent le même espace disque que l'OS. 
+
+-vertical-
+
+Création avec virtualenv:
+
+```
+apt install pip
+pip install virtualenv
+virtualenv ENV_NAME
+source ./ENV_NAME/bin/activate
+```
+
+-vertical-
+
+Création avec conda
+
+```
+apt install conda
+conda create --name ENV_NAME -y python=VERSION
+conda activate ENV_NAME
+```
+
+Le process pour créer un environnement virtuel avec mambaest le même qu’avec conda
+
+Il faut parfois initialiser conda avec la commande conda init SHELL_NAME pour faire fonctionner l’environnement
+
+-vertical-
+
+Création avec uv
+
+```
+uv init project-name
+cd project-name
+```
+
+-vertical-
+
+Il faut retenir les versions d'installation dans un fichier `requierements.txt`
+
+C'est ce fichier qui permet de travailler à plusieurs sur un même projet.
+
+-vertical-
+
+**Les containers**
+
+Install docker
+
+```
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+run docker 
+
+```
+sudo docker run hello-world
+```
+
+-vertical-
+
+Pourquoi les containers sont des outils intéressants ?
+
+Contrairement aux machines virtuelles, les containers utilisent des partitions partagées avec le système d'OS. Pourtant, comme les machines virtuelles elles sont basées sur des OS à part entière. Ca permet au container d'être plus léger qu'une machine virtuelle tout en permettant une compatibilité cross-plateform equivalente.
+
+<img src="https://docs.docker.com/get-started/images/docker-architecture.webp" class="r-stretch"/>
+
+-vertical-
+
+Un container fonctionne grâce à un `dockerfile` qui determine ses specifications
+
+```
+# syntax=docker/dockerfile:1
+
+FROM node:lts-alpine
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+EXPOSE 3000
+```
+
+
+-vertical-
+
+Quizz 2
+
+-vertical-
+
+Quizz 2
+
+3. Expliquez le lien entre Perplexité, cross-entropie et logloss/log likelihood.
+4. Donnez un exemple de métrique intrinséque et un exemple de métrique extrinsèque pour le TAL.
+5. Expliquez la différence entre environnement virtuels et containers.
+
+-vertical-
+
+TP6 :
+
+- Evaluer votre modèle avec les métriques extrinsèques adaptées à votre tâche.
