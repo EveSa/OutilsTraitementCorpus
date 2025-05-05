@@ -93,11 +93,11 @@ L'accuracy est la proportion de toutes les classifications qui étaient correcte
 $\text{Accuracy} =
 \frac{\text{correct classifications}}{\text{total classifications}}
 = \frac{TP+TN}{TP+TN+FP+FN}$
-</div>
 
 Dans l'exemple de classification du spam, la justesse mesure la fraction de tous les e-mails correctement classés.
 
 Un modèle parfait ne comporterait aucun faux positif ni aucun faux négatif, et aurait donc une précision de 1,0, soit 100 %.
+</div>
 
 -vertical-
 
@@ -188,7 +188,7 @@ La ou les métriques que vous choisissez de prioriser lors de l'évaluation du m
 
 -vertical-
 
-<table style="border:1px solid #dadce0" class="r-stretch">
+<table style="border:1px solid #dadce0" class="r-fit-text">
     <tbody><tr style="border:1px solid #dadce0">
       <th style="text-align:center;border:1px solid #dadce0">Métrique</th>
       <th style="text-align:center;border:1px solid #dadce0">Conseils</th>
@@ -298,9 +298,11 @@ Quizz 1
 
 -vertical-
 
+<div class="r-fit-text">
 1. Un modèle génère 5 VP, 6 VN, 3 FP et 2 FN. Calculez le rappel.
 
 2. Imaginez une situation où il est préférable de laisser du spam arriver dans la boîte de réception plutôt que d'envoyer un e-mail critique vers le dossier spam. Vous avez entraîné un classificateur de spam pour cette situation, où la classe positive est le spam et la classe négative le non-spam. Lequel des points suivants de la courbe ROC de votre classificateur est préférable ?
+</div>
 
 <img class="r-stretch" src="https://developers.google.com/static/machine-learning/crash-course/images/auc_abc.png"/>
 
@@ -308,9 +310,13 @@ Quizz 1
 
 **Classification : Biais de prédiction**
 
+<div class="r-fit-text">
 Le calcul du biais de prédiction est une vérification rapide qui permet de détecter rapidement des problèmes avec le modèle ou les données d'entraînement.
 
 Le biais de prédiction est la différence entre la moyenne des prédictions d'un modèle et la moyenne des étiquettes de référence dans les données. Un modèle entraîné sur un ensemble de données contenant 5 % de ses e-mails comme spam devrait prédire, en moyenne, que 5 % des e-mails qu'il classe comme spam. Autrement dit, la moyenne des étiquettes de l'ensemble de données de référence est de 0,05, et la moyenne des prédictions du modèle devrait également être de 0,05. Si tel est le cas, le modèle présente un biais de prédiction nul. Bien entendu, d'autres problèmes peuvent subsister.
+</div>
+
+-vertical-
 
 Si, au contraire, le modèle prédit qu'un e-mail est spam dans 50 % des cas, il y a un problème avec l'ensemble de données d'entraînement, le nouvel ensemble de données auquel le modèle est appliqué ou le modèle lui-même. Toute différence significative entre les deux moyennes suggère que le modèle présente un biais de prédiction.
 
@@ -386,8 +392,11 @@ $WER = \frac{S+D+I}{N}$
 Où :
 
 S = Substitutions (mots incorrects)
+
 D = Suppressions (mots manquants)
+
 I = Insertions (mots supplémentaires)
+
 N = Nombre total de mots dans la transcription de référence.
 
 En termes plus simples, le WER donne le ratio du nombre d'erreurs (substitutions, suppressions, insertions) par rapport au nombre total de mots dans la transcription de référence.
