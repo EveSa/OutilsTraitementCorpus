@@ -13,17 +13,16 @@ layout: presentation
 
 **Correction des quizz**
 
-Séance 4
-
-<div class=""r-fit-taxt">
+<div class="r-fit-text">
 1. Calculez l'entropie de la distribution suivante : probabilité de l'évènement A (0,6) ; probabilité de l'évènement B (0,2) ; probabilité de l'évènement C (0,2)
 
-&rarr; $-(0,6*log_2(0,6)*2*(0,2*log_2(0,2))) = 1,37
-<\br> C'est à dire qu'il faut en moyenne 1,37 questions pour résoudre l'incertitude de cette distribution
+&rarr; $-(0,6*log_2(0,6)*2*(0,2*log_2(0,2))) = 1,37$
+
+C'est à dire qu'il faut en moyenne 1,37 questions pour résoudre l'incertitude de cette distribution
 
 2. Vous avez mélangé tous les exemples de l'ensemble de données et les avez divisés en ensembles d'entraînement, de validation et de test. Cependant, la valeur de loss sur votre ensemble de test est si faible que vous suspectez une erreur. Qu'est-ce qui a pu se passer ?
 
-&rarr; Si les performances de mon modèle sont trop bonnes, je peux avoir contaminer mon ensemble de test avec des données entraînement notamment à cause de données dupliquées dans le jeu de données original par exemple.
+&rarr; Si les performances de mon modèle sont trop bonnes, je peux avoir contaminé mon ensemble de test avec des données entraînement notamment à cause de données dupliquées dans le jeu de données original par exemple.
 </div>
 
 -vertical-
@@ -33,9 +32,15 @@ Séance 4
 &rarr; on utilise un modèle de regression linéaire avec une loss MSE ou MAE par exemple.
 
 -vertical-
-2. Calculez la descente de gradient du modèle $f(x)=w*x+b avec une Perte L2 écrite $sum(valeur\ réelle-valeur\ prédite)^2$
+2. Calculez la descente de gradient du modèle $f(x)=w*x+b$ avec une Perte L2 écrite $sum(valeur\ réelle-valeur\ prédite)^2$
 
-&rarr; Pour faire une descente de gradient, il faut d'abord calculer la loss de la fonction. On calcule ensuite la dérivée de la fonction.<\br>Ici, notre fonction est : $\sum{y-(w*x+b)}^2$. On va calculer sa dérivée selon $w$. On est sous la forme $\diff{f}{x}=f \circ g(x) = f(g(x))'*g(x)'$ avec $g=\(y-(w*x+b))$ et $f(g)=g^2$ car on peut ignorer la somme (car la dérivée de la somme est la somme des dérivées), donc $\diff{}{x}(y-(w*x+b))^2 = 2(y-w*x+b)*x$. On calcule cette dérivée sur nos exmples ce qui nous donne une direction vers laquelle déplacer les poids pour x.
+<div class="r-fit-text">
+
+&rarr; Pour faire une descente de gradient, il faut d'abord calculer la loss de la fonction. On calcule ensuite la dérivée de la fonction.
+
+Ici, notre fonction est : $\sum{y-(w*x+b)}^2$ . On va calculer sa dérivée selon $w$. On est sous la forme $\diff{f}{x}=f \circ g(x) = f(g(x))'*g(x)'$ avec $g=\(y-(w*x+b))$ et $f(g)=g^2$ car on peut ignorer la somme (car la dérivée de la somme est la somme des dérivées), donc $\diff{}{x}(y-(w*x+b))^2 = 2(y-w*x+b)*x$. On calcule cette dérivée sur nos exmples ce qui nous donne une direction vers laquelle déplacer les poids pour x.
+
+</div>
 
 -vertical-
 3. A quoi sert une taille de lot (batch) importante ?
@@ -46,7 +51,7 @@ Séance 4
 
 ### Newsletter
 
--horinzontal-
+-horizontal-
 
 ## Cours 6
 
@@ -84,9 +89,11 @@ Toutes les métriques sont calculées selon un seul seuil fixe et changent lorsq
 
 L'accuracy est la proportion de toutes les classifications qui étaient correctes, qu'elles soient positives ou négatives. Il est défini mathématiquement comme suit :
 
+<div class="r-fit-text">
 $\text{Accuracy} =
 \frac{\text{correct classifications}}{\text{total classifications}}
 = \frac{TP+TN}{TP+TN+FP+FN}$
+</div>
 
 Dans l'exemple de classification du spam, la justesse mesure la fraction de tous les e-mails correctement classés.
 
@@ -95,6 +102,8 @@ Un modèle parfait ne comporterait aucun faux positif ni aucun faux négatif, et
 -vertical-
 
 Étant donné qu'elle intègre les quatre résultats de la matrice de confusion (VP, FP, VN, FN), pour un ensemble de données équilibré, avec un nombre d'exemples similaire dans les deux classes, l'accuracy peut servir de mesure grossière de la qualité du modèle. C'est pourquoi il s'agit souvent de la métrique d'évaluation par défaut utilisée pour les modèles génériques ou non spécifiés effectuant des tâches génériques ou non spécifiées.
+
+-vertical-
 
 Toutefois, lorsque l'ensemble de données est déséquilibré ou qu'un type d'erreur (FN ou FP) est plus coûteux que l'autre, ce qui est le cas dans la plupart des applications réelles, il est préférable d'optimiser pour l'une des autres métriques.
 
@@ -108,13 +117,17 @@ Le taux de vrais positifs (TVP), ou la proportion de tous les résultats positif
 
 Mathématiquement, le rappel est défini comme suit :
 
+<div class="r-fit-text">
 $\text{Recall (or TPR)} =
 \frac{\text{correctly classified actual positives}}{\text{all actual positives}}
 = \frac{TP}{TP+FN}$
+</div>
 
 -vertical-
 
 Les faux négatifs sont des éléments positifs réels qui ont été classés à tort comme négatifs. C'est pourquoi ils apparaissent dans le dénominateur. Dans l'exemple de classification du spam, le rappel mesure la fraction d'e-mails de spam correctement classés comme spam. C'est pourquoi le rappel est également appelé probabilité de détection : il répond à la question "Quelle fraction des e-mails de spam sont détectés par ce modèle ?".
+
+-vertical-
 
 Un modèle parfait hypothétique ne comporterait aucun faux négatif et aurait donc un rappel (TPR) de 1,0, c'est-à-dire un taux de détection de 100 %.
 
@@ -126,14 +139,18 @@ Dans un ensemble de données déséquilibré où le nombre de résultats positif
 
 Le taux de faux positifs (FPR) est la proportion de tous les négatifs réels qui ont été incorrectement classés comme positifs. Il est également appelé probabilité de fausse alarme. Il est défini mathématiquement comme suit :
 
-\text{FPR} =
+<div class="r-fit-text">
+$\text{FPR} =
 \frac{\text{incorrectly classified actual negatives}}
 {\text{all actual negatives}}
-= \frac{FP}{FP+TN}
+= \frac{FP}{FP+TN}$
+</div>
 
 -vertical-
 
 Les faux positifs sont des négatifs réels qui ont été mal classés. C'est pourquoi ils apparaissent au dénominateur. Dans l'exemple de classification du spam, le FPR mesure la fraction d'e-mails légitimes classés à tort comme spam, ou le taux de fausses alarmes du modèle.
+
+-vertical-
 
 Un modèle parfait ne comporterait aucun faux positif et donc un taux de faux positifs de 0,0, c'est-à-dire un taux de fausses alarmes de 0 %.
 
@@ -144,10 +161,12 @@ Dans un ensemble de données déséquilibré où le nombre de négatifs réels e
 Précision
 La précision correspond à la proportion de toutes les classifications positives du modèle qui sont réellement positives. Elle est définie mathématiquement comme suit:
 
+<div class="r-fit-text">
 $\text{Precision} =
 \frac{\text{correctly classified actual positives}}
 {\text{everything classified as positive}}
 = \frac{TP}{TP+FP}$
+</div>
 
 -vertical-
 
@@ -157,6 +176,8 @@ Un modèle parfait hypothétique ne comporterait aucun faux positif et aurait do
 
 Dans un ensemble de données déséquilibré où le nombre de résultats positifs réels est très, très faible (par exemple, un à deux exemples au total), la précision est moins pertinente et moins utile en tant que métrique.
 
+-vertical-
+
 La précision s'améliore à mesure que les faux positifs diminuent, tandis que le rappel s'améliore lorsque les faux négatifs diminuent. Toutefois, comme nous l'avons vu dans la section précédente, l'augmentation du seuil de classification a tendance à réduire le nombre de faux positifs et à augmenter le nombre de faux négatifs, tandis que la diminution du seuil a les effets inverses. Par conséquent, la précision et le rappel présentent souvent une relation inverse, où l'amélioration de l'un dégrade l'autre.
 
 -vertical-
@@ -164,6 +185,8 @@ La précision s'améliore à mesure que les faux positifs diminuent, tandis que 
 **Choix de la métrique et compromis**
 
 La ou les métriques que vous choisissez de prioriser lors de l'évaluation du modèle et du choix d'un seuil dépendent des coûts, des avantages et des risques du problème spécifique. Dans l'exemple de classification du spam, il est souvent judicieux de donner la priorité au rappel, en détectant tous les e-mails de spam, ou à la précision, en s'assurant que les e-mails marqués comme spam sont en fait du spam, ou à un équilibre entre les deux, au-dessus d'un certain niveau de précision minimal.
+
+-vertical-
 
 <table style="border:1px solid #dadce0" class="r-stretch">
     <tbody><tr style="border:1px solid #dadce0">
@@ -192,7 +215,7 @@ La ou les métriques que vous choisissez de prioriser lors de l'évaluation du m
 
 -vertical-
 
-**(Facultatif, avancé) Score F1**
+**Score F1**
 
 Le score F1 correspond à la moyenne harmonique (une sorte de moyenne) de la précision et du rappel.
 
@@ -201,15 +224,19 @@ Mathématiquement, elle est calculée comme suit:
 $\text{F1}=2*\frac{\text{precision * recall}}{\text{precision + recall}}
   = \frac{2\text{TP}}{2\text{TP + FP + FN}}$
 
+-vertical-
+
 Cette métrique équilibre l'importance de la précision et du rappel, et est préférable à la précision pour les ensembles de données déséquilibrés. Lorsque la précision et le rappel atteignent tous deux un score parfait de 1,0, le score F1 est également parfait, soit 1,0. Plus généralement, lorsque la valeur de précision et de rappel est proche, F1 est proche de leur valeur. Lorsque la précision et le rappel sont très éloignés, le score F1 est semblable à la métrique la moins bonne.
 
 -vertical-
 
 **Courbe ROC (Receiver Operating Characteristic)**
 
+<div class="r-fit-text">
 La courbe ROC est une représentation visuelle des performances du modèle pour tous les seuils. La version longue du nom, "Receiver Operating Characteristic" (caractéristique opérationnelle du récepteur) est une retenue des systèmes de détection de radars de la Seconde Guerre mondiale.
 
 La courbe ROC est dessinée en calculant le taux de vrais positifs (TPR). et de faux positifs pour chaque seuil possible (en pratique, des intervalles sélectionnés), puis le TPR et le TFP. Un modèle parfait, qui, à un certain seuil, a un TVP de 1,0 et 0,0, être représenté par un point en (0, 1) si tous les autres seuils sont ignorés, ou par:
+</div>
 
 <img class="r-stretch" src="https://developers.google.com/static/machine-learning/crash-course/images/auc_1-0.png?hl=fr">
 
@@ -217,9 +244,11 @@ La courbe ROC est dessinée en calculant le taux de vrais positifs (TPR). et de 
 
 **Aire sous la courbe (AUC)**
 
+<div class="r-fit-text">
 L'aire sous la courbe ROC (AUC) représente la probabilité que le modèle, si un exemple positif et négatif est choisi aléatoirement, classera positive supérieure à la négative.
 
 Le modèle parfait ci-dessus, qui contient un carré dont les côtés font 1, a une sous la courbe (AUC) de 1,0. Cela signifie qu'il y a une probabilité de 100% que le modèle classe correctement un exemple positif choisi aléatoirement au-dessus d'un exemple négatif choisi aléatoirement. En d'autres termes, examiner la propagation points de données ci-dessous, l'AUC donne la probabilité que le modèle place carré choisi aléatoirement à droite d'un cercle choisi aléatoirement, indépendamment de où le seuil est défini.
+</div>
 
 -vertical-
 
@@ -235,7 +264,9 @@ Dans l'exemple du classificateur de spam, un classificateur de spam avec une AUC
 
 -vertical-
 
+<div class="r-fit-text">
 Les valeurs AUC et ROC sont efficaces pour comparer des modèles lorsque l'ensemble de données entre les classes. Lorsque l'ensemble de données est déséquilibré, la précision/rappel (PRC) et l'aire sous ces courbes peut offrir un meilleur résultat des performances du modèle. Les courbes de précision/rappel sont créées la précision du tracé sur l'axe des y et le rappel sur l'axe des x sur toutes de sécurité.
+</div>
 
 <img class="r-stretch" src="https://developers.google.com/static/machine-learning/crash-course/images/prauc.png?hl=fr"/>
 
@@ -243,20 +274,23 @@ Les valeurs AUC et ROC sont efficaces pour comparer des modèles lorsque l'ensem
 
 **AUC et ROC pour choisir le modèle et le seuil**
 
+<div class="r-fit-text">
 L'AUC est une mesure utile pour comparer les performances de deux modèles différents, à condition que l'ensemble de données soit à peu près équilibré. (voir Courbe de précision/rappel, (voir ci-dessus, pour les ensembles de données déséquilibrés). Le modèle dont l'aire sous la plus grande la courbe est généralement la meilleure.
+</div>
 
-<img class="r-stretch" src="https://developers.google.com/static/machine-learning/crash-course/images/auc_0-65.png?hl=fr"/>
+<img class="r-stretch" src="https://developers.google.com/static/machine-learning/crash-course/images/auc_0-65.png"/>
 
 -vertical-
 
+<div class="r-fit-text">
 Les points d'une courbe ROC les plus proches de (0,1) représentent une plage de les seuils les plus performants pour le modèle donné. Comme indiqué dans le Seuils Matrice de confusion et Choix de la métrique et compromis le seuil que vous choisissez dépend de la métrique la plus importante pour un cas d'utilisation spécifique. Examinez les points A, B et C dans les chacun représentant un seuil:
+</div>
 
-<img src="https://developers.google.com/static/machine-learning/crash-course/images/auc_abc.png?hl=fr" class="r-stretch"/>
+<img src="https://developers.google.com/static/machine-learning/crash-course/images/auc_abc.png" class="r-stretch"/>
+
+-vertical-
 
 Si les faux positifs (fausses alarmes) sont très coûteux, il peut être judicieux de Choisissez un seuil offrant un TFP inférieur, comme celui du point A, même si est réduite. Inversement, si les faux positifs sont bon marché et les faux négatifs (vrais positifs manqués) très coûteux, le seuil du point C, qui maximise le TVI, ce qui peut être préférable. Si les coûts sont à peu près équivalents, point B peut offrir le meilleur équilibre entre le TVP et le TFP.
-
--vertical-
-
 
 -vertical-
 
@@ -270,7 +304,7 @@ Quizz 1
 
 <img class="r-stretch" src="https://developers.google.com/static/machine-learning/crash-course/images/auc_abc.png"/>
 
--horinzontal-
+-horizontal-
 
 **Classification : Biais de prédiction**
 
@@ -293,11 +327,13 @@ Un biais de prédiction peut être causé par :
 
 **Métriques d'evaluation pour le TAL**
 
+<div class="r-fit-text">
 Toutes les métriques présentées précedemment sont très globale au machine learning. Mais le TAL a certaines spécificitées qui demandent des métriques d'évaluation spécifiques.
 
 Les indicateurs d'évaluation du TALN évaluent les performances des modèles dans différentes tâches. Ces indicateurs permettent de déterminer la capacité d'un modèle à comprendre, générer ou traiter le langage humain.
 
 Le choix de l'indicateur d'évaluation dépend de la tâche TAL spécifique, comme la classification de texte, la traduction automatique ou la synthèse de texte.
+</div>
 
 -vertical-
 
