@@ -348,6 +348,8 @@ On distingue souvent les méthodes d'évaluations en plusieurs types :
 
 Les évaluations formatives interviennent généralement lors du développement des systèmes de TALN. Leur objectif principal est d'informer le concepteur des progrès réalisés vers les objectifs visés. De ce fait, les évaluations formatives ont tendance à être légères (afin de permettre une évaluation rapide) et itératives (afin que les retours d'expérience puissent être intégrés ultérieurement pour améliorer le système). 
 
+-vertical-
+
 En revanche, les évaluations sommatives sont généralement réalisées une fois le système terminé (ou ayant franchi une étape importante de son développement) : elles visent à évaluer si les objectifs visés ont été atteints.
 
 Les évaluations formatives ont tendance à être automatiques,
@@ -357,9 +359,11 @@ afin de fournir un retour d'expérience rapide tout au long du processus de dév
 
 **Intrinsèque/Extrinsèque**
 
+<div class="r-fit-text">
 Évaluation intrinsèque : se concentre sur les performances internes du modèle, souvent à l'aide de mesures telles que l'accuracy, la précision, le rappel et le score F1. Ces mesures comparent les résultats du modèle à une référence ou à un étalon-or.
 
 Évaluation extrinsèque : évalue les performances du modèle dans des applications concrètes, en prenant en compte des facteurs tels que la convivialité, l'impact et la satisfaction des utilisateurs. Ce type d'évaluation est plus spécifique à la tâche et peut être subjectif.
+</div>
 
 -vertical-
 
@@ -376,6 +380,8 @@ Ces indicateurs servent de référence pour de futurs progrès et permettent d'a
 Le taux d'erreurs de mots (WER) évalue les systèmes de reconnaissance vocale afin de déterminer dans quelle mesure le résultat d'un modèle de conversion parole-texte correspond à la transcription réelle du contenu parlé. Il est calculé à l'aide des éléments suivants :
 
 $WER = \frac{S+D+I}{N}$
+
+-vertical-
 
 Où :
 
@@ -394,13 +400,17 @@ Le TRC évalue les systèmes de reconnaissance optique de caractères (OCR). Ces
 
 Le TRC est calculé comme suit :
 
+<div class="r-fit-text">
 $CRT = \frac{Number\ of\ correct\ characters}{Total\ number\ of\ characters}*100$
+</div>
 
 -vertical-
 
 **Similarité sémantique textuelle (STS)**
 
+<div class="r-fit-text">
 La similarité sémantique textuelle (STS) est une mesure différente de celle décrite ci-dessus, qui calcule la similarité entre deux textes. Cette mesure est particulièrement utile dans des applications telles que la traduction automatique, la synthèse de texte et la recherche d'informations. La STS est calculée à l'aide de la similarité cosinus et de modèles pré-entraînés comme BERT.
+</div>
 
 -vertical-
 
@@ -408,9 +418,13 @@ La similarité sémantique textuelle (STS) est une mesure différente de celle d
 
 On a vu la dernière fois qu'on pouvait calculer l'entropie à partir d'une distribution. On ne peut donc pas calculer l'entropie d'une langue si on considère qu'elle a un nombre infini d'énoncé possible. A partir du moment où l'on considère que l'on peut produire des énoncés en dehors de ceux déjà observés, on a plus de distribution et on ne peut de ce fait plus calculer l'entropie.
 
+-vertical-
+
 Un modèle de langage vise à apprendre, à partir d'un texte échantillon, une distribution proche de la distribution empirique de la langue. Afin de mesurer la proximité de deux distributions, l'entropie croisée est souvent utilisée. Mathématiquement, l'entropie croisée de Q par rapport à P est définie comme suit :
 
+<div class="r-fit-text">
 $H(P,Q)=-\sum{P(x)log(Q(x))}=-\sum{P(x)log(P(x))-\sum{P(x)log\frac{Q(x)}{P(x)}}}$
+</div>
 
 -vertical-
 
@@ -419,6 +433,8 @@ Par conséquent, l'entropie croisée de Q par rapport à P est la somme des deux
 - le nombre moyen de bits nécessaires pour coder tout résultat possible de P à l'aide du code optimisé pour P [soit
 - entropie de P].
 - le nombre de bits supplémentaires nécessaires pour coder tout résultat possible de P à l'aide du code optimisé pour Q.
+
+-vertical-
 
 Il convient de noter que, puisque l'entropie empirique n'est pas optimisable, lorsque nous formons un modèle de langage dans le but de minimiser la perte d'entropie croisée, le véritable objectif est de minimiser la divergence KL de la distribution, qui a été apprise par notre modèle de langage à partir de la distribution empirique du langage.
 
@@ -432,6 +448,8 @@ L'entropie croisée évalue la variance entre deux ensembles de probabilités, e
 
 Intuitivement, la perplexité peut être comprise comme une mesure de l'incertitude. La perplexité d'un modèle de langage peut être considérée comme le niveau de perplexité lors de la prédiction du symbole suivant. Considérons un modèle de langage avec une entropie de trois bits, où chaque bit code deux résultats possibles de probabilité égale. Cela signifie que pour prédire le symbole suivant, ce modèle de langage doit choisir parmi $2^3=8$ options possibles. On peut donc affirmer que ce modèle de langage a une perplexité de 8.
 
+-vertical-
+
 Cela équivaut également à l’exponentiation de l’entropie croisée entre les données et les prédictions du modèle.
 
 $PPL(P,Q)=2^{H(P,Q)}$
@@ -440,19 +458,23 @@ $PPL(P,Q)=2^{H(P,Q)}$
 
 **Bits par caractère et bits par mot**
 
+<div class="r-fit-text">
 Le nombre de bits par caractère (BPC) est une autre mesure souvent utilisée pour les modèles linguistiques récents. Il mesure précisément la quantité qui lui a donné son nom : le nombre moyen de bits nécessaires pour encoder un caractère. Cela nous amène à revisiter l'explication de Shannon sur l'entropie d'une langue :
 
 « Si la langue est traduite en chiffres binaires (0 ou 1) de la manière la plus efficace, l'entropie est le nombre moyen de chiffres binaires nécessaires par lettre de la langue d'origine.»
 
 Selon cette définition, l'entropie est le nombre moyen de BPC. 
+</div>
 
 -vertical-
 
+<div class="r-fit-text">
 La raison pour laquelle certains modèles linguistiques rapportent à la fois la perte d'entropie croisée et le BPC est purement technique.
 
 Alors que l'entropie et l'entropie croisée sont définies en base logarithmique 2 (avec le bit comme unité), les frameworks d'apprentissage automatique populaires, comme TensorFlow et PyTorch, implémentent la perte d'entropie croisée en utilisant le logarithme naturel (l'unité est alors nat). Cela s'explique par le fait qu'il est plus rapide de calculer le logarithme naturel qu'en base logarithmique 2. En théorie, la base logarithmique n'a pas d'importance, car la différence est une échelle fixe :
 
 $\frac{log_en}{log_2n}=\frac{log_e2}{log_ee}=ln2$
+</div>
 
 -vertical-
 
@@ -462,19 +484,24 @@ $\frac{log_en}{log_2n}=\frac{log_e2}{log_ee}=ln2$
 -vertical-
 
 **Compression**
+
+<div class="r-fit-text">
 Hors du contexte de la modélisation du langage, le BPC établit la limite inférieure de la compression. Si un texte a un BPC de 1,2, il ne peut pas être compressé à moins de 1,2 bits par caractère. Par exemple, si le texte comporte 1 000 caractères (environ 1 000 octets si chaque caractère est représenté sur 1 octet), sa version compressée nécessiterait au moins 1 200 bits, soit 150 octets.
 
 Inversement, avec un algorithme de compression optimal, nous pourrions calculer l'entropie de la langue anglaise écrite en compressant l'ensemble du texte anglais disponible et mesurer le nombre de bits des données compressées.
+</div>
 
 -vertical-
 
 **Perplexité des modèles à longueur fixe**
 
+<div class="r-fit-text">
 La perplexité (PPL) est l'une des mesures les plus courantes pour évaluer les modèles de langage. Avant d'entrer dans le vif du sujet, il convient de noter que cette mesure s'applique spécifiquement aux modèles de langage classiques (parfois appelés modèles de langage autorégressifs ou causaux) et n'est pas bien définie pour les modèles de langage masqués comme BERT.
 
 La perplexité est définie comme la moyenne exponentielle du logarithme négatif de vraisemblance d'une séquence. Si nous avons une séquence tokenisée $X=(x_0, x_1, x_2, ...)$, alors la perplexité de X est égale à :
 
 $PPL(X)=\exp(-\frac{1}{T}\sum{i}{t}{\log{p_\theta(x_i|x_{\<i})}})$
+</div>
 
 -vertical-
 
@@ -484,6 +511,8 @@ La perte logarithmique et l'entropie croisée sont identiques.
 Pour les problèmes de classification, « perte logarithmique », « entropie croisée » et « log-vraisemblance négative » sont utilisés de manière interchangeable.
 
 Plus généralement, les termes « entropie croisée » et « log-vraisemblance négative » sont utilisés de manière interchangeable dans le contexte des fonctions de perte des modèles de classification.
+
+-vertical-
 
 La log-vraisemblance négative pour la régression logistique est donnée par […]. On l'appelle aussi fonction d'erreur d'entropie croisée.
 
@@ -501,7 +530,9 @@ Les tâches de ML populaires, comme la traduction automatique et la reconnaissan
 
 Certains jeux de données sont associés à des métriques spécifiques, notamment dans le cas de benchmarks populaires comme GLUE et SQuAD.
 
+<div class="r-fit-text">
 > 💡 GLUE est en réalité un ensemble de sous-ensembles différents pour différentes tâches. Vous devez donc d'abord choisir celui qui correspond à la tâche NLI, comme mnli, décrit comme une « collection collaborative de paires de phrases avec annotations d'implication textuelle ».
+</div>
 
 Si vous évaluez votre modèle sur un jeu de données de benchmark comme ceux mentionnés ci-dessus, vous pouvez utiliser sa métrique d'évaluation dédiée. Veillez à respecter le format requis.
 
