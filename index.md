@@ -61,7 +61,7 @@ un devoir sur table à la dernière séance
   - [notebook](/notebooks/visualise_data.ipynb)
   - [Dockerfile](/src/dockerssh.zip)
 - Cours 5
-  - [slides](/slides/cours5.html)
+  - voir cours 4
   - [notebook](/notebooks/significativity_test.ipynb)
 - Cours 6
   - [slides](/slides/cours6.html)
